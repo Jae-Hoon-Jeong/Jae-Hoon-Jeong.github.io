@@ -48,19 +48,24 @@ Seunghun Lee, Jiwan Seo, Minwoo Choi, Kiljoon Han, **<U>Jaehoon Jeong</U>**, Zan
 - ``TMI 2024`` [FR-MIL: Distribution re-calibration based multiple instance learning with transformer for whole slide image classification](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10640165), Philip Chikontwe, Meejeong Kim, **<U>Jaehoon Jeong</U>**, Hyun Jung Sung, Heounjeong Go, Soo Jeong Nam, Sang Hyun Park†
 - ``MICCAI 2023`` [Pronet: Point refinement using shape-guided offset map for nuclei instance segmentation](https://link.springer.com/chapter/10.1007/978-3-031-43907-0_51), Siwoo Nam\*, **<U>Jaehoon Jeong</U>**\*, Miguel Luna, Philip Chikontwe, Sang Hyun Park† 
 - ``MedIA 2022`` [Weakly supervised segmentation on neural compressed histopathology with self-equivariant regularization](https://www.sciencedirect.com/science/article/abs/pii/S1361841522001293), Philip Chikontwe, Hyun Jung Sung, **<U>Jaehoon Jeong</U>**, Meejeong Kim, Heounjeong Go, Soo Jeong Nam, Sang Hyun Park†
+- ``Diagnostics 2022`` [“Classification of the Confocal Microscopy Images of Colorectal Tumor andInflammatory
+ Colitis Mucosa Tissue Using Deep Learning](https://www.mdpi.com/2075-4418/12/2/288), **<U>Jaehoon Jeong</U>**, Seung Taek Hong, Ihsan Ullah, Eun Sun Kim and Sang Hyun Park†
 
-
+<!--
 # 🎖 Honors and Awards
 - *2021.10* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
 - *2021.09* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
+-->
 
 # 📖 Educations
-- *2019.06 - 2022.04 (now)*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2015.09 - 2019.06*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
+- 2019.02 – Present, M.S-Ph.D. in Robotics and Mechatronics Engineering, DGIST, Daegu, Republic of Korea.
+- 2015.02 – 2019.02, B.S. in Convergence Engineering, DGIST, Daegu, Republic of Korea.
 
+<!--
 # 💬 Invited Talks
 - *2021.06*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
 - *2021.03*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet.  \| [\[video\]](https://github.com/)
+-->
 
 # 💻 Internships
-- *2019.05 - 2020.02*, [Lorem](https://github.com/), China.
+- 2025.04 - Present, [LG AI Research](https://www.lgresearch.ai/), Korea.
