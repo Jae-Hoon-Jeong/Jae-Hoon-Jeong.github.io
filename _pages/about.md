@@ -18,17 +18,12 @@ redirect_from:
 <span class='anchor' id='about-me'></span>
 
 
-I am Jaehoon Jeong, a Ph.D. student at DGIST (Daegu Gyeongbuk Institute of Science and Technology, Daegu, Republic of Korea) under the supervision of Prof.<a href='https://scholar.google.co.kr/citations?hl=ko&user=PHLTD4sAAAAJ'>Sanghyun Park</a>. I received my B.S. degree in Convergence Engineering from DGIST. My research interest includes computer vision and medical image processing. Currently, my research interests lie in vision-language joint learning to increase vision tasks such as detection, segmentation and classification. From April 2025 to until now, I am working as an intern researcher at LG AI Research.
-
-
-
-
-My research interest includes neural machine translation and computer vision. I have published more than 100 papers at the top international AI conferences with total <a href='https://scholar.google.com/citations?user=DhtAFkwAAAAJ'>google scholar citations <strong><span id='total_cit'>260000+</span></strong></a> (You can also use google scholar badge <a href='https://scholar.google.com/citations?user=DhtAFkwAAAAJ'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Google%20Scholar&labelColor=f6f6f6&color=9cf&style=flat&label=citations"></a>).
+I am Jaehoon Jeong, a Ph.D. student at DGIST (Daegu Gyeongbuk Institute of Science and Technology, Daegu, Republic of Korea), supervised by Prof. <a href='https://scholar.google.co.kr/citations?hl=ko&user=PHLTD4sAAAAJ'>Sanghyun Park</a>. I received my B.S. degree in Convergence Engineering from DGIST. My research interests includes computer vision and medical image analysis. Currently,  I am focusing on vision-language joint learning to improve various vision tasks such as detection, segmentation, and classification. Since April 2025, I have been working as a research intern at LG AI Research.
 
 
 # 🔥 News
-- *2022.02*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2022.02*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
+- *2025.06*: &nbsp;🎉 One paper accepted to **ICCV 2025**!
+- *2025.04*: &nbsp;🎉 Started research internship at **LG AI Research**.
 
 # 📝 Publications 
 
