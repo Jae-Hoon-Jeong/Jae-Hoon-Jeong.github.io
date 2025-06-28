@@ -26,7 +26,7 @@ I am Jaehoon Jeong, a Ph.D. student at DGIST (Daegu Gyeongbuk Institute of Scien
 - *2025.04*: &nbsp;🎉 Started research internship at **LG AI Research**.
 
 # 📝 Publications 
-## 🚀 Recent Works
+##   🚀 Recent Works
 <div class='paper-box'>
   <div class='paper-box-image'>
     <div>
