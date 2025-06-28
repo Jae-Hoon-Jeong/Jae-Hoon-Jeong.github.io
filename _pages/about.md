@@ -58,7 +58,7 @@ Seunghun Lee, Jiwan Seo, Minwoo Choi, Kiljoon Han, **<U>Jaehoon Jeong</U>**, Zan
 -->
 
 # 📖 Educations
-- 2019.02 – Present, M.S-Ph.D. in Robotics and Mechatronics Engineering, DGIST, Daegu, Republic of Korea.
+- 2019.02 – Present, Integrated M.S.–Ph.D. in Robotics and Mechatronics Engineering, DGIST, Daegu, Republic of Korea.
 - 2015.02 – 2019.02, B.S. in Convergence Engineering, DGIST, Daegu, Republic of Korea.
 
 <!--
@@ -69,3 +69,17 @@ Seunghun Lee, Jiwan Seo, Minwoo Choi, Kiljoon Han, **<U>Jaehoon Jeong</U>**, Zan
 
 # 💻 Internships
 - 2025.04 - Present, [LG AI Research](https://www.lgresearch.ai/), Korea.
+
+# 🔬 Projects & Co-works
+- **WSI Slide MSS-MSI Classification and Segmentation**  
+  *w/ Asan Medical Center*
+- **Melanoma Tumor-Infiltrating Lymphocytes Segmentation**  
+  *w/ Gangneung Asan Hospital*
+- **Endometrial Cancer Classification and Segmentation**  
+  *w/ Asan Medical Center*
+- **Microscopy Tumor–Inflammation–Normal Classification**  
+  *w/ Korea University Medicine*
+- **Development of AI-based Multimodal Endomicroscope for In Situ Diagnosis of Cancer**  
+  *Funded by the Ministry of Trade, Industry and Energy, the Ministry of Science and ICT, and the Ministry of Health and Welfare (Project No. 20001533)*
+- **Artificial Intelligence for Localizing Toxicity in Pathological Images**  
+  *w/ DGIST (Daegu Gyeongbuk Institute of Science and Technology)*
