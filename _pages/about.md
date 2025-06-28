@@ -31,7 +31,7 @@ I am Jaehoon Jeong, a Ph.D. student at DGIST (Daegu Gyeongbuk Institute of Scien
   <div class='paper-box-image'>
     <div>
       <div class="badge">ICCV 2025</div>
-      <img src='_images/LOMM_ICCV_2025.png' alt="sym" width="100%">
+      <img src='images/LOMM_ICCV_2025.png' alt="sym" width="100%">
     </div>
   </div>
   <div class='paper-box-text' markdown="1">
