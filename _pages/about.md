@@ -18,7 +18,7 @@ redirect_from:
 <span class='anchor' id='about-me'></span>
 
 
-I am Jaehoon Jeong, a Ph.D. student at DGIST (Daegu Gyeongbuk Institute of Science and Technology, Daegu, Republic of Korea), supervised by Prof. <a href='https://scholar.google.co.kr/citations?hl=ko&user=PHLTD4sAAAAJ'>Sanghyun Park</a>. I received my B.S. degree in Convergence Engineering from DGIST. My research interests includes computer vision and medical image analysis. Currently,  I am focusing on vision-language joint learning to improve various vision tasks such as detection, segmentation, and classification. Since April 2025, I have been working as a research intern at LG AI Research.
+I am Jaehoon Jeong, a Ph.D. student at DGIST (Daegu Gyeongbuk Institute of Science and Technology, Daegu, Republic of Korea), supervised by Prof. <a href='https://scholar.google.co.kr/citations?hl=ko&user=PHLTD4sAAAAJ'>Sanghyun Park</a>. I received my B.S. degree in Convergence Engineering from DGIST. My research interests includes computer vision and medical image analysis. Currently,  I am focusing on vision-language joint learning to improve various vision tasks such as detection, segmentation, and classification. Since April 2025, I have been working as a research intern at <a href='https://www.lgresearch.ai/'>LG AI Research</a>.
 
 
 # 🔥 News
