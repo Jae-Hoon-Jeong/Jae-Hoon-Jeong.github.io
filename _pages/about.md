@@ -31,15 +31,15 @@ I am Jaehoon Jeong, a Ph.D. student at DGIST (Daegu Gyeongbuk Institute of Scien
 <div class='paper-box'>
   <div class='paper-box-image'>
     <div>
-      <div class="badge">ICCV 2025</div>
-      <img src='images/LOMM_ICCV_2025.png' alt="sym" width="100%">
+      <div class="badge">CVPR 2026</div>
+      <img src='images/IVAAN_CVPR_2026.png' alt="sym" width="100%">
     </div>
   </div>
   <div class='paper-box-text' markdown="1">
 
-**Latest Object Memory Management for Temporally Consistent Video Instance Segmentation**
+**IVAAN: Instance-level Vision-Language Alignment via Attribute-Guided Text Prompts Generation for Nuclei Analysis**
 
-Seunghun Lee, Jiwan Seo, Minwoo Choi, Kiljoon Han, **<U>Jaehoon Jeong</U>**, Zane Durante, Ehsan Adeli†, Sang Hyun Park, Sunghoon Im†
+**<U>Jaehoon Jeong</U>**, Yi Hu, Soopil Kim, Jongseong Jang, Soonyoung Lee, Sang Hyun Park†
   </div>
 </div>
 <div class='paper-box'>
