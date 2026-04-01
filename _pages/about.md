@@ -85,6 +85,7 @@ Seunghun Lee, Jiwan Seo, Minwoo Choi, Kiljoon Han, **<U>Jaehoon Jeong</U>**, Zan
 - 2025.04 - Present, [LG AI Research](https://www.lgresearch.ai/), Korea.
 
 # 🔬 Projects & Co-works
+- **LILRB1 and HLA-G IHC Image Responder Analysis**  *w/ LG AI Research and LG Chemical*
 - **WSI Slide MSS-MSI Classification and Segmentation**  *w/ Asan Medical Center*
 - **Melanoma Tumor-Infiltrating Lymphocytes Segmentation**  *w/ Gangneung Asan Hospital*
 - **Endometrial Cancer Classification and Segmentation**  *w/ Asan Medical Center*
