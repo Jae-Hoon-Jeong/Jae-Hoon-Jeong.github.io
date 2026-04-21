@@ -22,6 +22,7 @@ I am Jaehoon Jeong, a Ph.D. student at DGIST (Daegu Gyeongbuk Institute of Scien
 
 
 # 🔥 News
+- *2026.04*: One paper under review at ECCV 2026
 - *2026.04*: One paper under review at TMI
 - *2026.04*: One paper under review at MICCAI 2026
 - *2026.02*: &nbsp;🎉 One paper accepted to **CVPR 2026**!
