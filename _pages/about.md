@@ -22,7 +22,9 @@ I am Jaehoon Jeong, a Ph.D. student at DGIST (Daegu Gyeongbuk Institute of Scien
 
 
 # 🔥 News
-- *2026.08*: One paper under review at AAAI 2026
+- *2026.08*: One paper in preparation for submission to ICLR 2027
+- *2026.08*: One paper in preparation for submission to Medical Image Analysis (MedIA)
+- *2026.08*: One paper under review at AAAI 2027
 - *2026.04*: One paper under minor revision at TMI
 - *2026.02*: &nbsp;🎉 One paper accepted to **CVPR 2026**!
 - *2025.06*: &nbsp;🎉 One paper accepted to **ICCV 2025**!
