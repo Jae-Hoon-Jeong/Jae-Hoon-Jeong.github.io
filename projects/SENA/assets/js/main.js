@@ -61,7 +61,7 @@
   function setStatus(visible, approx) {
     const item = viewer.world.getItemAt(0);
     if (stRes) stRes.textContent = item && current && current.mpp ? (current.mpp / displayScale(item)).toFixed(3) + ' µm/px display · ' + current.mpp.toFixed(4) + ' µm/px native' : '';
-    if (stMode) stMode.textContent = mode === 'none' ? 'No model' : mode;
+    if (stMode) stMode.textContent = mode === 'none' ? 'No model' : mode === 'Eff' && budget > 0 ? 'Eff + Cls on ' + Math.round(budget * 100) + '% of patches' : mode;
     if (stCount) stCount.textContent = mode === 'none' ? '' : (approx ? '≈' : '') + visible.toLocaleString() + ' nuclei in view';
   }
 
@@ -341,5 +341,6 @@
   }).catch(() => { slides = [FALLBACK]; }).then(() => {
     slides.forEach(s => select.add(new Option(s.title, s.id)));
     openSlide(slides[0]);
+    if (overlayBase(slides[0], 'Eff')) setModelMode('Eff');   // default view: Eff with the routing budget from the slider (100%)
   });
 })();
