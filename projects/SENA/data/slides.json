@@ -1,43 +1,31 @@
 {
-  "_comment": "Demo slides for the viewer. Tiles are NOT stored in this repo; they are loaded from the external host below. Provenance and licences: ASSET_PROVENANCE.md. TEMPORARY STAGING DEPENDENCY: tiles are hot-linked from the OpenSlide demo bucket; replace with self-generated tiles on controlled external storage before public launch. Overlay format: data/overlay.schema.json. overlays.* stay null until precomputed overlays exist.",
+  "_comment": "Demo slides for the viewer. Tiles are NOT stored in this repo; they are self-generated Deep Zoom pyramids (from the original CC0 OpenSlide test files) hosted in the asset warehouse repository Jae-Hoon-Jeong/projectpage_essets, projects/sena_nbe/v1/wsi/ (provenance: projects/sena_nbe/PROVENANCE.md there). Provenance and licences: ASSET_PROVENANCE.md. Overlay format: data/overlay.schema.json. overlays.* stay null until precomputed overlays exist.",
   "slides": [
     {
       "id": "cmu-1",
       "title": "CMU-1 (Aperio SVS)",
       "source_url": "https://openslide.cs.cmu.edu/download/openslide-testdata/Aperio/",
       "licence": "CC0-1.0",
-      "attribution": "CMU-1.svs, OpenSlide test data (Carnegie Mellon University), CC0 1.0. Tiles served by the OpenSlide demo site.",
+      "attribution": "CMU-1.svs, OpenSlide test data (Carnegie Mellon University), CC0 1.0. Deep Zoom tiles generated from the original CC0 file and hosted in the project asset repository.",
       "mpp": 0.499,
-      "dzi": {
-        "Image": {
-          "xmlns": "http://schemas.microsoft.com/deepzoom/2008",
-          "Url": "https://openslide-demo-site.s3.dualstack.us-east-2.amazonaws.com/aperio/cmu-1/slide_files/",
-          "Format": "jpeg",
-          "Overlap": "1",
-          "TileSize": "510",
-          "Size": { "Width": "46000", "Height": "32914" }
-        }
-      },
-      "overlays": { "Eff": null, "Cls": null }
+      "dzi": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v1/wsi/cmu-1/cmu-1.dzi",
+      "overlays": {
+        "Eff": null,
+        "Cls": null
+      }
     },
     {
       "id": "cmu-2",
       "title": "CMU-2 (Aperio SVS)",
       "source_url": "https://openslide.cs.cmu.edu/download/openslide-testdata/Aperio/",
       "licence": "CC0-1.0",
-      "attribution": "CMU-2.svs, OpenSlide test data (Carnegie Mellon University), CC0 1.0. Tiles served by the OpenSlide demo site.",
+      "attribution": "CMU-2.svs, OpenSlide test data (Carnegie Mellon University), CC0 1.0. Deep Zoom tiles generated from the original CC0 file and hosted in the project asset repository.",
       "mpp": 0.499,
-      "dzi": {
-        "Image": {
-          "xmlns": "http://schemas.microsoft.com/deepzoom/2008",
-          "Url": "https://openslide-demo-site.s3.dualstack.us-east-2.amazonaws.com/aperio/cmu-2/slide_files/",
-          "Format": "jpeg",
-          "Overlap": "1",
-          "TileSize": "510",
-          "Size": { "Width": "78000", "Height": "30462" }
-        }
-      },
-      "overlays": { "Eff": null, "Cls": null }
+      "dzi": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v1/wsi/cmu-2/cmu-2.dzi",
+      "overlays": {
+        "Eff": null,
+        "Cls": null
+      }
     }
   ]
 }
