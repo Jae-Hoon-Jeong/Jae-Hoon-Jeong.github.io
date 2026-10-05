@@ -86,3 +86,25 @@ input[type=range] { width: 100%; accent-color: var(--accent); }
 .conf-count { font-variant-numeric: tabular-nums; font-weight: 600; margin: .4rem 0; }
 .sw-pred { border: 2px dashed rgba(255, 64, 200, .95) !important; background: rgba(255, 64, 200, .12); border-radius: 2px; }
 .tag-pred { font-size: .72rem; padding: .05rem .35rem; border-radius: .35rem; background: rgba(255, 64, 200, .12); color: var(--fg); border: 1px solid rgba(255, 64, 200, .6); }
+
+/* Show-first layout: hero caption, demo card with attached routing panel, mode comparison */
+.hero-caption { max-width: 44rem; margin: 1.1rem auto 0; color: var(--fg); font-size: 1rem; line-height: 1.55; }
+.demo h2 { margin-bottom: .2rem; }
+.mode-desc { min-height: 1.2em; margin: .2rem 0 .6rem; font-size: .9rem; color: var(--muted); }
+.routing-panel { margin-top: 1.1rem; padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: .8rem; background: var(--accent-soft); }
+.routing-panel h3 { margin: 0 0 .5rem; font-size: 1.1rem; }
+.routing-panel h3 .sub { display: block; font-size: .9rem; font-weight: 500; color: var(--accent); margin-top: .15rem; }
+.mode-matrix { display: grid; grid-template-columns: minmax(6.5rem, auto) 1fr 1fr; gap: .5rem; margin: .4rem 0 1rem; }
+.mm-col, .mm-row { font-size: .82rem; color: var(--muted); align-self: end; }
+.mm-row { align-self: center; }
+.mm-cell { border: 1px solid var(--line); border-radius: .7rem; padding: .7rem .8rem; background: var(--card); }
+.mm-cell strong { display: block; font-size: 1.05rem; color: var(--accent); }
+.mm-cell span { font-size: .88rem; color: var(--fg); }
+.table-wrap { overflow-x: auto; }
+.mode-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.mode-table th, .mode-table td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.mode-table th { font-size: .8rem; color: var(--muted); font-weight: 600; }
+@media (max-width: 480px) { .mode-matrix { grid-template-columns: 5.2rem 1fr 1fr; } .mm-cell { padding: .55rem; } .mm-cell span { font-size: .8rem; } }
+.hero { padding: 1.6rem 0 1rem; }
+.hero .notice { margin-top: .6rem; font-size: .82rem; }
+.hero-caption + .notice { margin-top: .5rem; }

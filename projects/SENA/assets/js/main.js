@@ -4,6 +4,7 @@
 
   // ---- Mode selector
   const MODE_TEXT = {
+    none: '',
     Eff: 'Eff: the base path. Nuclei are detected, typed and segmented from the shared representation at the lowest compute.',
     Cls: 'Cls: Eff plus added semantic capacity, to refine what type each nucleus is. Boundaries are left as in Eff.',
     Seg: 'Seg: Eff plus added spatial capacity, to refine each nucleus boundary. Types are left as in Eff.',
@@ -16,7 +17,7 @@
     if (desc) desc.textContent = MODE_TEXT[mode] || '';
   }
   buttons.forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
-  setMode('Eff');
+  setMode('none');
 
   // ---- Whole-slide viewer
   const CLASSES = ['Neoplastic', 'Epithelial', 'Inflammatory', 'Connective', 'Dead'];
@@ -251,7 +252,7 @@
     mode = m;
     modeInputs.forEach(r => { r.checked = r.value === m; });
     if (m !== 'none' && current) loadIndex(current, m).then(() => { updateCount(); draw(); }, () => { info.textContent = m + ' overlay unavailable.'; });
-    if (MODE_TEXT[m]) setMode(m);
+    if (m in MODE_TEXT) setMode(m);
     loadPred(); updateCount(); draw();
   }
   modeInputs.forEach(r => r.addEventListener('change', () => { if (r.checked) setModelMode(r.value); }));

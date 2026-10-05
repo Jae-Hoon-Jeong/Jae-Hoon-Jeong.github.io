@@ -16,10 +16,9 @@ sitemap: false
   <header class="topbar">
     <a class="brand" href="#top">Project <span class="badge">draft</span></a>
     <nav class="nav">
-      <a href="#concept">Concept</a>
-      <a href="#viewer">Viewer</a>
-      <a href="#modes">Modes</a>
+      <a href="#demo">Demo</a>
       <a href="#routing">Routing</a>
+      <a href="#method">Method</a>
       <a href="#results">Results</a>
       <a href="#code">Code</a>
     </nav>
@@ -44,28 +43,18 @@ sitemap: false
         <a class="btn disabled" aria-disabled="true">Code (coming soon)</a>
         <a class="btn disabled" aria-disabled="true">Models (coming soon)</a>
       </div>
-      <p class="notice">Work in progress. No results are shown on this page. Not for clinical or diagnostic use.</p>
-    </section>
-
-    <section id="abstract" class="card">
-      <h2>Summary</h2>
-      <p class="placeholder">[Summary placeholder]</p>
-    </section>
-
-    <section id="concept" class="card">
-      <h2>Concept</h2>
-      <div class="grid3">
-        <div class="tile"><h3>Representation</h3><p>One shared representation of the tissue image, computed once and reused by every output.</p></div>
-        <div class="tile"><h3>Semantic information</h3><p>What each nucleus is: its type. Capacity for this can be added on its own.</p></div>
-        <div class="tile"><h3>Spatial information</h3><p>Where each nucleus is and its exact boundary. Capacity for this can be added on its own.</p></div>
-      </div>
+      <p class="hero-caption">One model detects, classifies and outlines every nucleus in a whole-slide image. Semantic capacity (what each nucleus is) and spatial capacity (its exact shape) can each be added on demand, giving four modes: Eff, Cls, Seg and Full. Explore them on real PAIP2020 slides below, and route semantic capacity to selected patches only.</p>
+      <p class="notice">Not for clinical or diagnostic use.</p>
     </section>
 
 
 
 
-    <section id="viewer" class="card">
-      <h2>Whole-slide viewer</h2>
+
+
+    <section id="demo" class="card demo">
+      <h2>Explore nuclei analysis at whole-slide scale</h2>
+      <p class="note">Interactive viewer on PAIP2020 colorectal cancer slides. Choose a model mode to overlay its nucleus predictions; zoom in to see contours.</p>
       <div class="viewer-controls">
         <label class="ctl">Slide
           <select id="slide-select" aria-label="Slide"></select>
@@ -85,7 +74,7 @@ sitemap: false
           <label class="off"><input type="radio" name="model-mode" value="Full" disabled> Full</label>
         </fieldset>
       </div>
-      <p class="note">Reference layer = pathologist annotation (ground truth). Model layer = nucleus-level predictions of the selected mode (centroid, type, contour), precomputed offline; nothing is computed in the browser. Model modes are disabled when no precomputed output is available for the slide.</p>
+      <p id="mode-desc" class="mode-desc" aria-live="polite"></p>
       <div id="osd" class="osd" aria-label="Whole-slide viewer"></div>
       <div class="viewer-foot">
         <ul class="legend" aria-label="Layers and nucleus types">
@@ -100,32 +89,52 @@ sitemap: false
         <div id="info" class="info" aria-live="polite">Click the slide to inspect a location.</div>
       </div>
       <p id="attribution" class="note attribution"></p>
-      <p class="note">Not for clinical or diagnostic use.</p>
-    </section>
 
-    <section id="modes" class="card">
-      <h2>Modes</h2>
-      <div class="segmented" role="radiogroup" aria-label="Mode">
-        <button role="radio" aria-checked="true" data-mode="Eff">Eff</button>
-        <button role="radio" aria-checked="false" data-mode="Cls">Cls</button>
-        <button role="radio" aria-checked="false" data-mode="Seg">Seg</button>
-        <button role="radio" aria-checked="false" data-mode="Full">Full</button>
-      </div>
-      <div class="mode-panel">
-        <p id="mode-desc"></p>
-        <dl class="kv">
-          <div><dt>Overlay</dt><dd>Select the mode under <em>Model</em> in the whole-slide viewer above.</dd></div>
-          <div><dt>Cost</dt><dd class="placeholder">[pending]</dd></div>
-        </dl>
+      <div id="routing" class="routing-panel">
+        <h3>Interactive semantic routing <span class="sub">Spend semantic capacity only where it matters.</span></h3>
+        <label for="route-input" class="slider-label">Patches routed to Cls: <output id="route-out">0%</output></label>
+        <input id="route-input" type="range" min="0" max="100" step="1" value="0">
+        <p id="route-count" class="conf-count" aria-live="polite"></p>
+        <p class="note">Move the slider and watch the viewer above: patches are upgraded from Eff to Cls in the order of a label-free router (prediction entropy). Nuclei and contours stay as in Eff; only the class colour changes in routed patches. 0% = Eff, 100% = Cls on every patch.</p>
       </div>
     </section>
 
-    <section id="routing" class="card">
-      <h2>Interactive semantic routing</h2>
-      <label for="route-input" class="slider-label">Patches routed to Cls: <output id="route-out">0%</output></label>
-      <input id="route-input" type="range" min="0" max="100" step="1" value="0">
-      <p id="route-count" class="conf-count" aria-live="polite"></p>
-      <p class="note">Shows the Eff result in the whole-slide viewer above and applies the Cls semantic path to the given share of image patches, chosen in order of the label-free entropy router (Router 1). Nuclei and contours stay as in Eff; only the class (colour) of nuclei in routed patches changes. 0% = Eff, 100% = Cls classes on every patch. Precomputed from the released outputs; nothing is computed in the browser.</p>
+
+
+    <section id="compare" class="card">
+      <h2>Four modes, two independent capacities</h2>
+      <div class="mode-matrix" role="table" aria-label="Modes by capacity">
+        <div class="mm-corner" role="columnheader"></div>
+        <div class="mm-col" role="columnheader">Spatial: base</div>
+        <div class="mm-col" role="columnheader">Spatial: enhanced</div>
+        <div class="mm-row" role="rowheader">Semantic: base</div>
+        <div class="mm-cell"><strong>Eff</strong><span>Shared representation only; lowest compute.</span></div>
+        <div class="mm-cell"><strong>Seg</strong><span>+ local spatial refiner for nucleus shape.</span></div>
+        <div class="mm-row" role="rowheader">Semantic: enhanced</div>
+        <div class="mm-cell"><strong>Cls</strong><span>+ foundation-model semantic features for nucleus type.</span></div>
+        <div class="mm-cell"><strong>Full</strong><span>Both additions; highest compute.</span></div>
+      </div>
+      <div class="table-wrap">
+        <table class="mode-table">
+          <thead><tr><th>Mode</th><th>Semantic capacity</th><th>Spatial capacity</th><th>Extra computation at inference</th><th>In the demo</th></tr></thead>
+          <tbody>
+            <tr><td>Eff</td><td>Base</td><td>Base</td><td>None (student network only)</td><td>Model: Eff (= routing 0%)</td></tr>
+            <tr><td>Cls</td><td>+ semantic</td><td>Base</td><td>Foundation-model forward pass</td><td>Model: Cls</td></tr>
+            <tr><td>Seg</td><td>Base</td><td>+ spatial</td><td>Local spatial refiner</td><td>Model: Seg</td></tr>
+            <tr><td>Full</td><td>+ semantic</td><td>+ spatial</td><td>Both</td><td>Model: Full (added when ready)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Accuracy and cost figures will be added with the paper.</p>
+    </section>
+
+    <section id="method" class="card">
+      <h2>Why does this work?</h2>
+      <div class="grid3">
+        <div class="tile"><h3>One representation</h3><p>The tissue image is encoded once; every output reads from the same shared representation.</p></div>
+        <div class="tile"><h3>Semantics on demand</h3><p>Nucleus type benefits from richer semantic features. They are added at inference, by the same trained model, only where requested.</p></div>
+        <div class="tile"><h3>Shape on demand</h3><p>Exact boundaries come from a separate local refiner, added only when contours matter.</p></div>
+      </div>
     </section>
 
     <section id="results" class="card">
