@@ -59,3 +59,10 @@ Notes
   `Jae-Hoon-Jeong/projectpage_essets` under `projects/sena_nbe/v1/wsi/`. Generation tool, parameters and
   hashes: `projects/sena_nbe/PROVENANCE.md` in that repository. The earlier rows/notes above about the
   demo bucket are kept for history.
+
+## PAIP2020 demo (2026-10-06)
+- Main viewer now shows PAIP2020 slides (CC BY-NC 4.0; SNUH). Derived assets only, hosted in
+  `Jae-Hoon-Jeong/projectpage_essets` `projects/sena_nbe/v2/paip/` with full provenance (original SHA-256, tools,
+  parameters, model package hashes) in `projects/sena_nbe/PROVENANCE.md` there.
+- Layers: Raw H&E (web-display Deep Zoom), Whole Tumor Area (pathologist ground truth), nucleus predictions per mode.
+- The CMU slides above remain available as a fallback (`?demo=cmu`).

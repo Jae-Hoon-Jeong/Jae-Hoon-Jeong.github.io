@@ -18,16 +18,12 @@
   buttons.forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
   setMode('Eff');
 
-  // ---- Slider shell (states will be precomputed offline)
-  const range = document.getElementById('slider-input');
-  const out = document.getElementById('slider-out');
-  function onSlide() { out.textContent = Number(range.value) + '%'; }
-  if (range) { range.addEventListener('input', onSlide); onSlide(); }
-
   // ---- Whole-slide viewer
   const CLASSES = ['Neoplastic', 'Epithelial', 'Inflammatory', 'Connective', 'Dead'];
   const COLORS = ['#e53935', '#fb8c00', '#43a047', '#1e88e5', '#fdd835'];
-  const OVERLAY_MODES = ['Eff', 'Cls'];
+  // nuclei-chunks/v1 stores the release type_id: 0 Neoplastic, 1 Inflammatory, 2 Connective, 3 Dead, 4 Epithelial.
+  const TYPE_NAMES = ['Neoplastic', 'Inflammatory', 'Connective', 'Dead', 'Epithelial'];
+  const TYPE_COLORS = TYPE_NAMES.map(n => COLORS[CLASSES.indexOf(n)]);
   const OSD_IMAGES = 'https://cdn.jsdelivr.net/npm/openseadragon@4.1.1/build/openseadragon/images/';
   const FALLBACK = { id: 'placeholder', title: 'Synthetic placeholder', mpp: null,
     attribution: 'Synthetic CC0 drawing (not a real slide).',
@@ -67,95 +63,203 @@
   });
   viewer.addHandler('tile-loaded', () => { loadedSinceOpen++; clearTileFailure(); });
 
-  let slides = [], current = null;
-  const overlays = {};          // mode -> parsed overlay JSON (none exist yet)
+  // ---- Slides, reference (GT) layer and chunked nucleus overlays
+  // Config: data/slides.json (PAIP2020 demo); ?demo=cmu loads the earlier CC0 CMU fallback (data/slides_cmu.json).
+  const CONFIG = new URLSearchParams(location.search).get('demo') === 'cmu' ? 'data/slides_cmu.json' : 'data/slides.json';
+  const MODES = ['Eff', 'Cls', 'Seg', 'Full'];
+  let slides = [], current = null, mode = 'none', threshold = 0;
+  const cache = new Map();       // url -> parsed chunk | Promise
+  const indexes = {};            // slide.id + mode -> index.json
+  const gts = {};                // slide.id -> GT JSON
   const canvas = document.createElement('canvas');
   canvas.className = 'nuclei-layer';
   viewer.canvas.appendChild(canvas);
+  const gtBox = el('layer-gt'), confInput = el('conf-input'), confOut = el('conf-out'), confCount = el('conf-count');
+  const modeInputs = Array.from(document.querySelectorAll('input[name="model-mode"]'));
+
+  function overlayBase(slide, m) { return slide.overlays && slide.overlays[m]; }
 
   function openSlide(slide) {
     current = slide;
     loadedSinceOpen = 0; clearTileFailure();
-    OVERLAY_MODES.forEach(m => { delete overlays[m]; setLayerAvailability(m, slide); });
-    attribution.textContent = slide.attribution ? 'Image: ' + slide.attribution : '';
+    modeInputs.forEach(r => {
+      const ok = r.value === 'none' || !!overlayBase(slide, r.value);
+      r.disabled = !ok; r.parentElement.classList.toggle('off', !ok);
+      r.parentElement.title = ok ? '' : 'Not available for this slide';
+    });
+    if (mode !== 'none' && !overlayBase(slide, mode)) setModelMode('none');
+    if (gtBox) {
+      gtBox.disabled = !slide.gt; gtBox.parentElement.classList.toggle('off', !slide.gt);
+      if (slide.gt) loadGT(slide).then(draw, () => { info.textContent = 'Tumor annotation could not be loaded.'; });
+    }
+    attribution.textContent = (slide.attribution ? 'Image: ' + slide.attribution : '') + (slide.note ? ' ' + slide.note : '');
     info.textContent = 'Click the slide to inspect a location.';
     viewer.open(slide.dzi);
+    if (mode !== 'none') loadIndex(slide, mode).then(updateCount);
+    updateCount();
   }
 
-  // Overlay toggles stay disabled until a slide lists a precomputed overlay URL.
-  function setLayerAvailability(mode, slide) {
-    const box = el('layer-' + mode);
-    const url = slide.overlays && slide.overlays[mode];
-    box.checked = false; box.disabled = !url;
-    box.parentElement.classList.toggle('off', !url);
-    box.parentElement.title = url ? '' : 'Pending model inference';
+  async function getJSON(url) { const r = await fetch(url); if (!r.ok) throw new Error(url + ' ' + r.status); return r.json(); }
+  async function loadGT(slide) { if (!gts[slide.id]) gts[slide.id] = await getJSON(slide.gt); return gts[slide.id]; }
+  async function loadIndex(slide, m) {
+    const k = slide.id + '/' + m;
+    if (!indexes[k]) {
+      const d = await getJSON(overlayBase(slide, m) + 'index.json');
+      if (d.format !== 'nuclei-chunks/v1') throw new Error('overlay format');
+      indexes[k] = d;
+    }
+    return indexes[k];
   }
 
-  async function loadOverlay(mode) {
-    const url = current.overlays[mode];
-    if (!url || overlays[mode]) return;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('overlay ' + res.status);
-    const data = await res.json();
-    if (data.format !== 'nuclei-overlay/v0' || data.slide_id !== current.id) throw new Error('overlay mismatch');
-    overlays[mode] = data;
+  // Binary chunk parser (format nuclei-chunks/v1, see the asset repository PROVENANCE).
+  function parseChunk(buf, level, ix, cx, cy) {
+    const dv = new DataView(buf), n = dv.getUint32(0, true), size = ix[level], K = ix.contour_points;
+    const x = new Float32Array(n), y = new Float32Array(n), t = new Uint8Array(n), c = new Uint8Array(n);
+    const poly = level === 'fine' ? new Int8Array(n * K * 2) : null;
+    let o = 4;
+    for (let i = 0; i < n; i++) {
+      const a = dv.getUint16(o, true), b = dv.getUint16(o + 2, true);
+      x[i] = cx * size + (level === 'coarse' ? a * 4 : a); y[i] = cy * size + (level === 'coarse' ? b * 4 : b);
+      t[i] = dv.getUint8(o + 4); c[i] = dv.getUint8(o + 5); o += 6;
+      if (poly) { poly.set(new Int8Array(buf, o, K * 2), i * K * 2); o += K * 2; }
+    }
+    return { n, x, y, t, c, poly, K };
+  }
+  function getChunk(slide, m, ix, level, cx, cy) {
+    const url = overlayBase(slide, m) + level + '/' + cx + '_' + cy + '.bin';
+    const hit = cache.get(url);
+    if (hit && !(hit instanceof Promise)) return hit;
+    if (!hit) {
+      cache.set(url, fetch(url).then(r => { if (!r.ok) throw new Error(url + ' ' + r.status); return r.arrayBuffer(); })
+        .then(b => { cache.set(url, parseChunk(b, level, ix, cx, cy)); draw(); })
+        .catch(() => cache.delete(url)));
+      if (cache.size > 600) { const k = cache.keys().next().value; cache.delete(k); }   // bounded memory
+    }
+    return null;
   }
 
-  function activeModes() { return OVERLAY_MODES.filter(m => el('layer-' + m).checked && overlays[m]); }
+  function updateCount() {
+    if (!confCount) return;
+    const ix = current && mode !== 'none' && indexes[current.id + '/' + mode];
+    if (!ix) { confCount.textContent = mode === 'none' ? 'Select a model mode to show nuclei.' : 'Loading…'; return; }
+    const q = Math.ceil(threshold * 255 - 1e-9);
+    let vis = 0;
+    Object.values(ix.conf_hist_by_type).forEach(h => { for (let i = q; i < 256; i++) vis += h[i]; });
+    confCount.textContent = 'Visible nuclei (whole slide, ' + mode + '): ' + vis.toLocaleString() + ' / ' + ix.n_nuclei.toLocaleString();
+  }
 
-  function draw() {
+  // native level-0 px -> displayed-image px, from slide metadata (native_size) and the opened DZI size.
+  function displayScale(item) {
+    const n = current && current.native_size;
+    return n && n[0] ? item.source.dimensions.x / n[0] : 1;
+  }
+
+  let drawPending = false;
+  function draw() { if (!drawPending) { drawPending = true; requestAnimationFrame(() => { drawPending = false; render(); }); } }
+  function render() {
     const w = viewer.canvas.clientWidth, h = viewer.canvas.clientHeight, dpr = window.devicePixelRatio || 1;
     canvas.width = w * dpr; canvas.height = h * dpr;
     const ctx = canvas.getContext('2d');
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h);
-    const modes = activeModes();
     const item = viewer.world.getItemAt(0);
-    if (!modes.length || !item) return;
-    const toView = (x, y) => item.imageToViewerElementCoordinates(new OpenSeadragon.Point(x, y));
-    const scale = toView(1, 0).x - toView(0, 0).x;
-    if (scale < 0.05) return;   // too zoomed out to draw individual nuclei
-    modes.forEach((m, k) => {
-      ctx.lineWidth = k ? 1 : 2;
-      overlays[m].nuclei.forEach(n => {
-        const p = toView(n.c[0], n.c[1]);
-        if (p.x < -20 || p.y < -20 || p.x > w + 20 || p.y > h + 20) return;
-        ctx.strokeStyle = COLORS[n.t] || '#fff';
-        ctx.beginPath();
-        if (n.poly && n.poly.length > 2) {
-          n.poly.forEach((q, i) => { const v = toView(q[0], q[1]); i ? ctx.lineTo(v.x, v.y) : ctx.moveTo(v.x, v.y); });
-          ctx.closePath();
-        } else {
-          ctx.arc(p.x, p.y, Math.max(2, 4 * scale), 0, 2 * Math.PI);
+    if (!item || !current) return;
+    // Overlays and GT are stored in native level-0 coordinates; the displayed DZI may be downsampled.
+    const ds = displayScale(item);
+    const o0 = item.imageToViewerElementCoordinates(new OpenSeadragon.Point(0, 0));
+    const scale = (item.imageToViewerElementCoordinates(new OpenSeadragon.Point(1000, 0)).x / 1000 - o0.x / 1000) * ds;
+    const V = (px, py) => [o0.x + px * scale, o0.y + py * scale];
+    const tl0 = item.viewerElementToImageCoordinates(new OpenSeadragon.Point(0, 0));
+    const br0 = item.viewerElementToImageCoordinates(new OpenSeadragon.Point(w, h));
+    const tl = { x: tl0.x / ds, y: tl0.y / ds }, br = { x: br0.x / ds, y: br0.y / ds };
+    // Reference layer: pathologist Whole Tumor Area (ground truth), drawn under the nuclei.
+    const gt = gts[current.id];
+    if (gt && gtBox && gtBox.checked) {
+      ctx.beginPath();
+      gt.regions.forEach(r => r.points.forEach((p, i) => { const v = V(p[0], p[1]); i ? ctx.lineTo(v[0], v[1]) : ctx.moveTo(v[0], v[1]); }));
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(0, 229, 255, 0.12)'; ctx.fill('evenodd');
+    }
+    const strokeGT = () => {    // GT outline is drawn last so nuclei never hide it
+      if (!(gt && gtBox && gtBox.checked)) return;
+      ctx.beginPath();
+      gt.regions.forEach(r => r.points.forEach((p, i) => { const v = V(p[0], p[1]); i ? ctx.lineTo(v[0], v[1]) : ctx.moveTo(v[0], v[1]); }));
+      ctx.closePath(); ctx.globalAlpha = 1; ctx.lineWidth = 2.5; ctx.strokeStyle = 'rgba(0, 229, 255, 0.95)'; ctx.stroke();
+    };
+    if (mode === 'none') { strokeGT(); return; }
+    const ix = indexes[current.id + '/' + mode];
+    if (!ix) { strokeGT(); return; }
+    const q = Math.ceil(threshold * 255 - 1e-9);
+    // LOD: coarse centroid chunks when zoomed out (< 0.05 screen px per image px), fine chunks with contours otherwise.
+    const level = scale < 0.05 ? 'coarse' : 'fine', size = ix[level], chunks = ix[level + '_chunks'];
+    const x0 = Math.max(0, Math.floor(tl.x / size)), x1 = Math.floor(br.x / size), y0 = Math.max(0, Math.floor(tl.y / size)), y1 = Math.floor(br.y / size);
+    const list = [];
+    for (let cx = x0; cx <= x1; cx++) for (let cy = y0; cy <= y1; cy++) {
+      if (!chunks[cx + '_' + cy]) continue;
+      const ch = getChunk(current, mode, ix, level, cx, cy); if (ch) list.push(ch);
+    }
+    const total = list.reduce((a, ch) => a + ch.n, 0);
+    // Display thinning when zoomed out (at most ~1 drawn dot per 10 screen px^2); counts above stay exact.
+    const stride = level === 'coarse' ? Math.max(1, Math.ceil(total / (w * h / 10))) : 1;
+    const contours = level === 'fine' && scale >= 0.25;
+    const r = level === 'coarse' ? 0.9 : Math.max(1, Math.min(3, 6 * scale));
+    ctx.globalAlpha = contours ? 1 : 0.7;
+    for (let k = 0; k < 5; k++) {
+      ctx.fillStyle = TYPE_COLORS[k]; ctx.strokeStyle = TYPE_COLORS[k]; ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      list.forEach(ch => {
+        for (let i = 0; i < ch.n; i += stride) {
+          if (ch.t[i] !== k || ch.c[i] < q) continue;
+          const v = V(ch.x[i], ch.y[i]);
+          if (v[0] < -40 || v[1] < -40 || v[0] > w + 40 || v[1] > h + 40) continue;
+          if (contours) {
+            const b = i * ch.K * 2;
+            for (let j = 0; j < ch.K; j++) { const px = v[0] + ch.poly[b + 2 * j] * scale, py = v[1] + ch.poly[b + 2 * j + 1] * scale; j ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }
+            ctx.closePath();
+          } else { ctx.moveTo(v[0] + r, v[1]); ctx.arc(v[0], v[1], r, 0, 2 * Math.PI); }
         }
-        ctx.stroke();
       });
-    });
+      contours ? ctx.stroke() : ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    strokeGT();
   }
   viewer.addHandler('update-viewport', draw);
   window.addEventListener('resize', draw);
 
-  function nearest(mode, x, y, r) {
-    let best = null, bd = r * r;
-    overlays[mode].nuclei.forEach(n => {
-      const d = (n.c[0] - x) ** 2 + (n.c[1] - y) ** 2;
-      if (d < bd) { bd = d; best = n; }
-    });
-    return best;
+  function setModelMode(m) {
+    mode = m;
+    modeInputs.forEach(r => { r.checked = r.value === m; });
+    if (m !== 'none' && current) loadIndex(current, m).then(() => { updateCount(); draw(); }, () => { info.textContent = m + ' overlay unavailable.'; });
+    if (MODE_TEXT[m]) setMode(m);
+    updateCount(); draw();
+  }
+  modeInputs.forEach(r => r.addEventListener('change', () => { if (r.checked) setModelMode(r.value); }));
+  if (gtBox) gtBox.addEventListener('change', draw);
+  if (confInput) {
+    const onConf = () => { threshold = Number(confInput.value); confOut.textContent = threshold.toFixed(2); updateCount(); draw(); };
+    confInput.addEventListener('input', onConf); onConf();
+  }
+
+  function nearest(x, y, rad) {
+    if (mode === 'none' || !current) return null;
+    const ix = indexes[current.id + '/' + mode]; if (!ix) return null;
+    const q = Math.ceil(threshold * 255 - 1e-9), ch = cache.get(overlayBase(current, mode) + 'fine/' + Math.floor(x / ix.fine) + '_' + Math.floor(y / ix.fine) + '.bin');
+    if (!ch || ch instanceof Promise) return null;
+    let best = null, bd = rad * rad;
+    for (let i = 0; i < ch.n; i++) { if (ch.c[i] < q) continue; const d = (ch.x[i] - x) ** 2 + (ch.y[i] - y) ** 2; if (d < bd) { bd = d; best = i; } }
+    return best === null ? null : { t: ch.t[best], p: ch.c[best] / 255 };
   }
 
   viewer.addHandler('canvas-click', e => {
     const item = viewer.world.getItemAt(0);
     if (!e.quick || !item) return;
-    const p = item.viewerElementToImageCoordinates(e.position);
+    const pd = item.viewerElementToImageCoordinates(e.position), ds = displayScale(item);
+    const p = { x: pd.x / ds, y: pd.y / ds };
     const x = Math.round(p.x), y = Math.round(p.y);
     let text = 'x ' + x + ', y ' + y + ' px';
     if (current && current.mpp) text += ' (' + (x * current.mpp / 1000).toFixed(2) + ', ' + (y * current.mpp / 1000).toFixed(2) + ' mm)';
-    const modes = activeModes();
-    if (!modes.length) text += ' · no nucleus overlay loaded (pending model inference)';
-    modes.forEach(m => {
-      const n = nearest(m, p.x, p.y, 20 / (current.mpp || 1));
-      text += ' · ' + m + ': ' + (n ? CLASSES[n.t] + (n.p != null ? ' (' + n.p.toFixed(2) + ')' : '') : 'no nucleus here');
-    });
+    if (mode === 'none') text += ' · no model layer selected';
+    else { const n = nearest(p.x, p.y, 20 / (current.mpp || 0.25)); text += ' · ' + mode + ': ' + (n ? TYPE_NAMES[n.t] + ' (score ' + n.p.toFixed(2) + ')' : 'no nucleus here (zoom in to inspect)'); }
     info.textContent = text;
   });
 
@@ -171,16 +275,10 @@
   viewer.addHandler('open-failed', () => {
     if (current !== FALLBACK) { openSlide(FALLBACK); info.textContent = 'Slide tiles could not be loaded; showing a placeholder.'; }
   });
-  OVERLAY_MODES.forEach(m => el('layer-' + m).addEventListener('change', async e => {
-    if (e.target.checked) {
-      try { await loadOverlay(m); } catch (err) { e.target.checked = false; info.textContent = m + ' overlay unavailable.'; }
-    }
-    draw();
-  }));
 
   select.addEventListener('change', () => openSlide(slides[select.selectedIndex]));
 
-  fetch('data/slides.json').then(r => r.json()).then(d => {
+  fetch(CONFIG).then(r => r.json()).then(d => {
     slides = d.slides && d.slides.length ? d.slides : [FALLBACK];
   }).catch(() => { slides = [FALLBACK]; }).then(() => {
     slides.forEach(s => select.add(new Option(s.title, s.id)));

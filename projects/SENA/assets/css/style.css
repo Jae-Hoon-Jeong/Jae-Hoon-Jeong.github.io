@@ -78,3 +78,9 @@ input[type=range] { width: 100%; accent-color: var(--accent); }
 /* WSI tile-failure notice (shown only after repeated tile failures) */
 .osd-notice { position: absolute; inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; padding: 1rem; text-align: center; color: #fff; background: rgba(0, 0, 0, .6); font-size: .95rem; pointer-events: none; }
 .osd-notice[hidden] { display: none; }
+
+/* Reference (GT) layer, model-mode radios and confidence slider */
+.sw-gt { border-color: rgba(0, 229, 255, .95) !important; background: rgba(0, 229, 255, .18); border-radius: 2px; }
+.tag-gt { font-size: .72rem; padding: .05rem .35rem; border-radius: .35rem; background: rgba(0, 229, 255, .15); color: var(--fg); border: 1px solid rgba(0, 229, 255, .6); }
+.model-modes label { margin-right: .2rem; }
+.conf-count { font-variant-numeric: tabular-nums; font-weight: 600; margin: .4rem 0; }

@@ -1,30 +1,22 @@
 {
-  "_comment": "Demo slides for the viewer. Tiles are NOT stored in this repo; they are self-generated Deep Zoom pyramids (from the original CC0 OpenSlide test files) hosted in the asset warehouse repository Jae-Hoon-Jeong/projectpage_essets, projects/sena_nbe/v1/wsi/ (provenance: projects/sena_nbe/PROVENANCE.md there). Provenance and licences: ASSET_PROVENANCE.md. Overlay format: data/overlay.schema.json. overlays.* stay null until precomputed overlays exist.",
+  "_comment": "PAIP2020 demo slides. Derived assets (web-display Deep Zoom, Whole Tumor Area GT, nucleus overlays) are hosted in Jae-Hoon-Jeong/projectpage_essets projects/sena_nbe/v2/paip/ (PROVENANCE.md there). Overlay and GT coordinates are native level-0 pixels (native_size); the viewer scales them to the displayed DZI. CMU fallback config: data/slides_cmu.json (?demo=cmu).",
   "slides": [
     {
-      "id": "cmu-1",
-      "title": "CMU-1 (Aperio SVS)",
-      "source_url": "https://openslide.cs.cmu.edu/download/openslide-testdata/Aperio/",
-      "licence": "CC0-1.0",
-      "attribution": "CMU-1.svs, OpenSlide test data (Carnegie Mellon University), CC0 1.0. Deep Zoom tiles generated from the original CC0 file and hosted in the project asset repository.",
-      "mpp": 0.499,
-      "dzi": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v1/wsi/cmu-1/cmu-1.dzi",
+      "id": "training_data_03",
+      "title": "PAIP2020 training_data_03",
+      "dzi": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_03/dzi/training_data_03.dzi",
+      "native_size": [
+        111552,
+        92713
+      ],
+      "mpp": 0.2522,
+      "attribution": "PAIP2020 training_data_03, provided by Seoul National University Hospital (CC BY-NC 4.0); web-display Deep Zoom (0.50 µm/px) derived from the original slide.",
+      "note": "Whole Tumor Area = pathologist annotation from PAIP2020. Nucleus layers = model predictions (frozen release v1.0.1).",
+      "gt": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_03/gt/whole_tumor_area.json",
       "overlays": {
-        "Eff": null,
-        "Cls": null
-      }
-    },
-    {
-      "id": "cmu-2",
-      "title": "CMU-2 (Aperio SVS)",
-      "source_url": "https://openslide.cs.cmu.edu/download/openslide-testdata/Aperio/",
-      "licence": "CC0-1.0",
-      "attribution": "CMU-2.svs, OpenSlide test data (Carnegie Mellon University), CC0 1.0. Deep Zoom tiles generated from the original CC0 file and hosted in the project asset repository.",
-      "mpp": 0.499,
-      "dzi": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v1/wsi/cmu-2/cmu-2.dzi",
-      "overlays": {
-        "Eff": null,
-        "Cls": null
+        "Eff": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_03/overlays/Eff/",
+        "Cls": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_03/overlays/Cls/",
+        "Seg": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_03/overlays/Seg/"
       }
     }
   ]

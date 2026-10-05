@@ -17,9 +17,9 @@ sitemap: false
     <a class="brand" href="#top">Project <span class="badge">draft</span></a>
     <nav class="nav">
       <a href="#concept">Concept</a>
-      <a href="#modes">Modes</a>
-      <a href="#slider">Slider</a>
       <a href="#viewer">Viewer</a>
+      <a href="#modes">Modes</a>
+      <a href="#confidence">Confidence</a>
       <a href="#results">Results</a>
       <a href="#code">Code</a>
     </nav>
@@ -61,6 +61,46 @@ sitemap: false
       </div>
     </section>
 
+
+
+
+    <section id="viewer" class="card">
+      <h2>Whole-slide viewer</h2>
+      <div class="viewer-controls">
+        <label class="ctl">Slide
+          <select id="slide-select" aria-label="Slide"></select>
+        </label>
+        <fieldset class="layers">
+          <legend>Reference</legend>
+          <label><input type="checkbox" id="layer-raw" checked> Raw H&amp;E</label>
+          <label class="off"><input type="checkbox" id="layer-gt" checked disabled> Whole Tumor Area <span class="tag-gt">pathologist GT</span></label>
+        </fieldset>
+        <fieldset class="layers model-modes">
+          <legend>Model</legend>
+          <label><input type="radio" name="model-mode" value="none" checked> None</label>
+          <label class="off"><input type="radio" name="model-mode" value="Eff" disabled> Eff</label>
+          <label class="off"><input type="radio" name="model-mode" value="Cls" disabled> Cls</label>
+          <label class="off"><input type="radio" name="model-mode" value="Seg" disabled> Seg</label>
+          <label class="off"><input type="radio" name="model-mode" value="Full" disabled> Full</label>
+        </fieldset>
+      </div>
+      <p class="note">Reference layer = pathologist annotation (ground truth). Model layer = nucleus-level predictions of the selected mode (centroid, type, contour), precomputed offline; nothing is computed in the browser. Model modes are disabled when no precomputed output is available for the slide.</p>
+      <div id="osd" class="osd" aria-label="Whole-slide viewer"></div>
+      <div class="viewer-foot">
+        <ul class="legend" aria-label="Layers and nucleus types">
+          <li><span class="sw sw-gt"></span>Whole Tumor Area (GT)</li>
+          <li><span class="sw" style="--c:#e53935"></span>Neoplastic</li>
+          <li><span class="sw" style="--c:#fb8c00"></span>Epithelial</li>
+          <li><span class="sw" style="--c:#43a047"></span>Inflammatory</li>
+          <li><span class="sw" style="--c:#1e88e5"></span>Connective</li>
+          <li><span class="sw" style="--c:#fdd835"></span>Dead</li>
+        </ul>
+        <div id="info" class="info" aria-live="polite">Click the slide to inspect a location.</div>
+      </div>
+      <p id="attribution" class="note attribution"></p>
+      <p class="note">Not for clinical or diagnostic use.</p>
+    </section>
+
     <section id="modes" class="card">
       <h2>Modes</h2>
       <div class="segmented" role="radiogroup" aria-label="Mode">
@@ -72,51 +112,18 @@ sitemap: false
       <div class="mode-panel">
         <p id="mode-desc"></p>
         <dl class="kv">
-          <div><dt>Overlay</dt><dd class="placeholder">Pending model inference</dd></div>
+          <div><dt>Overlay</dt><dd>Select the mode under <em>Model</em> in the whole-slide viewer above.</dd></div>
           <div><dt>Cost</dt><dd class="placeholder">[pending]</dd></div>
         </dl>
       </div>
     </section>
 
-    <section id="slider" class="card">
-      <h2>Interactive slider</h2>
-      <label for="slider-input" class="slider-label">Value: <output id="slider-out">0%</output></label>
-      <input id="slider-input" type="range" min="0" max="100" step="1" value="0">
-      <dl class="kv">
-        <div><dt>Metric 1</dt><dd class="placeholder">[pending]</dd></div>
-        <div><dt>Metric 2</dt><dd class="placeholder">[pending]</dd></div>
-        <div><dt>Metric 3</dt><dd class="placeholder">[pending]</dd></div>
-      </dl>
-      <p class="note">Displayed states will be precomputed offline; nothing is computed in the browser.</p>
-    </section>
-
-    <section id="viewer" class="card">
-      <h2>Whole-slide viewer</h2>
-      <div class="viewer-controls">
-        <label class="ctl">Slide
-          <select id="slide-select" aria-label="Slide"></select>
-        </label>
-        <fieldset class="layers">
-          <legend>Layers</legend>
-          <label><input type="checkbox" id="layer-raw" checked> Raw H&amp;E</label>
-          <label class="off"><input type="checkbox" id="layer-Eff" disabled> Eff nuclei</label>
-          <label class="off"><input type="checkbox" id="layer-Cls" disabled> Cls nuclei</label>
-        </fieldset>
-      </div>
-      <p class="note pending">Eff / Cls nucleus overlays: <strong>pending model inference</strong>. They will appear here as precomputed static files; nothing is computed in the browser.</p>
-      <div id="osd" class="osd" aria-label="Whole-slide viewer"></div>
-      <div class="viewer-foot">
-        <ul class="legend" aria-label="Nucleus types">
-          <li><span class="sw" style="--c:#e53935"></span>Neoplastic</li>
-          <li><span class="sw" style="--c:#fb8c00"></span>Epithelial</li>
-          <li><span class="sw" style="--c:#43a047"></span>Inflammatory</li>
-          <li><span class="sw" style="--c:#1e88e5"></span>Connective</li>
-          <li><span class="sw" style="--c:#fdd835"></span>Dead</li>
-        </ul>
-        <div id="info" class="info" aria-live="polite">Click the slide to inspect a location.</div>
-      </div>
-      <p id="attribution" class="note attribution"></p>
-      <p class="note">Public test slides shown only to demonstrate the viewer. Organ and diagnosis are not stated by the source. Not for clinical or diagnostic use.</p>
+    <section id="confidence" class="card">
+      <h2>Interactive confidence threshold</h2>
+      <label for="conf-input" class="slider-label">Confidence threshold: <output id="conf-out">0.00</output></label>
+      <input id="conf-input" type="range" min="0" max="1" step="0.01" value="0">
+      <p id="conf-count" class="conf-count" aria-live="polite">Select a model mode to show nuclei.</p>
+      <p class="note">Hides nuclei of the selected model mode whose stored prediction score (the <code>confidence</code> field of the released output) is below the threshold. The count is exact over the whole slide; the viewer above updates immediately.</p>
     </section>
 
     <section id="results" class="card">
