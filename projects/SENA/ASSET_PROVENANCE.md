@@ -66,3 +66,6 @@ Notes
   parameters, model package hashes) in `projects/sena_nbe/PROVENANCE.md` there.
 - Layers: Raw H&E (web-display Deep Zoom), Whole Tumor Area (pathologist ground truth), nucleus predictions per mode.
 - The CMU slides above are no longer used by the page (history only).
+
+## Button icons
+- PDF and GitHub icons: inline SVG. Hugging Face icon: Simple Icons 13.21.0 `huggingface.svg` (CC0-1.0), inline SVG.
