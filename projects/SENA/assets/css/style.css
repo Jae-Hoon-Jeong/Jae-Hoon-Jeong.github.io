@@ -74,3 +74,7 @@ input[type=range] { width: 100%; accent-color: var(--accent); }
 .author-affil sup { margin-right: .2em; color: var(--accent); }
 .author-note { margin: .35rem 0 1.5rem; font-size: .8rem; color: var(--muted); }
 .author-note sup { padding-right: .15em; }
+
+/* WSI tile-failure notice (shown only after repeated tile failures) */
+.osd-notice { position: absolute; inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; padding: 1rem; text-align: center; color: #fff; background: rgba(0, 0, 0, .6); font-size: .95rem; pointer-events: none; }
+.osd-notice[hidden] { display: none; }

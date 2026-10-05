@@ -44,6 +44,23 @@
     gestureSettingsTouch: { pinchRotate: false }
   });
 
+  // ---- Tile-failure notice (OpenSeadragon 4.1.1 viewer events 'tile-load-failed' / 'tile-loaded').
+  // Shown only after repeated failures within a short window with no tile loaded in between.
+  const FAIL_WINDOW_MS = 8000, FAIL_THRESHOLD = 6;
+  const notice = document.createElement('div');
+  notice.className = 'osd-notice'; notice.setAttribute('role', 'status'); notice.hidden = true;
+  notice.textContent = 'WSI preview could not be loaded. Please try again later.';
+  el('osd').appendChild(notice);
+  let failTimes = [];
+  function clearTileFailure() { failTimes = []; notice.hidden = true; }
+  viewer.addHandler('tile-load-failed', () => {
+    const now = Date.now();
+    failTimes = failTimes.filter(t => now - t < FAIL_WINDOW_MS);
+    failTimes.push(now);
+    if (failTimes.length >= FAIL_THRESHOLD) notice.hidden = false;
+  });
+  viewer.addHandler('tile-loaded', clearTileFailure);
+
   let slides = [], current = null;
   const overlays = {};          // mode -> parsed overlay JSON (none exist yet)
   const canvas = document.createElement('canvas');
@@ -52,6 +69,7 @@
 
   function openSlide(slide) {
     current = slide;
+    clearTileFailure();
     OVERLAY_MODES.forEach(m => { delete overlays[m]; setLayerAvailability(m, slide); });
     attribution.textContent = slide.attribution ? 'Image: ' + slide.attribution : '';
     info.textContent = 'Click the slide to inspect a location.';
