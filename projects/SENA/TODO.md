@@ -1,3 +1,7 @@
+---
+layout: null
+sitemap: false
+---
 # TODO (projects/SENA)
 
 - [ ] Content: title, authors, summary, figures (after publication decisions).

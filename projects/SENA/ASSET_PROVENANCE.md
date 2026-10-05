@@ -1,3 +1,7 @@
+---
+layout: null
+sitemap: false
+---
 # Asset provenance and licence audit
 
 Checked 2026-10-05 against primary sources. No image data is stored in this repository;
