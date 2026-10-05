@@ -45,22 +45,25 @@
   });
 
   // ---- Tile-failure notice (OpenSeadragon 4.1.1 viewer events 'tile-load-failed' / 'tile-loaded').
-  // Shown only after repeated failures within a short window with no tile loaded in between,
-  // or after >= 2 failures when no tile at all has loaded since the slide was opened (small viewports
-  // request only a few tiles). A single failed tile never triggers it.
-  const FAIL_WINDOW_MS = 8000, FAIL_THRESHOLD = 6, FAIL_THRESHOLD_NONE_LOADED = 2;
+  // Shown only after repeated failures within a short window with no tile loaded in between, or when a
+  // tile failed and still no tile at all has loaded 3 s later (small viewports may request a single
+  // overview tile). A failed tile next to tiles that did load never triggers it.
+  const FAIL_WINDOW_MS = 8000, FAIL_THRESHOLD = 6, NONE_LOADED_WAIT_MS = 3000;
   const notice = document.createElement('div');
   notice.className = 'osd-notice'; notice.setAttribute('role', 'status'); notice.hidden = true;
   notice.textContent = 'WSI preview could not be loaded. Please try again later.';
   el('osd').appendChild(notice);
-  let failTimes = [], loadedSinceOpen = 0;
-  function clearTileFailure() { failTimes = []; notice.hidden = true; }
+  let failTimes = [], loadedSinceOpen = 0, noneLoadedTimer = null;
+  function clearTileFailure() { failTimes = []; notice.hidden = true; clearTimeout(noneLoadedTimer); }
   viewer.addHandler('tile-load-failed', () => {
     const now = Date.now();
     failTimes = failTimes.filter(t => now - t < FAIL_WINDOW_MS);
     failTimes.push(now);
-    if (failTimes.length >= FAIL_THRESHOLD ||
-        (loadedSinceOpen === 0 && failTimes.length >= FAIL_THRESHOLD_NONE_LOADED)) notice.hidden = false;
+    if (failTimes.length >= FAIL_THRESHOLD) notice.hidden = false;
+    if (loadedSinceOpen === 0) {
+      clearTimeout(noneLoadedTimer);
+      noneLoadedTimer = setTimeout(() => { if (loadedSinceOpen === 0) notice.hidden = false; }, NONE_LOADED_WAIT_MS);
+    }
   });
   viewer.addHandler('tile-loaded', () => { loadedSinceOpen++; clearTileFailure(); });
 
