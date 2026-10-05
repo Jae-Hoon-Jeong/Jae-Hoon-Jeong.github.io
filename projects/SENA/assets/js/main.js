@@ -66,14 +66,15 @@
   // ---- Slides, reference (GT) layer and chunked nucleus overlays
   const CONFIG = 'data/slides.json';   // PAIP2020 demo slides
   const MODES = ['Eff', 'Cls', 'Seg', 'Full'];
-  let slides = [], current = null, mode = 'none', threshold = 0;
+  let slides = [], current = null, mode = 'none', budget = 0;   // budget: share of patches routed to Cls (Eff view)
   const cache = new Map();       // url -> parsed chunk | Promise
   const indexes = {};            // slide.id + mode -> index.json
   const gts = {};                // slide.id -> GT JSON
   const canvas = document.createElement('canvas');
   canvas.className = 'nuclei-layer';
   viewer.canvas.appendChild(canvas);
-  const gtBox = el('layer-gt'), confInput = el('conf-input'), confOut = el('conf-out'), confCount = el('conf-count');
+  const gtBox = el('layer-gt'), predBox = el('layer-pred'), rtInput = el('route-input'), rtOut = el('route-out'), rtCount = el('route-count');
+  const preds = {};              // slide.id + mode -> predicted tumour area JSON
   const modeInputs = Array.from(document.querySelectorAll('input[name="model-mode"]'));
 
   function overlayBase(slide, m) { return slide.overlays && slide.overlays[m]; }
@@ -87,6 +88,8 @@
       r.parentElement.title = ok ? '' : 'Not available for this slide';
     });
     if (mode !== 'none' && !overlayBase(slide, mode)) setModelMode('none');
+    if (predBox) { const ok = !!slide.pred_area; predBox.disabled = !ok; predBox.parentElement.classList.toggle('off', !ok); }
+    loadPred();
     if (gtBox) {
       gtBox.disabled = !slide.gt; gtBox.parentElement.classList.toggle('off', !slide.gt);
       if (slide.gt) loadGT(slide).then(draw, () => { info.textContent = 'Tumor annotation could not be loaded.'; });
@@ -95,35 +98,50 @@
     info.textContent = 'Click the slide to inspect a location.';
     viewer.open(slide.dzi);
     if (mode !== 'none') loadIndex(slide, mode).then(updateCount);
+    if (overlayBase(slide, 'Eff')) loadIndex(slide, 'Eff').then(updateCount, () => {});   // routing counts
     updateCount();
   }
 
   async function getJSON(url) { const r = await fetch(url); if (!r.ok) throw new Error(url + ' ' + r.status); return r.json(); }
+  // Predicted tumour area (model prediction, A-simple rule) of the selected model mode; Cls when no mode is selected.
+  function predMode() { return current && current.pred_area ? (current.pred_area[mode] ? mode : 'Cls') : null; }
+  function loadPred() {
+    const m = predMode(); if (!m || !predBox || !predBox.checked) return;
+    const k = current.id + '/' + m, sl = current;
+    if (!preds[k]) getJSON(sl.pred_area[m]).then(d => { preds[k] = d; draw(); }, () => { info.textContent = 'Predicted tumor area could not be loaded.'; });
+  }
   async function loadGT(slide) { if (!gts[slide.id]) gts[slide.id] = await getJSON(slide.gt); return gts[slide.id]; }
   async function loadIndex(slide, m) {
     const k = slide.id + '/' + m;
     if (!indexes[k]) {
       const d = await getJSON(overlayBase(slide, m) + 'index.json');
-      if (d.format !== 'nuclei-chunks/v1') throw new Error('overlay format');
+      if (d.format !== 'nuclei-chunks/v1' && d.format !== 'nuclei-chunks/v2-routing') throw new Error('overlay format');
       indexes[k] = d;
     }
     return indexes[k];
   }
 
   // Binary chunk parser (format nuclei-chunks/v1, see the asset repository PROVENANCE).
+  // v1: [u16 x, u16 y, u8 type, u8 conf]; v2-routing: [u16 x, u16 y, u8 eff_type, u8 cls_type, u16 rank_q] (+ contour on fine)
   function parseChunk(buf, level, ix, cx, cy) {
     const dv = new DataView(buf), n = dv.getUint32(0, true), size = ix[level], K = ix.contour_points;
-    const x = new Float32Array(n), y = new Float32Array(n), t = new Uint8Array(n), c = new Uint8Array(n);
+    const routed = ix.format === 'nuclei-chunks/v2-routing';
+    const x = new Float32Array(n), y = new Float32Array(n), t = new Uint8Array(n), t2 = routed ? new Uint8Array(n) : null;
+    const rk = routed ? new Uint16Array(n) : null;
     const poly = level === 'fine' ? new Int8Array(n * K * 2) : null;
     let o = 4;
     for (let i = 0; i < n; i++) {
       const a = dv.getUint16(o, true), b = dv.getUint16(o + 2, true);
       x[i] = cx * size + (level === 'coarse' ? a * 4 : a); y[i] = cy * size + (level === 'coarse' ? b * 4 : b);
-      t[i] = dv.getUint8(o + 4); c[i] = dv.getUint8(o + 5); o += 6;
+      t[i] = dv.getUint8(o + 4);
+      if (routed) { t2[i] = dv.getUint8(o + 5); rk[i] = dv.getUint16(o + 6, true); o += 8; } else o += 6;
       if (poly) { poly.set(new Int8Array(buf, o, K * 2), i * K * 2); o += K * 2; }
     }
-    return { n, x, y, t, c, poly, K };
+    return { n, x, y, t, t2, rk, poly, K };
   }
+  // class shown for nucleus i: in the routing view, Cls class if its patch is within the budget, Eff class otherwise
+  function routeCut(ix) { return ix.format === 'nuclei-chunks/v2-routing' ? Math.round(Math.round(budget * ix.eligible_tiles) / ix.eligible_tiles * 65534) : 0; }
+  function typeOf(ch, i, cut) { return ch.t2 && ch.rk[i] < cut ? ch.t2[i] : ch.t[i]; }
   function getChunk(slide, m, ix, level, cx, cy) {
     const url = overlayBase(slide, m) + level + '/' + cx + '_' + cy + '.bin';
     const hit = cache.get(url);
@@ -138,13 +156,13 @@
   }
 
   function updateCount() {
-    if (!confCount) return;
-    const ix = current && mode !== 'none' && indexes[current.id + '/' + mode];
-    if (!ix) { confCount.textContent = mode === 'none' ? 'Select a model mode to show nuclei.' : 'Loading…'; return; }
-    const q = Math.ceil(threshold * 255 - 1e-9);
-    let vis = 0;
-    Object.values(ix.conf_hist_by_type).forEach(h => { for (let i = q; i < 256; i++) vis += h[i]; });
-    confCount.textContent = 'Visible nuclei (whole slide, ' + mode + '): ' + vis.toLocaleString() + ' / ' + ix.n_nuclei.toLocaleString();
+    if (!rtCount) return;
+    const ix = current && indexes[current.id + '/Eff'];
+    if (!ix) { rtCount.textContent = current && overlayBase(current, 'Eff') ? 'Loading…' : 'Routing data not available for this slide.'; return; }
+    if (ix.format !== 'nuclei-chunks/v2-routing') { rtCount.textContent = 'Routing data not available for this slide.'; return; }
+    const k = Math.round(budget * ix.eligible_tiles), h = ix.changed_rank_hist_permille;
+    let ch = 0; for (let i = 0; i < Math.min(1000, Math.round(budget * 1000)); i++) ch += h[i];
+    rtCount.textContent = 'Cls applied to ' + k.toLocaleString() + ' / ' + ix.eligible_tiles.toLocaleString() + ' patches · nuclei whose class changes vs Eff: ' + ch.toLocaleString() + ' / ' + ix.n_nuclei.toLocaleString();
   }
 
   // native level-0 px -> displayed-image px, from slide metadata (native_size) and the opened DZI size.
@@ -178,7 +196,11 @@
       ctx.closePath();
       ctx.fillStyle = 'rgba(0, 229, 255, 0.12)'; ctx.fill('evenodd');
     }
-    const strokeGT = () => {    // GT outline is drawn last so nuclei never hide it
+    const pm = predMode(), pa = pm && predBox && predBox.checked ? preds[current.id + '/' + pm] : null;
+    const pathOf = d => { ctx.beginPath(); d.regions.forEach(r => r.points.forEach((p, i) => { const v = V(p[0], p[1]); i ? ctx.lineTo(v[0], v[1]) : ctx.moveTo(v[0], v[1]); }) ); };
+    if (pa) { pathOf(pa); ctx.fillStyle = 'rgba(255, 64, 200, 0.10)'; ctx.fill('evenodd'); }
+    const strokeGT = () => {    // outlines are drawn last so nuclei never hide them
+      if (pa) { pathOf(pa); ctx.setLineDash([6, 4]); ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(255, 64, 200, 0.95)'; ctx.stroke(); ctx.setLineDash([]); }
       if (!(gt && gtBox && gtBox.checked)) return;
       ctx.beginPath();
       gt.regions.forEach(r => r.points.forEach((p, i) => { const v = V(p[0], p[1]); i ? ctx.lineTo(v[0], v[1]) : ctx.moveTo(v[0], v[1]); }));
@@ -187,7 +209,7 @@
     if (mode === 'none') { strokeGT(); return; }
     const ix = indexes[current.id + '/' + mode];
     if (!ix) { strokeGT(); return; }
-    const q = Math.ceil(threshold * 255 - 1e-9);
+    const cut = routeCut(ix);
     // LOD: coarse centroid chunks when zoomed out (< 0.05 screen px per image px), fine chunks with contours otherwise.
     const level = scale < 0.05 ? 'coarse' : 'fine', size = ix[level], chunks = ix[level + '_chunks'];
     const x0 = Math.max(0, Math.floor(tl.x / size)), x1 = Math.floor(br.x / size), y0 = Math.max(0, Math.floor(tl.y / size)), y1 = Math.floor(br.y / size);
@@ -207,7 +229,7 @@
       ctx.beginPath();
       list.forEach(ch => {
         for (let i = 0; i < ch.n; i += stride) {
-          if (ch.t[i] !== k || ch.c[i] < q) continue;
+          if (typeOf(ch, i, cut) !== k) continue;
           const v = V(ch.x[i], ch.y[i]);
           if (v[0] < -40 || v[1] < -40 || v[0] > w + 40 || v[1] > h + 40) continue;
           if (contours) {
@@ -230,23 +252,30 @@
     modeInputs.forEach(r => { r.checked = r.value === m; });
     if (m !== 'none' && current) loadIndex(current, m).then(() => { updateCount(); draw(); }, () => { info.textContent = m + ' overlay unavailable.'; });
     if (MODE_TEXT[m]) setMode(m);
-    updateCount(); draw();
+    loadPred(); updateCount(); draw();
   }
   modeInputs.forEach(r => r.addEventListener('change', () => { if (r.checked) setModelMode(r.value); }));
   if (gtBox) gtBox.addEventListener('change', draw);
-  if (confInput) {
-    const onConf = () => { threshold = Number(confInput.value); confOut.textContent = threshold.toFixed(2); updateCount(); draw(); };
-    confInput.addEventListener('input', onConf); onConf();
+  if (predBox) predBox.addEventListener('change', () => { loadPred(); draw(); });
+  if (rtInput) {
+    // The routing budget acts on the Eff view: moving it selects Eff; geometry stays, only classes in routed patches change.
+    const onRoute = e => {
+      budget = Number(rtInput.value) / 100; rtOut.textContent = rtInput.value + '%';
+      if (e && mode !== 'Eff' && current && overlayBase(current, 'Eff')) setModelMode('Eff');
+      if (current && overlayBase(current, 'Eff')) loadIndex(current, 'Eff').then(() => { updateCount(); draw(); }, () => {});
+      updateCount(); draw();
+    };
+    rtInput.addEventListener('input', onRoute); onRoute();
   }
 
   function nearest(x, y, rad) {
     if (mode === 'none' || !current) return null;
     const ix = indexes[current.id + '/' + mode]; if (!ix) return null;
-    const q = Math.ceil(threshold * 255 - 1e-9), ch = cache.get(overlayBase(current, mode) + 'fine/' + Math.floor(x / ix.fine) + '_' + Math.floor(y / ix.fine) + '.bin');
+    const cut = routeCut(ix), ch = cache.get(overlayBase(current, mode) + 'fine/' + Math.floor(x / ix.fine) + '_' + Math.floor(y / ix.fine) + '.bin');
     if (!ch || ch instanceof Promise) return null;
     let best = null, bd = rad * rad;
-    for (let i = 0; i < ch.n; i++) { if (ch.c[i] < q) continue; const d = (ch.x[i] - x) ** 2 + (ch.y[i] - y) ** 2; if (d < bd) { bd = d; best = i; } }
-    return best === null ? null : { t: ch.t[best], p: ch.c[best] / 255 };
+    for (let i = 0; i < ch.n; i++) { const d = (ch.x[i] - x) ** 2 + (ch.y[i] - y) ** 2; if (d < bd) { bd = d; best = i; } }
+    return best === null ? null : { t: typeOf(ch, best, cut), routed: !!(ch.t2 && ch.rk[best] < cut) };
   }
 
   viewer.addHandler('canvas-click', e => {
@@ -258,7 +287,7 @@
     let text = 'x ' + x + ', y ' + y + ' px';
     if (current && current.mpp) text += ' (' + (x * current.mpp / 1000).toFixed(2) + ', ' + (y * current.mpp / 1000).toFixed(2) + ' mm)';
     if (mode === 'none') text += ' · no model layer selected';
-    else { const n = nearest(p.x, p.y, 20 / (current.mpp || 0.25)); text += ' · ' + mode + ': ' + (n ? TYPE_NAMES[n.t] + ' (score ' + n.p.toFixed(2) + ')' : 'no nucleus here (zoom in to inspect)'); }
+    else { const n = nearest(p.x, p.y, 20 / (current.mpp || 0.25)); text += ' · ' + mode + ': ' + (n ? TYPE_NAMES[n.t] + (n.routed ? ' (Cls-routed patch)' : '') : 'no nucleus here (zoom in to inspect)'); }
     info.textContent = text;
   });
 

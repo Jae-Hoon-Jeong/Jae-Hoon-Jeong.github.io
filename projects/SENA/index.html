@@ -19,7 +19,7 @@ sitemap: false
       <a href="#concept">Concept</a>
       <a href="#viewer">Viewer</a>
       <a href="#modes">Modes</a>
-      <a href="#confidence">Confidence</a>
+      <a href="#routing">Routing</a>
       <a href="#results">Results</a>
       <a href="#code">Code</a>
     </nav>
@@ -74,6 +74,7 @@ sitemap: false
           <legend>Reference</legend>
           <label><input type="checkbox" id="layer-raw" checked> Raw H&amp;E</label>
           <label class="off"><input type="checkbox" id="layer-gt" checked disabled> Whole Tumor Area <span class="tag-gt">pathologist GT</span></label>
+          <label class="off"><input type="checkbox" id="layer-pred" disabled> Predicted tumor area <span class="tag-pred">model</span></label>
         </fieldset>
         <fieldset class="layers model-modes">
           <legend>Model</legend>
@@ -89,6 +90,7 @@ sitemap: false
       <div class="viewer-foot">
         <ul class="legend" aria-label="Layers and nucleus types">
           <li><span class="sw sw-gt"></span>Whole Tumor Area (GT)</li>
+          <li><span class="sw sw-pred"></span>Predicted tumor area</li>
           <li><span class="sw" style="--c:#e53935"></span>Neoplastic</li>
           <li><span class="sw" style="--c:#fb8c00"></span>Epithelial</li>
           <li><span class="sw" style="--c:#43a047"></span>Inflammatory</li>
@@ -118,12 +120,12 @@ sitemap: false
       </div>
     </section>
 
-    <section id="confidence" class="card">
-      <h2>Interactive confidence threshold</h2>
-      <label for="conf-input" class="slider-label">Confidence threshold: <output id="conf-out">0.00</output></label>
-      <input id="conf-input" type="range" min="0" max="1" step="0.01" value="0">
-      <p id="conf-count" class="conf-count" aria-live="polite">Select a model mode to show nuclei.</p>
-      <p class="note">Hides nuclei of the selected model mode whose stored prediction score (the <code>confidence</code> field of the released output) is below the threshold. The count is exact over the whole slide; the viewer above updates immediately.</p>
+    <section id="routing" class="card">
+      <h2>Interactive semantic routing</h2>
+      <label for="route-input" class="slider-label">Patches routed to Cls: <output id="route-out">0%</output></label>
+      <input id="route-input" type="range" min="0" max="100" step="1" value="0">
+      <p id="route-count" class="conf-count" aria-live="polite"></p>
+      <p class="note">Shows the Eff result in the whole-slide viewer above and applies the Cls semantic path to the given share of image patches, chosen in order of the label-free entropy router (Router 1). Nuclei and contours stay as in Eff; only the class (colour) of nuclei in routed patches changes. 0% = Eff, 100% = Cls classes on every patch. Precomputed from the released outputs; nothing is computed in the browser.</p>
     </section>
 
     <section id="results" class="card">

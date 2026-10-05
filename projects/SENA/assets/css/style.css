@@ -84,3 +84,5 @@ input[type=range] { width: 100%; accent-color: var(--accent); }
 .tag-gt { font-size: .72rem; padding: .05rem .35rem; border-radius: .35rem; background: rgba(0, 229, 255, .15); color: var(--fg); border: 1px solid rgba(0, 229, 255, .6); }
 .model-modes label { margin-right: .2rem; }
 .conf-count { font-variant-numeric: tabular-nums; font-weight: 600; margin: .4rem 0; }
+.sw-pred { border: 2px dashed rgba(255, 64, 200, .95) !important; background: rgba(255, 64, 200, .12); border-radius: 2px; }
+.tag-pred { font-size: .72rem; padding: .05rem .35rem; border-radius: .35rem; background: rgba(255, 64, 200, .12); color: var(--fg); border: 1px solid rgba(255, 64, 200, .6); }
