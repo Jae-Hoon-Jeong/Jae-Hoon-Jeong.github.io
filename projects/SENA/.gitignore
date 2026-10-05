@@ -1,0 +1,12 @@
+# Never commit WSI files, pyramids, overlays or restricted data under projects/SENA
+*.svs
+*.ndpi
+*.mrxs
+*.tif
+*.tiff
+*.dzi
+*_files/
+overlays/
+*.npz
+*.pt
+*.pth

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="1536" viewBox="0 0 2048 1536">
+  <!-- Synthetic placeholder drawn for this site (no real tissue image). Released into the public domain (CC0). -->
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#e9b8d0"/><stop offset="100%" stop-color="#f6e6ee"/>
+    </radialGradient>
+  </defs>
+  <rect width="2048" height="1536" fill="#fbf7f9"/>
+  <ellipse cx="1024" cy="768" rx="860" ry="600" fill="url(#g)"/>
+  <g fill="#6b3f8f" opacity="0.55">
+    <circle cx="700" cy="600" r="14"/><circle cx="760" cy="640" r="12"/><circle cx="820" cy="590" r="15"/>
+    <circle cx="1120" cy="820" r="13"/><circle cx="1180" cy="760" r="11"/><circle cx="1240" cy="840" r="14"/>
+    <circle cx="960" cy="980" r="12"/><circle cx="1400" cy="560" r="13"/><circle cx="580" cy="900" r="12"/>
+  </g>
+  <text x="1024" y="1440" font-family="sans-serif" font-size="48" text-anchor="middle" fill="#7a6a75">Synthetic placeholder — not a real slide</text>
+</svg>

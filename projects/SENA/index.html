@@ -1,0 +1,137 @@
+---
+layout: null
+sitemap: false
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Project page (draft)</title>
+  <meta name="description" content="Project page scaffold. Placeholder content only.">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top">Project <span class="badge">draft</span></a>
+    <nav class="nav">
+      <a href="#concept">Concept</a>
+      <a href="#modes">Modes</a>
+      <a href="#slider">Slider</a>
+      <a href="#viewer">Viewer</a>
+      <a href="#results">Results</a>
+      <a href="#code">Code</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow">DRAFT</p>
+      <h1>[Title withheld until publication]</h1>
+      <p class="lead">Separating representation, information and computation in joint nuclei analysis</p>
+      <p class="authors">[Authors withheld]</p>
+      <p class="affil">[Affiliations withheld]</p>
+      <div class="cta">
+        <a class="btn disabled" aria-disabled="true">Paper (coming soon)</a>
+        <a class="btn disabled" aria-disabled="true">Code (coming soon)</a>
+        <a class="btn disabled" aria-disabled="true">Models (coming soon)</a>
+      </div>
+      <p class="notice">Work in progress. No results are shown on this page. Not for clinical or diagnostic use.</p>
+    </section>
+
+    <section id="abstract" class="card">
+      <h2>Summary</h2>
+      <p class="placeholder">[Summary placeholder]</p>
+    </section>
+
+    <section id="concept" class="card">
+      <h2>Concept</h2>
+      <div class="grid3">
+        <div class="tile"><h3>Representation</h3><p>One shared representation of the tissue image, computed once and reused by every output.</p></div>
+        <div class="tile"><h3>Semantic information</h3><p>What each nucleus is: its type. Capacity for this can be added on its own.</p></div>
+        <div class="tile"><h3>Spatial information</h3><p>Where each nucleus is and its exact boundary. Capacity for this can be added on its own.</p></div>
+      </div>
+    </section>
+
+    <section id="modes" class="card">
+      <h2>Modes</h2>
+      <div class="segmented" role="radiogroup" aria-label="Mode">
+        <button role="radio" aria-checked="true" data-mode="Eff">Eff</button>
+        <button role="radio" aria-checked="false" data-mode="Cls">Cls</button>
+        <button role="radio" aria-checked="false" data-mode="Seg">Seg</button>
+        <button role="radio" aria-checked="false" data-mode="Full">Full</button>
+      </div>
+      <div class="mode-panel">
+        <p id="mode-desc"></p>
+        <dl class="kv">
+          <div><dt>Overlay</dt><dd class="placeholder">Pending model inference</dd></div>
+          <div><dt>Cost</dt><dd class="placeholder">[pending]</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="slider" class="card">
+      <h2>Interactive slider</h2>
+      <label for="slider-input" class="slider-label">Value: <output id="slider-out">0%</output></label>
+      <input id="slider-input" type="range" min="0" max="100" step="1" value="0">
+      <dl class="kv">
+        <div><dt>Metric 1</dt><dd class="placeholder">[pending]</dd></div>
+        <div><dt>Metric 2</dt><dd class="placeholder">[pending]</dd></div>
+        <div><dt>Metric 3</dt><dd class="placeholder">[pending]</dd></div>
+      </dl>
+      <p class="note">Displayed states will be precomputed offline; nothing is computed in the browser.</p>
+    </section>
+
+    <section id="viewer" class="card">
+      <h2>Whole-slide viewer</h2>
+      <div class="viewer-controls">
+        <label class="ctl">Slide
+          <select id="slide-select" aria-label="Slide"></select>
+        </label>
+        <fieldset class="layers">
+          <legend>Layers</legend>
+          <label><input type="checkbox" id="layer-raw" checked> Raw H&amp;E</label>
+          <label class="off"><input type="checkbox" id="layer-Eff" disabled> Eff nuclei</label>
+          <label class="off"><input type="checkbox" id="layer-Cls" disabled> Cls nuclei</label>
+        </fieldset>
+      </div>
+      <p class="note pending">Eff / Cls nucleus overlays: <strong>pending model inference</strong>. They will appear here as precomputed static files; nothing is computed in the browser.</p>
+      <div id="osd" class="osd" aria-label="Whole-slide viewer"></div>
+      <div class="viewer-foot">
+        <ul class="legend" aria-label="Nucleus types">
+          <li><span class="sw" style="--c:#e53935"></span>Neoplastic</li>
+          <li><span class="sw" style="--c:#fb8c00"></span>Epithelial</li>
+          <li><span class="sw" style="--c:#43a047"></span>Inflammatory</li>
+          <li><span class="sw" style="--c:#1e88e5"></span>Connective</li>
+          <li><span class="sw" style="--c:#fdd835"></span>Dead</li>
+        </ul>
+        <div id="info" class="info" aria-live="polite">Click the slide to inspect a location.</div>
+      </div>
+      <p id="attribution" class="note attribution"></p>
+      <p class="note">Public test slides shown only to demonstrate the viewer. Organ and diagnosis are not stated by the source. Not for clinical or diagnostic use.</p>
+    </section>
+
+    <section id="results" class="card">
+      <h2>Results &amp; figures</h2>
+      <p class="placeholder">[Figures placeholder]</p>
+    </section>
+
+    <section id="code" class="card">
+      <h2>Code &amp; models</h2>
+      <ul>
+        <li class="placeholder">Code: coming soon</li>
+        <li class="placeholder">Models: coming soon</li>
+        <li class="placeholder">[Citation — pending]</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Draft scaffold</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1.1/build/openseadragon/openseadragon.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

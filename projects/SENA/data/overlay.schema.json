@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "overlay.schema.json",
+  "title": "Precomputed nucleus overlay (one slide, one mode)",
+  "description": "Static file produced offline by the deployed model and referenced from data/slides.json -> slides[].overlays.{Eff|Cls}. The browser only draws it; no inference runs in the page. No overlay files exist yet.",
+  "type": "object",
+  "required": ["format", "slide_id", "mode", "coordinate_space", "classes", "nuclei"],
+  "properties": {
+    "format": { "const": "nuclei-overlay/v0" },
+    "slide_id": { "type": "string", "description": "Must match slides[].id" },
+    "mode": { "enum": ["Eff", "Cls"] },
+    "model": {
+      "type": "object",
+      "description": "Provenance of the producing model (filled when released).",
+      "properties": {
+        "name": { "type": "string" },
+        "version": { "type": "string" },
+        "commit": { "type": "string" }
+      }
+    },
+    "coordinate_space": { "const": "level0_px", "description": "x, y in full-resolution (level 0) pixels of the slide" },
+    "classes": {
+      "type": "array",
+      "description": "Index -> name. Fixed order.",
+      "prefixItems": [
+        { "const": "Neoplastic" }, { "const": "Epithelial" }, { "const": "Inflammatory" },
+        { "const": "Connective" }, { "const": "Dead" }
+      ],
+      "minItems": 5, "maxItems": 5
+    },
+    "nuclei": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "c", "t"],
+        "properties": {
+          "id": { "type": "integer" },
+          "c": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2, "description": "centroid [x, y]" },
+          "t": { "type": "integer", "minimum": 0, "maximum": 4, "description": "class index into classes" },
+          "p": { "type": "number", "minimum": 0, "maximum": 1, "description": "optional type confidence" },
+          "poly": { "type": "array", "items": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 }, "description": "optional contour [[x, y], ...]" }
+        }
+      }
+    }
+  }
+}
