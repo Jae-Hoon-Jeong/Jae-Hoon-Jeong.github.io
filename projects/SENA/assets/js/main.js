@@ -4,11 +4,11 @@
 
   // ---- Mode selector
   const MODE_TEXT = {
-    none: '',
-    Eff: 'Eff: the base path. Nuclei are detected, typed and segmented from the shared representation at the lowest compute.',
-    Cls: 'Cls: Eff plus added semantic capacity, to refine what type each nucleus is. Boundaries are left as in Eff.',
-    Seg: 'Seg: Eff plus added spatial capacity, to refine each nucleus boundary. Types are left as in Eff.',
-    Full: 'Full: both additions together, semantic and spatial.'
+    none: 'No model layer · reference layers only.',
+    Eff: 'Eff · base path: detection, type and contour from the shared representation; lowest compute.',
+    Cls: 'Cls · adds semantic capacity for nucleus type; boundaries as in Eff.',
+    Seg: 'Seg · adds spatial capacity (local refiner) for nucleus shape; types as in Eff.',
+    Full: 'Full · semantic and spatial capacity together.'
   };
   const buttons = document.querySelectorAll('.segmented button');
   const desc = document.getElementById('mode-desc');
@@ -40,6 +40,30 @@
     maxZoomPixelRatio: 2, visibilityRatio: 0.5, constrainDuringPan: true,
     gestureSettingsTouch: { pinchRotate: false }
   });
+
+  // ---- Toolbar actions (OpenSeadragon viewport API) and status bar
+  const stRes = el('st-res'), stMode = el('st-mode'), stCount = el('st-count');
+  if (el('btn-fit')) el('btn-fit').addEventListener('click', () => viewer.viewport.goHome());
+  if (el('btn-1to1')) el('btn-1to1').addEventListener('click', () => {
+    const item = viewer.world.getItemAt(0); if (item) viewer.viewport.zoomTo(item.imageToViewportZoom(1));
+  });
+  // Fullscreen the whole workstation (toolbar, layers, canvas, status) with the standard Fullscreen API.
+  if (el('btn-full') && !document.fullscreenEnabled) el('btn-full').hidden = true;   // no fake control where unsupported
+  if (el('btn-full')) el('btn-full').addEventListener('click', () => {
+    const ws = el('workstation');
+    const p = document.fullscreenElement ? document.exitFullscreen() : (ws.requestFullscreen ? ws.requestFullscreen() : null);
+    if (p && p.catch) p.catch(() => {});
+  });
+  document.addEventListener('fullscreenchange', () => {
+    if (el('btn-full')) el('btn-full').textContent = document.fullscreenElement ? 'Exit fullscreen' : 'Fullscreen';
+    setTimeout(draw, 50);
+  });
+  function setStatus(visible, approx) {
+    const item = viewer.world.getItemAt(0);
+    if (stRes) stRes.textContent = item && current && current.mpp ? (current.mpp / displayScale(item)).toFixed(3) + ' µm/px display · ' + current.mpp.toFixed(4) + ' µm/px native' : '';
+    if (stMode) stMode.textContent = mode === 'none' ? 'No model' : mode;
+    if (stCount) stCount.textContent = mode === 'none' ? '' : (approx ? '≈' : '') + visible.toLocaleString() + ' nuclei in view';
+  }
 
   // ---- Tile-failure notice (OpenSeadragon 4.1.1 viewer events 'tile-load-failed' / 'tile-loaded').
   // Shown only after repeated failures within a short window with no tile loaded in between, or when a
@@ -163,7 +187,7 @@
     if (ix.format !== 'nuclei-chunks/v2-routing') { rtCount.textContent = 'Routing data not available for this slide.'; return; }
     const k = Math.round(budget * ix.eligible_tiles), h = ix.changed_rank_hist_permille;
     let ch = 0; for (let i = 0; i < Math.min(1000, Math.round(budget * 1000)); i++) ch += h[i];
-    rtCount.textContent = 'Cls applied to ' + k.toLocaleString() + ' / ' + ix.eligible_tiles.toLocaleString() + ' patches · nuclei whose class changes vs Eff: ' + ch.toLocaleString() + ' / ' + ix.n_nuclei.toLocaleString();
+    rtCount.textContent = k.toLocaleString() + ' / ' + ix.eligible_tiles.toLocaleString() + ' patches routed  ·  ' + ch.toLocaleString() + ' / ' + ix.n_nuclei.toLocaleString() + ' nuclei changed class';
   }
 
   // native level-0 px -> displayed-image px, from slide metadata (native_size) and the opened DZI size.
@@ -207,7 +231,7 @@
       gt.regions.forEach(r => r.points.forEach((p, i) => { const v = V(p[0], p[1]); i ? ctx.lineTo(v[0], v[1]) : ctx.moveTo(v[0], v[1]); }));
       ctx.closePath(); ctx.globalAlpha = 1; ctx.lineWidth = 2.5; ctx.strokeStyle = 'rgba(0, 229, 255, 0.95)'; ctx.stroke();
     };
-    if (mode === 'none') { strokeGT(); return; }
+    if (mode === 'none') { strokeGT(); setStatus(0, false); return; }
     const ix = indexes[current.id + '/' + mode];
     if (!ix) { strokeGT(); return; }
     const cut = routeCut(ix);
@@ -224,6 +248,7 @@
     const stride = level === 'coarse' ? Math.max(1, Math.ceil(total / (w * h / 10))) : 1;
     const contours = level === 'fine' && scale >= 0.25;
     const r = level === 'coarse' ? 0.9 : Math.max(1, Math.min(3, 6 * scale));
+    let shown = 0;
     ctx.globalAlpha = contours ? 1 : 0.7;
     for (let k = 0; k < 5; k++) {
       ctx.fillStyle = TYPE_COLORS[k]; ctx.strokeStyle = TYPE_COLORS[k]; ctx.lineWidth = 1.5;
@@ -244,6 +269,10 @@
     }
     ctx.globalAlpha = 1;
     strokeGT();
+    // exact count of nuclei whose centre is in view (loaded chunks; independent of display thinning)
+    const vx0 = tl.x, vy0 = tl.y, vx1 = br.x, vy1 = br.y;
+    list.forEach(ch => { for (let i = 0; i < ch.n; i++) { const x = ch.x[i], y = ch.y[i]; if (x >= vx0 && x <= vx1 && y >= vy0 && y <= vy1) shown++; } });
+    setStatus(shown, false);
   }
   viewer.addHandler('update-viewport', draw);
   window.addEventListener('resize', draw);

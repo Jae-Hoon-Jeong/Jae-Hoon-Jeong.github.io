@@ -10,11 +10,14 @@ sitemap: false
   <title>Project page (draft)</title>
   <meta name="description" content="Project page scaffold. Placeholder content only.">
   <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#top">Project <span class="badge">draft</span></a>
+    <a class="brand" href="#top">SENA <span class="badge">draft</span></a>
     <nav class="nav">
       <a href="#demo">Demo</a>
       <a href="#routing">Routing</a>
@@ -26,7 +29,7 @@ sitemap: false
 
   <main id="top">
     <section class="hero">
-      <p class="eyebrow">DRAFT</p>
+      <p class="eyebrow">Project page · draft</p>
       <h1>[Title withheld until publication]</h1>
       <p class="lead">Separating representation, information and computation in joint nuclei analysis</p>
       <div class="author-list" aria-label="Authors">
@@ -39,70 +42,88 @@ sitemap: false
       </div>
       <p class="author-note"><sup>*</sup>Corresponding author</p>
       <div class="cta">
-        <a class="btn disabled" aria-disabled="true">Paper (coming soon)</a>
-        <a class="btn disabled" aria-disabled="true">Code (coming soon)</a>
-        <a class="btn disabled" aria-disabled="true">Models (coming soon)</a>
+        <a class="btn disabled" aria-disabled="true">Paper <span>soon</span></a>
+        <a class="btn disabled" aria-disabled="true">Code <span>soon</span></a>
+        <a class="btn disabled" aria-disabled="true">Models <span>soon</span></a>
       </div>
-      <p class="hero-caption">One model detects, classifies and outlines every nucleus in a whole-slide image. Semantic capacity (what each nucleus is) and spatial capacity (its exact shape) can each be added on demand, giving four modes: Eff, Cls, Seg and Full. Explore them on real PAIP2020 slides below, and route semantic capacity to selected patches only.</p>
-      <p class="notice">Not for clinical or diagnostic use.</p>
+      <p class="hero-caption">One model detects, types and outlines every nucleus in a whole-slide image; semantic and spatial capacity are added on demand (Eff, Cls, Seg, Full).</p>
     </section>
 
-
-
-
-
-
-    <section id="demo" class="card demo">
-      <h2>Explore nuclei analysis at whole-slide scale</h2>
-      <p class="note">Interactive viewer on PAIP2020 colorectal cancer slides. Choose a model mode to overlay its nucleus predictions; zoom in to see contours.</p>
-      <div class="viewer-controls">
-        <label class="ctl">Slide
-          <select id="slide-select" aria-label="Slide"></select>
-        </label>
-        <fieldset class="layers">
-          <legend>Reference</legend>
-          <label><input type="checkbox" id="layer-raw" checked> Raw H&amp;E</label>
-          <label class="off"><input type="checkbox" id="layer-gt" checked disabled> Whole Tumor Area <span class="tag-gt">pathologist GT</span></label>
-          <label class="off"><input type="checkbox" id="layer-pred" disabled> Predicted tumor area <span class="tag-pred">model</span></label>
-        </fieldset>
-        <fieldset class="layers model-modes">
-          <legend>Model</legend>
-          <label><input type="radio" name="model-mode" value="none" checked> None</label>
-          <label class="off"><input type="radio" name="model-mode" value="Eff" disabled> Eff</label>
-          <label class="off"><input type="radio" name="model-mode" value="Cls" disabled> Cls</label>
-          <label class="off"><input type="radio" name="model-mode" value="Seg" disabled> Seg</label>
-          <label class="off"><input type="radio" name="model-mode" value="Full" disabled> Full</label>
-        </fieldset>
+    <section id="demo" class="section demo">
+      <div class="section-head">
+        <h2>Explore nuclei analysis at whole-slide scale</h2>
+        <p>PAIP2020 colorectal cancer slides. Choose a model mode to overlay its nucleus predictions; zoom in to see contours.</p>
       </div>
-      <p id="mode-desc" class="mode-desc" aria-live="polite"></p>
-      <div id="osd" class="osd" aria-label="Whole-slide viewer"></div>
-      <div class="viewer-foot">
-        <ul class="legend" aria-label="Layers and nucleus types">
-          <li><span class="sw sw-gt"></span>Whole Tumor Area (GT)</li>
-          <li><span class="sw sw-pred"></span>Predicted tumor area</li>
-          <li><span class="sw" style="--c:#e53935"></span>Neoplastic</li>
-          <li><span class="sw" style="--c:#fb8c00"></span>Epithelial</li>
-          <li><span class="sw" style="--c:#43a047"></span>Inflammatory</li>
-          <li><span class="sw" style="--c:#1e88e5"></span>Connective</li>
-          <li><span class="sw" style="--c:#fdd835"></span>Dead</li>
-        </ul>
-        <div id="info" class="info" aria-live="polite">Click the slide to inspect a location.</div>
-      </div>
-      <p id="attribution" class="note attribution"></p>
 
-      <div id="routing" class="routing-panel">
-        <h3>Interactive semantic routing <span class="sub">Spend semantic capacity only where it matters.</span></h3>
-        <label for="route-input" class="slider-label">Patches routed to Cls: <output id="route-out">0%</output></label>
-        <input id="route-input" type="range" min="0" max="100" step="1" value="0">
-        <p id="route-count" class="conf-count" aria-live="polite"></p>
-        <p class="note">Move the slider and watch the viewer above: patches are upgraded from Eff to Cls in the order of a label-free router (prediction entropy). Nuclei and contours stay as in Eff; only the class colour changes in routed patches. 0% = Eff, 100% = Cls on every patch.</p>
+      <div class="ws" id="workstation">
+        <div class="ws-toolbar">
+          <label class="tb-field"><span>Slide</span><select id="slide-select" aria-label="Slide"></select></label>
+          <div class="seg model-modes" role="radiogroup" aria-label="Model">
+            <span class="tb-label">Model</span>
+            <label><input type="radio" name="model-mode" value="none" checked><span>None</span></label>
+            <label class="off"><input type="radio" name="model-mode" value="Eff" disabled><span>Eff</span></label>
+            <label class="off"><input type="radio" name="model-mode" value="Cls" disabled><span>Cls</span></label>
+            <label class="off"><input type="radio" name="model-mode" value="Seg" disabled><span>Seg</span></label>
+            <label class="off"><input type="radio" name="model-mode" value="Full" disabled><span>Full</span></label>
+          </div>
+          <div class="tb-actions">
+            <button type="button" id="btn-fit" title="Fit the whole slide">Fit</button>
+            <button type="button" id="btn-1to1" title="One display pixel per image pixel">1:1</button>
+            <button type="button" id="btn-full" title="Fullscreen">Fullscreen</button>
+          </div>
+        </div>
+        <div class="ws-info"><span id="mode-desc" aria-live="polite"></span></div>
+        <div class="ws-body">
+          <aside class="ws-side" aria-label="Layers">
+            <details class="side-group" open>
+              <summary>Layers</summary>
+              <label><input type="checkbox" id="layer-raw" checked> Raw H&amp;E</label>
+              <label class="off"><input type="checkbox" id="layer-gt" checked disabled> <span class="sw sw-gt"></span>Whole Tumor Area <em class="tag">GT</em></label>
+              <label class="off"><input type="checkbox" id="layer-pred" disabled> <span class="sw sw-pred"></span>Predicted tumor area <em class="tag">Model</em></label>
+            </details>
+            <details class="side-group" open>
+              <summary>Nuclei</summary>
+              <ul class="legend" aria-label="Nucleus types">
+                <li><span class="sw" style="--c:#e53935"></span>Neoplastic</li>
+                <li><span class="sw" style="--c:#fb8c00"></span>Epithelial</li>
+                <li><span class="sw" style="--c:#43a047"></span>Inflammatory</li>
+                <li><span class="sw" style="--c:#1e88e5"></span>Connective</li>
+                <li><span class="sw" style="--c:#fdd835"></span>Dead</li>
+              </ul>
+            </details>
+          </aside>
+          <div id="osd" class="osd" aria-label="Whole-slide viewer"></div>
+        </div>
+        <div class="ws-status" aria-live="polite">
+          <span id="info" class="info">Click the slide to inspect a location.</span>
+          <span id="st-res"></span>
+          <span id="st-mode"></span>
+          <span id="st-count"></span>
+        </div>
       </div>
+
+      <div id="routing" class="ws-panel">
+        <div class="rt-head">
+          <h3>Semantic routing budget</h3>
+          <output id="route-out" for="route-input">0%</output>
+        </div>
+        <div class="rt-slider">
+          <span>Eff</span>
+          <input id="route-input" type="range" min="0" max="100" step="1" value="0" aria-label="Share of patches routed to Cls">
+          <span>Cls</span>
+        </div>
+        <p id="route-count" class="rt-count" aria-live="polite"></p>
+        <p class="rt-note">Routes the top-ranked patches (label-free entropy router) to the Cls path. Geometry stays fixed; only nucleus class changes.</p>
+      </div>
+
+      <p id="attribution" class="attribution"></p>
+      <p class="disclaimer">Not for clinical or diagnostic use.</p>
     </section>
 
-
-
-    <section id="compare" class="card">
-      <h2>Four modes, two independent capacities</h2>
+    <section id="compare" class="section">
+      <div class="section-head">
+        <h2>Four modes, two independent capacities</h2>
+      </div>
       <div class="mode-matrix" role="table" aria-label="Modes by capacity">
         <div class="mm-corner" role="columnheader"></div>
         <div class="mm-col" role="columnheader">Spatial: base</div>
@@ -125,35 +146,35 @@ sitemap: false
           </tbody>
         </table>
       </div>
-      <p class="note">Accuracy and cost figures will be added with the paper.</p>
+      <p class="muted">Accuracy and cost figures will be added with the paper.</p>
     </section>
 
-    <section id="method" class="card">
-      <h2>Why does this work?</h2>
-      <div class="grid3">
-        <div class="tile"><h3>One representation</h3><p>The tissue image is encoded once; every output reads from the same shared representation.</p></div>
-        <div class="tile"><h3>Semantics on demand</h3><p>Nucleus type benefits from richer semantic features. They are added at inference, by the same trained model, only where requested.</p></div>
-        <div class="tile"><h3>Shape on demand</h3><p>Exact boundaries come from a separate local refiner, added only when contours matter.</p></div>
+    <section id="method" class="section">
+      <div class="section-head"><h2>Why does this work?</h2></div>
+      <div class="cols3">
+        <div><h3>One representation</h3><p>The tissue image is encoded once; every output reads from the same shared representation.</p></div>
+        <div><h3>Semantics on demand</h3><p>Nucleus type benefits from richer semantic features. They are added at inference, by the same trained model, only where requested.</p></div>
+        <div><h3>Shape on demand</h3><p>Exact boundaries come from a separate local refiner, added only when contours matter.</p></div>
       </div>
     </section>
 
-    <section id="results" class="card">
-      <h2>Results &amp; figures</h2>
-      <p class="placeholder">[Figures placeholder]</p>
+    <section id="results" class="section">
+      <div class="section-head"><h2>Results</h2></div>
+      <p class="muted">Quantitative results and figures will be added with the paper.</p>
     </section>
 
-    <section id="code" class="card">
-      <h2>Code &amp; models</h2>
-      <ul>
-        <li class="placeholder">Code: coming soon</li>
-        <li class="placeholder">Models: coming soon</li>
-        <li class="placeholder">[Citation — pending]</li>
-      </ul>
+    <section id="code" class="section">
+      <div class="section-head"><h2>Code &amp; models</h2></div>
+      <dl class="meta">
+        <div><dt>Code</dt><dd>Coming soon</dd></div>
+        <div><dt>Models</dt><dd>Coming soon</dd></div>
+        <div><dt>Citation</dt><dd>Pending</dd></div>
+      </dl>
     </section>
   </main>
 
   <footer class="footer">
-    <p>Draft scaffold</p>
+    <p>Draft · Not for clinical or diagnostic use.</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1.1/build/openseadragon/openseadragon.min.js"></script>
