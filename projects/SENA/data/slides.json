@@ -1,5 +1,5 @@
 {
-  "_comment": "PAIP2020 demo slides. Derived assets (web-display Deep Zoom, Whole Tumor Area GT, nucleus overlays) are hosted in Jae-Hoon-Jeong/projectpage_essets projects/sena_nbe/v2/paip/ (PROVENANCE.md there). Overlay and GT coordinates are native level-0 pixels (native_size); the viewer scales them to the displayed DZI. CMU fallback config: data/slides_cmu.json (?demo=cmu).",
+  "_comment": "PAIP2020 demo slides. Derived assets (web-display Deep Zoom, Whole Tumor Area GT, nucleus overlays) are hosted in Jae-Hoon-Jeong/projectpage_essets projects/sena_nbe/v2/paip/ (PROVENANCE.md there). Overlay and GT coordinates are native level-0 pixels (native_size); the viewer scales them to the displayed DZI.",
   "slides": [
     {
       "id": "training_data_03",

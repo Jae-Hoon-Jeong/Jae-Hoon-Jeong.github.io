@@ -64,8 +64,7 @@
   viewer.addHandler('tile-loaded', () => { loadedSinceOpen++; clearTileFailure(); });
 
   // ---- Slides, reference (GT) layer and chunked nucleus overlays
-  // Config: data/slides.json (PAIP2020 demo); ?demo=cmu loads the earlier CC0 CMU fallback (data/slides_cmu.json).
-  const CONFIG = new URLSearchParams(location.search).get('demo') === 'cmu' ? 'data/slides_cmu.json' : 'data/slides.json';
+  const CONFIG = 'data/slides.json';   // PAIP2020 demo slides
   const MODES = ['Eff', 'Cls', 'Seg', 'Full'];
   let slides = [], current = null, mode = 'none', threshold = 0;
   const cache = new Map();       // url -> parsed chunk | Promise

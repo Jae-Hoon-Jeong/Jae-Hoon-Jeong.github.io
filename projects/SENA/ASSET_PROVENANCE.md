@@ -65,4 +65,4 @@ Notes
   `Jae-Hoon-Jeong/projectpage_essets` `projects/sena_nbe/v2/paip/` with full provenance (original SHA-256, tools,
   parameters, model package hashes) in `projects/sena_nbe/PROVENANCE.md` there.
 - Layers: Raw H&E (web-display Deep Zoom), Whole Tumor Area (pathologist ground truth), nucleus predictions per mode.
-- The CMU slides above remain available as a fallback (`?demo=cmu`).
+- The CMU slides above are no longer used by the page (history only).
