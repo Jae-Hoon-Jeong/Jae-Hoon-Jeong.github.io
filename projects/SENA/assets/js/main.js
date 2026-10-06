@@ -360,3 +360,26 @@
     if (overlayBase(slides[0], 'Eff')) setModelMode('Eff');   // default view: Eff with the routing budget from the slider (100% = Cls on every patch; the Cls tumor-area map is shown)
   });
 })();
+
+// ---- PanNuke benchmark table, generated from data/pannuke_benchmark.json (single source of truth)
+(async function benchTable() {
+  const t = document.getElementById('bench-table'); if (!t) return;
+  const body = t.querySelector('tbody');
+  try {
+    const r = await fetch('data/pannuke_benchmark.json'); if (!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    const fmt = v => (typeof v === 'number' ? v.toFixed(2) : '–');
+    const rows = d.rows.filter(x => x.group === 'SENA').concat(d.rows.filter(x => x.group !== 'SENA'));
+    body.innerHTML = '';
+    rows.forEach((x, i) => {
+      const tr = document.createElement('tr');
+      if (x.group === 'SENA') tr.className = 'sena';
+      if (i > 0 && x.group !== rows[i - 1].group) tr.classList.add('grp-start');
+      const name = document.createElement('td'); name.textContent = x.method;
+      if (x.group !== 'SENA') { const c = document.createElement('div'); c.className = 'cfg'; c.textContent = x.group === 'SENA' ? '' : (x.method === 'PromptNucSeg SAM-H' ? 'official weights per split' : 'our per-split reproduction'); name.appendChild(c); }
+      tr.appendChild(name);
+      ['Fd', 'Acc_type', 'mPQ', 'bPQ'].forEach(k => { const td = document.createElement('td'); td.className = 'num'; td.textContent = fmt(x[k]); tr.appendChild(td); });
+      body.appendChild(tr);
+    });
+  } catch (e) { body.innerHTML = '<tr><td colspan="5" class="muted">Benchmark data could not be loaded.</td></tr>'; }
+})();

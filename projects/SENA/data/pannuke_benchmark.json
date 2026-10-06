@@ -1,0 +1,345 @@
+{
+ "title": "PanNuke quantitative evaluation",
+ "updated": "2026-10-07",
+ "protocol": "Three split-specific training configurations (133, 233, 311) evaluated on two official PanNuke test folds (Fold 3, Fold 3, Fold 1); values are equal-weight means over the three configurations.",
+ "metrics": {
+  "Fd": "Detection F1, HoVer-Net pairing (Hungarian on centroids, radius 12 px); identical code for every row (directional_errors.py / analyze_official.py, same definitions)",
+  "Acc_type": "Type accuracy over paired nuclei (HoVer-Net definition, same pairing)",
+  "mPQ": "Multi-class PQ, official PanNuke organ-averaged definition (PanNuke-metrics c00014d), parity_score_nbe.py",
+  "bPQ": "Binary PQ, official PanNuke organ-averaged definition, parity_score_nbe.py"
+ },
+ "scorer": {
+  "parity_score_nbe.py_md5": "28801ded\u2026",
+  "directional_errors.py_sha256": "ece51d65b458eac8\u2026",
+  "gt": "official PanNuke masks.npy"
+ },
+ "rule": "same column = same metric definition + same scorer; no composite quality\u2013efficiency score",
+ "rows": [
+  {
+   "method": "SENA Eff",
+   "group": "SENA",
+   "configuration": "clean split-specific package: final EMA e179 + fixed-final refiner e39",
+   "checkpoint": "NAS clean_packages f133/f233/f311 (manifests 1f2d38c5\u2026, 23ac9d51\u2026, 33aa0a93\u2026)",
+   "provenance_status": "CANONICAL / VERIFIED-CLEAN (official confirmatory, Result Gate PASS)",
+   "per_configuration": [
+    {
+     "config": "133",
+     "test_fold": 3,
+     "Fd": 83.66,
+     "Acc_type": 86.05,
+     "mPQ": 49.32,
+     "bPQ": 67.69
+    },
+    {
+     "config": "233",
+     "test_fold": 3,
+     "Fd": 83.75,
+     "Acc_type": 85.7,
+     "mPQ": 49.21,
+     "bPQ": 67.67
+    },
+    {
+     "config": "311",
+     "test_fold": 1,
+     "Fd": 83.98,
+     "Acc_type": 85.61,
+     "mPQ": 50.6,
+     "bPQ": 68.26
+    }
+   ],
+   "Fd": 83.8,
+   "Acc_type": 85.78,
+   "mPQ": 49.71,
+   "bPQ": 67.87,
+   "source": "clean official confirmatory evaluation 2026-10-06 (extension/clean_split/official_results)"
+  },
+  {
+   "method": "SENA Cls",
+   "group": "SENA",
+   "configuration": "clean split-specific package: final EMA e179 + fixed-final refiner e39",
+   "checkpoint": "NAS clean_packages f133/f233/f311 (manifests 1f2d38c5\u2026, 23ac9d51\u2026, 33aa0a93\u2026)",
+   "provenance_status": "CANONICAL / VERIFIED-CLEAN (official confirmatory, Result Gate PASS)",
+   "per_configuration": [
+    {
+     "config": "133",
+     "test_fold": 3,
+     "Fd": 83.66,
+     "Acc_type": 86.52,
+     "mPQ": 50.02,
+     "bPQ": 67.69
+    },
+    {
+     "config": "233",
+     "test_fold": 3,
+     "Fd": 83.75,
+     "Acc_type": 86.27,
+     "mPQ": 49.92,
+     "bPQ": 67.67
+    },
+    {
+     "config": "311",
+     "test_fold": 1,
+     "Fd": 83.98,
+     "Acc_type": 86.15,
+     "mPQ": 51.21,
+     "bPQ": 68.25
+    }
+   ],
+   "Fd": 83.8,
+   "Acc_type": 86.31,
+   "mPQ": 50.38,
+   "bPQ": 67.87,
+   "source": "clean official confirmatory evaluation 2026-10-06 (extension/clean_split/official_results)"
+  },
+  {
+   "method": "SENA Seg",
+   "group": "SENA",
+   "configuration": "clean split-specific package: final EMA e179 + fixed-final refiner e39",
+   "checkpoint": "NAS clean_packages f133/f233/f311 (manifests 1f2d38c5\u2026, 23ac9d51\u2026, 33aa0a93\u2026)",
+   "provenance_status": "CANONICAL / VERIFIED-CLEAN (official confirmatory, Result Gate PASS)",
+   "per_configuration": [
+    {
+     "config": "133",
+     "test_fold": 3,
+     "Fd": 83.66,
+     "Acc_type": 86.05,
+     "mPQ": 51.31,
+     "bPQ": 70.41
+    },
+    {
+     "config": "233",
+     "test_fold": 3,
+     "Fd": 83.75,
+     "Acc_type": 85.7,
+     "mPQ": 51.18,
+     "bPQ": 70.37
+    },
+    {
+     "config": "311",
+     "test_fold": 1,
+     "Fd": 83.98,
+     "Acc_type": 85.61,
+     "mPQ": 52.63,
+     "bPQ": 70.97
+    }
+   ],
+   "Fd": 83.8,
+   "Acc_type": 85.78,
+   "mPQ": 51.71,
+   "bPQ": 70.58,
+   "source": "clean official confirmatory evaluation 2026-10-06 (extension/clean_split/official_results)"
+  },
+  {
+   "method": "SENA Full",
+   "group": "SENA",
+   "configuration": "clean split-specific package: final EMA e179 + fixed-final refiner e39",
+   "checkpoint": "NAS clean_packages f133/f233/f311 (manifests 1f2d38c5\u2026, 23ac9d51\u2026, 33aa0a93\u2026)",
+   "provenance_status": "CANONICAL / VERIFIED-CLEAN (official confirmatory, Result Gate PASS)",
+   "per_configuration": [
+    {
+     "config": "133",
+     "test_fold": 3,
+     "Fd": 83.66,
+     "Acc_type": 86.52,
+     "mPQ": 52.07,
+     "bPQ": 70.41
+    },
+    {
+     "config": "233",
+     "test_fold": 3,
+     "Fd": 83.75,
+     "Acc_type": 86.27,
+     "mPQ": 51.93,
+     "bPQ": 70.37
+    },
+    {
+     "config": "311",
+     "test_fold": 1,
+     "Fd": 83.98,
+     "Acc_type": 86.15,
+     "mPQ": 53.31,
+     "bPQ": 70.96
+    }
+   ],
+   "Fd": 83.8,
+   "Acc_type": 86.31,
+   "mPQ": 52.44,
+   "bPQ": 70.58,
+   "source": "clean official confirmatory evaluation 2026-10-06 (extension/clean_split/official_results)"
+  },
+  {
+   "method": "PromptNucSeg SAM-H",
+   "group": "baseline",
+   "configuration": "official released prompter + SAM-H segmentor per split (123/213/321)",
+   "checkpoint": "official per-split release weights (byte match to the authors' download not re-verified)",
+   "provenance_status": "canonical rescoring of stored predictions",
+   "note": "Final instance maps of the authors' two-stage pipeline.",
+   "per_configuration": [
+    {
+     "config": "133",
+     "test_fold": 3,
+     "Fd": 83.8,
+     "Acc_type": 86.67,
+     "mPQ": 50.85,
+     "bPQ": 69.29
+    },
+    {
+     "config": "233",
+     "test_fold": 3,
+     "Fd": 83.67,
+     "Acc_type": 86.07,
+     "mPQ": 50.83,
+     "bPQ": 69.16
+    },
+    {
+     "config": "311",
+     "test_fold": 1,
+     "Fd": 84.25,
+     "Acc_type": 86.07,
+     "mPQ": 52.02,
+     "bPQ": 69.27
+    }
+   ],
+   "Fd": 83.91,
+   "Acc_type": 86.27,
+   "mPQ": 51.23,
+   "bPQ": 69.24,
+   "source": "our canonical rescoring of stored prediction dumps (50024 ~/nbe_parity/dumps)"
+  },
+  {
+   "method": "NuHTC",
+   "group": "baseline",
+   "configuration": "our per-split reproduction with the authors' code (one training fold per split; epoch selected on the validation fold)",
+   "checkpoint": "our training runs (50026 ~/nuhtc_repro)",
+   "provenance_status": "canonical rescoring of stored predictions",
+   "note": "Our reproduction; the original authors train on training + validation folds.",
+   "per_configuration": [
+    {
+     "config": "133",
+     "test_fold": 3,
+     "Fd": 82.74,
+     "Acc_type": 86.43,
+     "mPQ": 50.2,
+     "bPQ": 69.49
+    },
+    {
+     "config": "233",
+     "test_fold": 3,
+     "Fd": 82.69,
+     "Acc_type": 86.17,
+     "mPQ": 50.39,
+     "bPQ": 69.66
+    },
+    {
+     "config": "311",
+     "test_fold": 1,
+     "Fd": 82.96,
+     "Acc_type": 86.43,
+     "mPQ": 51.37,
+     "bPQ": 69.4
+    }
+   ],
+   "Fd": 82.8,
+   "Acc_type": 86.35,
+   "mPQ": 50.65,
+   "bPQ": 69.52,
+   "source": "our canonical rescoring of stored prediction dumps (50024 ~/nbe_parity/dumps)"
+  },
+  {
+   "method": "CellViT-SAM-H",
+   "group": "baseline",
+   "configuration": "our per-split retraining with the official code (latest checkpoint)",
+   "checkpoint": "our training runs (50026 ~/CellViT_official/results)",
+   "provenance_status": "canonical rescoring of stored predictions",
+   "note": "Our retraining scores below the published CellViT-SAM-H result.",
+   "per_configuration": [
+    {
+     "config": "133",
+     "test_fold": 3,
+     "Fd": 79.42,
+     "Acc_type": 81.93,
+     "mPQ": 43.16,
+     "bPQ": 62.35
+    },
+    {
+     "config": "233",
+     "test_fold": 3,
+     "Fd": 79.22,
+     "Acc_type": 80.99,
+     "mPQ": 42.56,
+     "bPQ": 61.91
+    },
+    {
+     "config": "311",
+     "test_fold": 1,
+     "Fd": 79.38,
+     "Acc_type": 82.11,
+     "mPQ": 45.14,
+     "bPQ": 62.89
+    }
+   ],
+   "Fd": 79.34,
+   "Acc_type": 81.68,
+   "mPQ": 43.62,
+   "bPQ": 62.38,
+   "source": "our canonical rescoring of stored prediction dumps (50024 ~/nbe_parity/dumps)"
+  }
+ ],
+ "excluded": [
+  {
+   "method": "HoVer-Net fast (official PanNuke checkpoint)",
+   "reason": "training folds of the official checkpoint are undocumented; overlap with the evaluated test folds cannot be excluded \u2014 held pending decision",
+   "would_be": {
+    "method": "HoVer-Net fast",
+    "configuration": "official checkpoint",
+    "checkpoint": "official",
+    "provenance_status": "held",
+    "note": "",
+    "per_configuration": [
+     {
+      "config": "133",
+      "test_fold": 3,
+      "Fd": 80.36,
+      "Acc_type": 78.39,
+      "mPQ": 45.42,
+      "bPQ": 65.84
+     },
+     {
+      "config": "233",
+      "test_fold": 3,
+      "Fd": 80.36,
+      "Acc_type": 78.39,
+      "mPQ": 45.42,
+      "bPQ": 65.84
+     },
+     {
+      "config": "311",
+      "test_fold": 1,
+      "Fd": 80.82,
+      "Acc_type": 79.97,
+      "mPQ": 47.63,
+      "bPQ": 66.31
+     }
+    ],
+    "Fd": 80.51,
+    "Acc_type": 78.92,
+    "mPQ": 46.16,
+    "bPQ": 66.0,
+    "source": "our canonical rescoring of stored prediction dumps (50024 ~/nbe_parity/dumps)"
+   }
+  },
+  {
+   "method": "NuLite-T / NuLite-H (official)",
+   "reason": "trained on the whole PanNuke dataset (test folds included)"
+  },
+  {
+   "method": "CellViT-SAM-H public x40",
+   "reason": "trained on 90% of all folds (test folds included); no PanNuke dump"
+  },
+  {
+   "method": "literature-reported rows from earlier ICLR/MedIA tables",
+   "reason": "scorer/metric definition not verifiable; no predictions"
+  }
+ ],
+ "history": "Earlier ICLR/MedIA LiNA numbers (Det/Cls greedy F1, image-averaged mPQ) and the legacy test-selected Table 1 (mPQ 49.90/50.93/52.05/53.13) are historical and not shown."
+}

@@ -166,3 +166,8 @@ input[type=range] { width: 100%; accent-color: var(--ink); height: 28px; }
 .ws:fullscreen .osd { height: 100%; min-height: 0; }
 .btn .ic { width: 16px; height: 16px; flex: none; }
 .side-note { margin: .2rem 0 0 1.5rem; font-size: .74rem; line-height: 1.35; color: var(--muted); }
+.bench-table tbody tr.grp-start td { border-top: 1px solid var(--fg); }
+.bench-table tbody tr.sena td { background: color-mix(in srgb, var(--fg) 3%, transparent); }
+.bench-table .cfg { color: var(--muted); font-weight: 400; font-size: .78rem; }
+.bench-table abbr { text-decoration: underline dotted; cursor: help; }
+.table-note { font-size: .78rem; color: var(--muted); line-height: 1.45; margin-top: .6rem; }
