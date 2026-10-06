@@ -361,25 +361,48 @@
   });
 })();
 
-// ---- PanNuke benchmark table, generated from data/pannuke_benchmark.json (single source of truth)
+// ---- PanNuke benchmark (tabs), generated from data/pannuke_benchmark.json (single source of truth)
 (async function benchTable() {
   const t = document.getElementById('bench-table'); if (!t) return;
-  const body = t.querySelector('tbody');
-  try {
-    const r = await fetch('data/pannuke_benchmark.json'); if (!r.ok) throw new Error(r.status);
-    const d = await r.json();
-    const fmt = v => (typeof v === 'number' ? v.toFixed(2) : '–');
+  const head = t.querySelector('thead'), body = t.querySelector('tbody');
+  const litBox = document.getElementById('bench-lit'), lit = document.getElementById('bench-lit-table');
+  const note = document.getElementById('bench-metric'), tog = document.getElementById('bench-organ-toggle');
+  const C = ['Neoplastic', 'Epithelial', 'Inflammatory', 'Connective', 'Dead'], A = ['Neo', 'Epi', 'Infl', 'Conn', 'Dead'];
+  const VIEWS = {
+    overview: { cols: [['Fd', 'Detection F<sub>d</sub>'], ['Acc_type', 'Classification Acc<sub>type</sub>'], ['mPQ', 'mPQ'], ['bPQ', 'bPQ']], key: 'overview',
+      note: 'F<sub>d</sub> and Acc<sub>type</sub>: unmodified HoVer-Net nuclei-type evaluator (commit 67e2ce5, 12-px centroid pairing). mPQ, bPQ: official PanNuke organ-averaged panoptic quality.' },
+    detcls: { cols: [['Fd', 'F<sub>d</sub>']].concat(C.map((c, i) => [c, A[i] + ' F<sub>c</sub>'])).concat([['macro', 'macro F<sub>c</sub>']]), key: 'detcls', lit: 'detcls',
+      note: 'Unmodified HoVer-Net nuclei-type evaluator (commit 67e2ce5): F<sub>d</sub>, detection F1; F<sub>c</sub>, type-specific F1; macro, unweighted mean of the five types. Seg = Eff and Full = Cls for detection and classification by construction.' },
+    pq: { cols: C.map((c, i) => [c, A[i] + ' PQ']).concat([['avgPQ', 'avgPQ']]), key: 'pq', lit: 'pq',
+      note: 'PQ (IoU &gt; 0.5) per nucleus type, averaged over test images containing the type; avgPQ, mean of the five types. Not the organ-averaged mPQ.' },
+    organ: { key: 'organ', note: 'Official PanNuke organ-wise panoptic quality for each of the 19 tissues (equal-weight mean of the three configurations).' }
+  };
+  let d, view = 'overview', metric = 'bPQ';
+  const fmt = v => (typeof v === 'number' ? v.toFixed(2) : '–');
+  const th = (h, cls) => `<th${cls ? ' class="' + cls + '"' : ''}>${h}</th>`;
+  function nameCell(x) { return `<td>${x.method}${x.group !== 'SENA' && x.sub ? '<div class="cfg">' + x.sub + '</div>' : ''}</td>`; }
+  function render() {
+    const V = VIEWS[view]; note.innerHTML = V.note; tog.hidden = view !== 'organ';
     const rows = d.rows.filter(x => x.group === 'SENA').concat(d.rows.filter(x => x.group !== 'SENA'));
-    body.innerHTML = '';
-    rows.forEach((x, i) => {
-      const tr = document.createElement('tr');
-      if (x.group === 'SENA') tr.className = 'sena';
-      if (i > 0 && x.group !== rows[i - 1].group) tr.classList.add('grp-start');
-      const name = document.createElement('td'); name.textContent = x.method;
-      if (x.group !== 'SENA') { const c = document.createElement('div'); c.className = 'cfg'; c.textContent = x.group === 'SENA' ? '' : (x.method === 'PromptNucSeg SAM-H' ? 'official weights per split' : 'our per-split reproduction'); name.appendChild(c); }
-      tr.appendChild(name);
-      ['Fd', 'Acc_type', 'mPQ', 'bPQ'].forEach(k => { const td = document.createElement('td'); td.className = 'num'; td.textContent = fmt(x[k]); tr.appendChild(td); });
-      body.appendChild(tr);
-    });
-  } catch (e) { body.innerHTML = '<tr><td colspan="5" class="muted">Benchmark data could not be loaded.</td></tr>'; }
+    if (view === 'organ') {
+      const organs = Object.keys(rows[0].organ[metric]);
+      head.innerHTML = '<tr>' + th('Tissue') + rows.map(x => th(x.method, 'num')).join('') + '</tr>';
+      body.innerHTML = organs.map(o => '<tr><td>' + o.replace('_', ' ').replace('HeadNeck', 'Head &amp; neck') + '</td>' + rows.map(x => `<td class="num">${fmt(x.organ[metric][o])}</td>`).join('') + '</tr>').join('')
+        + '<tr class="grp-start"><td>Average</td>' + rows.map(x => `<td class="num">${fmt(x.overview[metric])}</td>`).join('') + '</tr>';
+    } else {
+      head.innerHTML = '<tr>' + th('Method') + V.cols.map(c => th(c[1] + ' ↑', 'num')).join('') + '</tr>';
+      body.innerHTML = rows.map((x, i) => `<tr class="${x.group === 'SENA' ? 'sena' : ''}${i > 0 && x.group !== rows[i - 1].group ? ' grp-start' : ''}">` + nameCell(x) + V.cols.map(c => `<td class="num">${fmt(x[V.key][c[0]])}</td>`).join('') + '</tr>').join('');
+    }
+    if (V.lit) {
+      litBox.hidden = false; const L = d.literature[V.lit];
+      lit.querySelector('thead').innerHTML = '<tr>' + th('Method') + V.cols.map(c => th(c[1], 'num')).join('') + '</tr>';
+      lit.querySelector('tbody').innerHTML = L.map(x => '<tr><td>' + x.method + '</td>' + x.values.map(v => `<td class="num">${v}</td>`).join('') + '</tr>').join('');
+    } else litBox.hidden = true;
+  }
+  document.querySelectorAll('.bench-tabs [role=tab]').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.bench-tabs [role=tab]').forEach(x => x.setAttribute('aria-selected', String(x === b))); view = b.dataset.tab; render();
+  }));
+  document.querySelectorAll('input[name=organ-metric]').forEach(r => r.addEventListener('change', () => { if (r.checked) { metric = r.value; render(); } }));
+  try { const r = await fetch('data/pannuke_benchmark.json'); if (!r.ok) throw new Error(r.status); d = await r.json(); render(); }
+  catch (e) { body.innerHTML = '<tr><td class="muted">Benchmark data could not be loaded.</td></tr>'; }
 })();

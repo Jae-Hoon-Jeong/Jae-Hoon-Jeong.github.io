@@ -171,3 +171,9 @@ input[type=range] { width: 100%; accent-color: var(--ink); height: 28px; }
 .bench-table .cfg { color: var(--muted); font-weight: 400; font-size: .78rem; }
 .bench-table abbr { text-decoration: underline dotted; cursor: help; }
 .table-note { font-size: .78rem; color: var(--muted); line-height: 1.45; margin-top: .6rem; }
+.bench-tabs { display: flex; flex-wrap: wrap; gap: .3rem; margin: .4rem 0 .6rem; }
+.bench-tabs [role=tab] { font: 500 .8rem var(--sans); padding: .3rem .7rem; border: 1px solid var(--line2); background: var(--surface); color: var(--fg2); border-radius: 999px; cursor: pointer; }
+.bench-tabs [role=tab][aria-selected=true] { background: var(--fg); color: var(--surface); border-color: var(--fg); }
+.bench-organ-toggle { font-size: .8rem; color: var(--fg2); margin-bottom: .4rem; display: flex; gap: .9rem; }
+.bench-lit-head { font-size: .8rem; color: var(--fg2); margin: 1.1rem 0 .2rem; }
+.bench-organ-toggle[hidden], #bench-lit[hidden] { display: none; }

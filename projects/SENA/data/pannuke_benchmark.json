@@ -1,291 +1,839 @@
 {
  "title": "PanNuke quantitative evaluation",
  "updated": "2026-10-07",
- "protocol": "Equal-weight means over three prespecified training configurations (133, 233, 311) spanning two unique official PanNuke test folds (Fold 3, Fold 3, Fold 1); same scorer per column.",
- "metrics": {
-  "Fd": "Detection F1, HoVer-Net pairing (Hungarian on centroids, radius 12 px); identical code for every row (directional_errors.py / analyze_official.py, same definitions)",
-  "Acc_type": "Type accuracy over paired nuclei (HoVer-Net definition, same pairing)",
-  "mPQ": "Multi-class PQ, official PanNuke organ-averaged definition (PanNuke-metrics c00014d), parity_score_nbe.py",
-  "bPQ": "Binary PQ, official PanNuke organ-averaged definition, parity_score_nbe.py"
+ "version": 2,
+ "protocol": "Equal-weight means over three prespecified training configurations (133, 233, 311) spanning two unique official PanNuke test folds (Fold 3, Fold 3, Fold 1); same scorer per column; \u00d7100.",
+ "evaluators": {
+  "Fd_Fc_Acc": "unmodified HoVer-Net compute_stats.run_nuclei_type_stat, vqdang/hover_net commit 67e2ce5 (compute_stats.py sha256 aab4548e\u2026, metrics/stats_utils.py 34dd46f6\u2026), 12-px centroid pairing; adapter_to_mat.py ba7472cf\u2026, run_upstream_hovernet.py 9e598969\u2026 \u2014 same definition as the manuscript Table 1",
+  "per_class_PQ": "parity_score_nbe.py (md5 28801ded\u2026) pq_internal_per_class: PQ per type averaged over images containing the type; avgPQ = mean of 5 types \u2014 manuscript Table 2",
+  "mPQ_bPQ": "official PanNuke organ-averaged definition (PanNuke-metrics), parity_score_nbe.py \u2014 manuscript Table 4",
+  "organ": "official organ-wise bPQ/mPQ, parity_score_nbe score_one grouped by types.npy (organ_pq.py 855e5ec3\u2026) \u2014 manuscript Extended Data Table 1a/1b"
  },
- "scorer": {
-  "parity_score_nbe.py_md5": "28801ded\u2026",
-  "directional_errors.py_sha256": "ece51d65b458eac8\u2026",
-  "gt": "official PanNuke masks.npy"
- },
- "rule": "same column = same metric definition + same scorer; no composite quality\u2013efficiency score",
+ "rule": "same column = same metric definition + same scorer; canonical and literature-reported values are never ranked together; no composite quality\u2013efficiency score",
  "rows": [
   {
    "method": "SENA Eff",
    "group": "SENA",
-   "configuration": "clean split-specific package: final EMA e179 + fixed-final refiner e39",
-   "checkpoint": "NAS clean_packages f133/f233/f311 (manifests 1f2d38c5\u2026, 23ac9d51\u2026, 33aa0a93\u2026)",
-   "provenance_status": "CANONICAL / VERIFIED-CLEAN (official confirmatory, Result Gate PASS)",
-   "per_configuration": [
-    {
-     "config": "133",
-     "test_fold": 3,
-     "Fd": 83.66,
-     "Acc_type": 86.05,
-     "mPQ": 49.32,
-     "bPQ": 67.69
+   "sub": "",
+   "overview": {
+    "Fd": 83.81,
+    "Acc_type": 85.81,
+    "mPQ": 49.71,
+    "bPQ": 67.87
+   },
+   "detcls": {
+    "Fd": 83.81,
+    "Neoplastic": 71.2,
+    "Epithelial": 73.84,
+    "Inflammatory": 58.78,
+    "Connective": 54.22,
+    "Dead": 40.74,
+    "macro": 59.76
+   },
+   "pq": {
+    "Neoplastic": 58.55,
+    "Epithelial": 58.0,
+    "Inflammatory": 42.1,
+    "Connective": 41.6,
+    "Dead": 16.13,
+    "avgPQ": 43.28
+   },
+   "organ": {
+    "bPQ": {
+     "Adrenal_gland": 70.65,
+     "Bile-duct": 67.67,
+     "Bladder": 71.42,
+     "Breast": 67.51,
+     "Cervix": 69.26,
+     "Colon": 59.83,
+     "Esophagus": 67.9,
+     "HeadNeck": 65.41,
+     "Kidney": 70.1,
+     "Liver": 72.64,
+     "Lung": 64.35,
+     "Ovarian": 67.58,
+     "Pancreatic": 66.28,
+     "Prostate": 68.08,
+     "Skin": 65.41,
+     "Stomach": 69.83,
+     "Testis": 69.07,
+     "Thyroid": 70.84,
+     "Uterus": 65.68
     },
-    {
-     "config": "233",
-     "test_fold": 3,
-     "Fd": 83.75,
-     "Acc_type": 85.7,
-     "mPQ": 49.21,
-     "bPQ": 67.67
-    },
-    {
-     "config": "311",
-     "test_fold": 1,
-     "Fd": 83.98,
-     "Acc_type": 85.61,
-     "mPQ": 50.6,
-     "bPQ": 68.26
+    "mPQ": {
+     "Adrenal_gland": 50.22,
+     "Bile-duct": 48.85,
+     "Bladder": 58.94,
+     "Breast": 51.72,
+     "Cervix": 50.27,
+     "Colon": 45.27,
+     "Esophagus": 55.67,
+     "HeadNeck": 49.78,
+     "Kidney": 53.9,
+     "Liver": 52.14,
+     "Lung": 42.67,
+     "Ovarian": 53.66,
+     "Pancreatic": 48.24,
+     "Prostate": 53.43,
+     "Skin": 41.4,
+     "Stomach": 45.25,
+     "Testis": 50.13,
+     "Thyroid": 46.08,
+     "Uterus": 46.93
     }
-   ],
-   "Fd": 83.8,
-   "Acc_type": 85.78,
-   "mPQ": 49.71,
-   "bPQ": 67.87,
-   "source": "clean official confirmatory evaluation 2026-10-06 (extension/clean_split/official_results)"
+   }
   },
   {
    "method": "SENA Cls",
    "group": "SENA",
-   "configuration": "clean split-specific package: final EMA e179 + fixed-final refiner e39",
-   "checkpoint": "NAS clean_packages f133/f233/f311 (manifests 1f2d38c5\u2026, 23ac9d51\u2026, 33aa0a93\u2026)",
-   "provenance_status": "CANONICAL / VERIFIED-CLEAN (official confirmatory, Result Gate PASS)",
-   "per_configuration": [
-    {
-     "config": "133",
-     "test_fold": 3,
-     "Fd": 83.66,
-     "Acc_type": 86.52,
-     "mPQ": 50.02,
-     "bPQ": 67.69
+   "sub": "",
+   "overview": {
+    "Fd": 83.81,
+    "Acc_type": 86.34,
+    "mPQ": 50.38,
+    "bPQ": 67.87
+   },
+   "detcls": {
+    "Fd": 83.81,
+    "Neoplastic": 71.74,
+    "Epithelial": 75.85,
+    "Inflammatory": 59.02,
+    "Connective": 54.86,
+    "Dead": 41.6,
+    "macro": 60.61
+   },
+   "pq": {
+    "Neoplastic": 58.76,
+    "Epithelial": 59.21,
+    "Inflammatory": 42.59,
+    "Connective": 42.03,
+    "Dead": 17.96,
+    "avgPQ": 44.11
+   },
+   "organ": {
+    "bPQ": {
+     "Adrenal_gland": 70.66,
+     "Bile-duct": 67.67,
+     "Bladder": 71.42,
+     "Breast": 67.51,
+     "Cervix": 69.26,
+     "Colon": 59.83,
+     "Esophagus": 67.9,
+     "HeadNeck": 65.42,
+     "Kidney": 70.1,
+     "Liver": 72.64,
+     "Lung": 64.36,
+     "Ovarian": 67.58,
+     "Pancreatic": 66.29,
+     "Prostate": 68.08,
+     "Skin": 65.41,
+     "Stomach": 69.82,
+     "Testis": 69.07,
+     "Thyroid": 70.84,
+     "Uterus": 65.68
     },
-    {
-     "config": "233",
-     "test_fold": 3,
-     "Fd": 83.75,
-     "Acc_type": 86.27,
-     "mPQ": 49.92,
-     "bPQ": 67.67
-    },
-    {
-     "config": "311",
-     "test_fold": 1,
-     "Fd": 83.98,
-     "Acc_type": 86.15,
-     "mPQ": 51.21,
-     "bPQ": 68.25
+    "mPQ": {
+     "Adrenal_gland": 50.7,
+     "Bile-duct": 49.0,
+     "Bladder": 60.19,
+     "Breast": 52.13,
+     "Cervix": 50.78,
+     "Colon": 45.55,
+     "Esophagus": 56.11,
+     "HeadNeck": 50.32,
+     "Kidney": 55.22,
+     "Liver": 52.67,
+     "Lung": 42.98,
+     "Ovarian": 54.58,
+     "Pancreatic": 48.76,
+     "Prostate": 53.67,
+     "Skin": 42.68,
+     "Stomach": 45.71,
+     "Testis": 51.15,
+     "Thyroid": 47.39,
+     "Uterus": 47.73
     }
-   ],
-   "Fd": 83.8,
-   "Acc_type": 86.31,
-   "mPQ": 50.38,
-   "bPQ": 67.87,
-   "source": "clean official confirmatory evaluation 2026-10-06 (extension/clean_split/official_results)"
+   }
   },
   {
    "method": "SENA Seg",
    "group": "SENA",
-   "configuration": "clean split-specific package: final EMA e179 + fixed-final refiner e39",
-   "checkpoint": "NAS clean_packages f133/f233/f311 (manifests 1f2d38c5\u2026, 23ac9d51\u2026, 33aa0a93\u2026)",
-   "provenance_status": "CANONICAL / VERIFIED-CLEAN (official confirmatory, Result Gate PASS)",
-   "per_configuration": [
-    {
-     "config": "133",
-     "test_fold": 3,
-     "Fd": 83.66,
-     "Acc_type": 86.05,
-     "mPQ": 51.31,
-     "bPQ": 70.41
+   "sub": "",
+   "overview": {
+    "Fd": 83.81,
+    "Acc_type": 85.81,
+    "mPQ": 51.71,
+    "bPQ": 70.58
+   },
+   "detcls": {
+    "Fd": 83.81,
+    "Neoplastic": 71.2,
+    "Epithelial": 73.84,
+    "Inflammatory": 58.78,
+    "Connective": 54.22,
+    "Dead": 40.74,
+    "macro": 59.76
+   },
+   "pq": {
+    "Neoplastic": 60.54,
+    "Epithelial": 60.03,
+    "Inflammatory": 43.72,
+    "Connective": 43.57,
+    "Dead": 17.92,
+    "avgPQ": 45.16
+   },
+   "organ": {
+    "bPQ": {
+     "Adrenal_gland": 73.28,
+     "Bile-duct": 70.29,
+     "Bladder": 74.15,
+     "Breast": 69.84,
+     "Cervix": 71.87,
+     "Colon": 62.72,
+     "Esophagus": 70.21,
+     "HeadNeck": 68.34,
+     "Kidney": 72.93,
+     "Liver": 75.46,
+     "Lung": 67.44,
+     "Ovarian": 70.07,
+     "Pancreatic": 69.24,
+     "Prostate": 70.69,
+     "Skin": 68.19,
+     "Stomach": 73.05,
+     "Testis": 71.52,
+     "Thyroid": 72.96,
+     "Uterus": 68.83
     },
-    {
-     "config": "233",
-     "test_fold": 3,
-     "Fd": 83.75,
-     "Acc_type": 85.7,
-     "mPQ": 51.18,
-     "bPQ": 70.37
-    },
-    {
-     "config": "311",
-     "test_fold": 1,
-     "Fd": 83.98,
-     "Acc_type": 85.61,
-     "mPQ": 52.63,
-     "bPQ": 70.97
+    "mPQ": {
+     "Adrenal_gland": 52.08,
+     "Bile-duct": 50.82,
+     "Bladder": 61.24,
+     "Breast": 53.57,
+     "Cervix": 52.08,
+     "Colon": 47.53,
+     "Esophagus": 57.55,
+     "HeadNeck": 52.05,
+     "Kidney": 56.15,
+     "Liver": 54.14,
+     "Lung": 44.54,
+     "Ovarian": 55.69,
+     "Pancreatic": 50.26,
+     "Prostate": 55.67,
+     "Skin": 43.3,
+     "Stomach": 47.37,
+     "Testis": 51.83,
+     "Thyroid": 47.42,
+     "Uterus": 49.13
     }
-   ],
-   "Fd": 83.8,
-   "Acc_type": 85.78,
-   "mPQ": 51.71,
-   "bPQ": 70.58,
-   "source": "clean official confirmatory evaluation 2026-10-06 (extension/clean_split/official_results)"
+   }
   },
   {
    "method": "SENA Full",
    "group": "SENA",
-   "configuration": "clean split-specific package: final EMA e179 + fixed-final refiner e39",
-   "checkpoint": "NAS clean_packages f133/f233/f311 (manifests 1f2d38c5\u2026, 23ac9d51\u2026, 33aa0a93\u2026)",
-   "provenance_status": "CANONICAL / VERIFIED-CLEAN (official confirmatory, Result Gate PASS)",
-   "per_configuration": [
-    {
-     "config": "133",
-     "test_fold": 3,
-     "Fd": 83.66,
-     "Acc_type": 86.52,
-     "mPQ": 52.07,
-     "bPQ": 70.41
+   "sub": "",
+   "overview": {
+    "Fd": 83.81,
+    "Acc_type": 86.34,
+    "mPQ": 52.44,
+    "bPQ": 70.58
+   },
+   "detcls": {
+    "Fd": 83.81,
+    "Neoplastic": 71.74,
+    "Epithelial": 75.85,
+    "Inflammatory": 59.02,
+    "Connective": 54.86,
+    "Dead": 41.6,
+    "macro": 60.61
+   },
+   "pq": {
+    "Neoplastic": 60.77,
+    "Epithelial": 61.31,
+    "Inflammatory": 44.24,
+    "Connective": 44.02,
+    "Dead": 20.07,
+    "avgPQ": 46.08
+   },
+   "organ": {
+    "bPQ": {
+     "Adrenal_gland": 73.28,
+     "Bile-duct": 70.29,
+     "Bladder": 74.15,
+     "Breast": 69.84,
+     "Cervix": 71.87,
+     "Colon": 62.72,
+     "Esophagus": 70.21,
+     "HeadNeck": 68.35,
+     "Kidney": 72.93,
+     "Liver": 75.46,
+     "Lung": 67.45,
+     "Ovarian": 70.07,
+     "Pancreatic": 69.24,
+     "Prostate": 70.69,
+     "Skin": 68.19,
+     "Stomach": 73.03,
+     "Testis": 71.52,
+     "Thyroid": 72.96,
+     "Uterus": 68.82
     },
-    {
-     "config": "233",
-     "test_fold": 3,
-     "Fd": 83.75,
-     "Acc_type": 86.27,
-     "mPQ": 51.93,
-     "bPQ": 70.37
-    },
-    {
-     "config": "311",
-     "test_fold": 1,
-     "Fd": 83.98,
-     "Acc_type": 86.15,
-     "mPQ": 53.31,
-     "bPQ": 70.96
+    "mPQ": {
+     "Adrenal_gland": 52.58,
+     "Bile-duct": 50.97,
+     "Bladder": 62.57,
+     "Breast": 53.98,
+     "Cervix": 52.65,
+     "Colon": 47.85,
+     "Esophagus": 57.99,
+     "HeadNeck": 52.62,
+     "Kidney": 57.57,
+     "Liver": 54.85,
+     "Lung": 44.9,
+     "Ovarian": 56.69,
+     "Pancreatic": 50.84,
+     "Prostate": 55.9,
+     "Skin": 44.65,
+     "Stomach": 47.87,
+     "Testis": 52.93,
+     "Thyroid": 48.81,
+     "Uterus": 50.06
     }
-   ],
-   "Fd": 83.8,
-   "Acc_type": 86.31,
-   "mPQ": 52.44,
-   "bPQ": 70.58,
-   "source": "clean official confirmatory evaluation 2026-10-06 (extension/clean_split/official_results)"
+   }
   },
   {
    "method": "PromptNucSeg SAM-H",
    "group": "baseline",
-   "configuration": "official released prompter + SAM-H segmentor per split (123/213/321)",
-   "checkpoint": "official per-split release weights. Split 213: prompter 4b7d8ce8\u2026, segmentor d4f19576\u2026 (same files as Table B and PNS\u2013PAIP). Split 123: from_64 pannuke123 (prompter c048c223\u2026). Split 321: dump produced 2026-09-29 by parity_pns_dump.py with official weights; the 321 checkpoint file is not currently located on accessible servers [unverified].",
-   "provenance_status": "canonical rescoring of stored predictions",
-   "note": "Final instance maps of the authors' two-stage pipeline. Config 233 (PNS split 213) uses the canonical regeneration with the known checkpoint (2026-10-07).",
-   "per_configuration": [
-    {
-     "config": "133",
-     "test_fold": 3,
-     "Fd": 83.8,
-     "Acc_type": 86.67,
-     "mPQ": 50.85,
-     "bPQ": 69.29
+   "sub": "official weights per split",
+   "overview": {
+    "Fd": 83.92,
+    "Acc_type": 86.3,
+    "mPQ": 51.23,
+    "bPQ": 69.24
+   },
+   "detcls": {
+    "Fd": 83.92,
+    "Neoplastic": 71.56,
+    "Epithelial": 73.85,
+    "Inflammatory": 59.65,
+    "Connective": 55.28,
+    "Dead": 42.45,
+    "macro": 60.56
+   },
+   "pq": {
+    "Neoplastic": 59.74,
+    "Epithelial": 58.17,
+    "Inflammatory": 44.1,
+    "Connective": 43.3,
+    "Dead": 16.15,
+    "avgPQ": 44.29
+   },
+   "organ": {
+    "bPQ": {
+     "Adrenal_gland": 72.27,
+     "Bile-duct": 69.77,
+     "Bladder": 72.12,
+     "Breast": 68.41,
+     "Cervix": 69.83,
+     "Colon": 60.93,
+     "Esophagus": 69.19,
+     "HeadNeck": 66.94,
+     "Kidney": 71.15,
+     "Liver": 73.73,
+     "Lung": 65.8,
+     "Ovarian": 68.55,
+     "Pancreatic": 68.64,
+     "Prostate": 69.82,
+     "Skin": 66.15,
+     "Stomach": 71.15,
+     "Testis": 71.51,
+     "Thyroid": 72.17,
+     "Uterus": 67.42
     },
-    {
-     "config": "233",
-     "test_fold": 3,
-     "Fd": 83.67,
-     "Acc_type": 86.07,
-     "mPQ": 50.83,
-     "bPQ": 69.16,
-     "source": "canonical regenerated dump 2026-10-07 (50024 ~/nbe_parity/dumps_canon/pns213_fold3_canon_20261007; SHA256SUMS e1410766\u2026); prompter 4b7d8ce8\u2026, segmentor d4f19576\u2026; parity_score_nbe: mPQ 50.83, bPQ 69.16 (identical to the earlier dump)"
-    },
-    {
-     "config": "311",
-     "test_fold": 1,
-     "Fd": 84.25,
-     "Acc_type": 86.07,
-     "mPQ": 52.02,
-     "bPQ": 69.27
+    "mPQ": {
+     "Adrenal_gland": 51.28,
+     "Bile-duct": 50.12,
+     "Bladder": 60.42,
+     "Breast": 53.21,
+     "Cervix": 51.18,
+     "Colon": 46.9,
+     "Esophagus": 57.12,
+     "HeadNeck": 51.04,
+     "Kidney": 57.86,
+     "Liver": 53.32,
+     "Lung": 43.98,
+     "Ovarian": 54.41,
+     "Pancreatic": 49.74,
+     "Prostate": 54.55,
+     "Skin": 41.14,
+     "Stomach": 45.59,
+     "Testis": 54.74,
+     "Thyroid": 47.22,
+     "Uterus": 49.55
     }
-   ],
-   "Fd": 83.91,
-   "Acc_type": 86.27,
-   "mPQ": 51.23,
-   "bPQ": 69.24,
-   "source": "our canonical rescoring of stored prediction dumps (50024 ~/nbe_parity/dumps)"
+   }
   },
   {
    "method": "NuHTC",
    "group": "baseline",
-   "configuration": "our per-split reproduction with the authors' code (one training fold per split; epoch selected on the validation fold)",
-   "checkpoint": "our training runs (50026 ~/nuhtc_repro)",
-   "provenance_status": "canonical rescoring of stored predictions",
-   "note": "Our reproduction; the original authors train on training + validation folds.",
-   "per_configuration": [
-    {
-     "config": "133",
-     "test_fold": 3,
-     "Fd": 82.74,
-     "Acc_type": 86.43,
-     "mPQ": 50.2,
-     "bPQ": 69.49
+   "sub": "our per-split reproduction",
+   "overview": {
+    "Fd": 82.81,
+    "Acc_type": 86.37,
+    "mPQ": 50.65,
+    "bPQ": 69.52
+   },
+   "detcls": {
+    "Fd": 82.81,
+    "Neoplastic": 71.13,
+    "Epithelial": 71.6,
+    "Inflammatory": 60.01,
+    "Connective": 53.95,
+    "Dead": 41.77,
+    "macro": 59.69
+   },
+   "pq": {
+    "Neoplastic": 59.58,
+    "Epithelial": 57.99,
+    "Inflammatory": 45.47,
+    "Connective": 42.36,
+    "Dead": 19.05,
+    "avgPQ": 44.89
+   },
+   "organ": {
+    "bPQ": {
+     "Adrenal_gland": 72.73,
+     "Bile-duct": 69.71,
+     "Bladder": 72.44,
+     "Breast": 68.98,
+     "Cervix": 70.56,
+     "Colon": 60.93,
+     "Esophagus": 69.37,
+     "HeadNeck": 67.18,
+     "Kidney": 71.34,
+     "Liver": 74.96,
+     "Lung": 66.73,
+     "Ovarian": 68.91,
+     "Pancreatic": 69.15,
+     "Prostate": 69.24,
+     "Skin": 66.04,
+     "Stomach": 71.48,
+     "Testis": 71.4,
+     "Thyroid": 72.35,
+     "Uterus": 67.32
     },
-    {
-     "config": "233",
-     "test_fold": 3,
-     "Fd": 82.69,
-     "Acc_type": 86.17,
-     "mPQ": 50.39,
-     "bPQ": 69.66
-    },
-    {
-     "config": "311",
-     "test_fold": 1,
-     "Fd": 82.96,
-     "Acc_type": 86.43,
-     "mPQ": 51.37,
-     "bPQ": 69.4
+    "mPQ": {
+     "Adrenal_gland": 51.09,
+     "Bile-duct": 50.1,
+     "Bladder": 58.51,
+     "Breast": 53.7,
+     "Cervix": 52.11,
+     "Colon": 46.59,
+     "Esophagus": 56.67,
+     "HeadNeck": 49.55,
+     "Kidney": 54.03,
+     "Liver": 54.11,
+     "Lung": 43.66,
+     "Ovarian": 54.35,
+     "Pancreatic": 49.7,
+     "Prostate": 53.41,
+     "Skin": 40.74,
+     "Stomach": 47.43,
+     "Testis": 51.96,
+     "Thyroid": 45.57,
+     "Uterus": 49.1
     }
-   ],
-   "Fd": 82.8,
-   "Acc_type": 86.35,
-   "mPQ": 50.65,
-   "bPQ": 69.52,
-   "source": "our canonical rescoring of stored prediction dumps (50024 ~/nbe_parity/dumps)"
+   }
   },
   {
    "method": "CellViT-SAM-H",
    "group": "baseline",
-   "configuration": "our per-split retraining with the official code (latest checkpoint)",
-   "checkpoint": "our training runs (50026 ~/CellViT_official/results)",
-   "provenance_status": "canonical rescoring of stored predictions",
-   "note": "Our retraining scores below the published CellViT-SAM-H result.",
-   "per_configuration": [
-    {
-     "config": "133",
-     "test_fold": 3,
-     "Fd": 79.42,
-     "Acc_type": 81.93,
-     "mPQ": 43.16,
-     "bPQ": 62.35
+   "sub": "our per-split retraining (below published)",
+   "overview": {
+    "Fd": 79.36,
+    "Acc_type": 81.71,
+    "mPQ": 43.62,
+    "bPQ": 62.38
+   },
+   "detcls": {
+    "Fd": 79.36,
+    "Neoplastic": 62.9,
+    "Epithelial": 61.51,
+    "Inflammatory": 54.34,
+    "Connective": 47.19,
+    "Dead": 33.17,
+    "macro": 51.82
+   },
+   "pq": {
+    "Neoplastic": 49.39,
+    "Epithelial": 47.9,
+    "Inflammatory": 40.2,
+    "Connective": 35.73,
+    "Dead": 11.31,
+    "avgPQ": 36.91
+   },
+   "organ": {
+    "bPQ": {
+     "Adrenal_gland": 65.44,
+     "Bile-duct": 63.23,
+     "Bladder": 66.6,
+     "Breast": 62.25,
+     "Cervix": 64.66,
+     "Colon": 51.79,
+     "Esophagus": 60.6,
+     "HeadNeck": 59.68,
+     "Kidney": 65.13,
+     "Liver": 68.21,
+     "Lung": 58.6,
+     "Ovarian": 61.11,
+     "Pancreatic": 62.92,
+     "Prostate": 62.45,
+     "Skin": 57.99,
+     "Stomach": 64.96,
+     "Testis": 64.41,
+     "Thyroid": 66.96,
+     "Uterus": 58.34
     },
-    {
-     "config": "233",
-     "test_fold": 3,
-     "Fd": 79.22,
-     "Acc_type": 80.99,
-     "mPQ": 42.56,
-     "bPQ": 61.91
-    },
-    {
-     "config": "311",
-     "test_fold": 1,
-     "Fd": 79.38,
-     "Acc_type": 82.11,
-     "mPQ": 45.14,
-     "bPQ": 62.89
+    "mPQ": {
+     "Adrenal_gland": 43.05,
+     "Bile-duct": 43.67,
+     "Bladder": 55.34,
+     "Breast": 46.03,
+     "Cervix": 44.62,
+     "Colon": 37.58,
+     "Esophagus": 47.34,
+     "HeadNeck": 42.82,
+     "Kidney": 47.17,
+     "Liver": 47.28,
+     "Lung": 35.28,
+     "Ovarian": 46.94,
+     "Pancreatic": 44.37,
+     "Prostate": 46.01,
+     "Skin": 35.33,
+     "Stomach": 39.64,
+     "Testis": 45.98,
+     "Thyroid": 39.65,
+     "Uterus": 40.63
     }
-   ],
-   "Fd": 79.34,
-   "Acc_type": 81.68,
-   "mPQ": 43.62,
-   "bPQ": 62.38,
-   "source": "our canonical rescoring of stored prediction dumps (50024 ~/nbe_parity/dumps)"
+   }
   }
  ],
+ "literature": {
+  "source": "values reported in the original publications (as compiled in our earlier ICLR/MedIA tables); protocols not re-verified",
+  "detcls": [
+   {
+    "method": "Mask R-CNN",
+    "values": [
+     72,
+     59,
+     52,
+     50,
+     42,
+     22,
+     45
+    ]
+   },
+   {
+    "method": "DIST",
+    "values": [
+     73,
+     50,
+     35,
+     42,
+     39,
+     0,
+     33
+    ]
+   },
+   {
+    "method": "Micro-Net",
+    "values": [
+     80,
+     62,
+     58,
+     52,
+     47,
+     19,
+     48
+    ]
+   },
+   {
+    "method": "HoVer-Net",
+    "values": [
+     80,
+     62,
+     56,
+     54,
+     49,
+     31,
+     50
+    ]
+   },
+   {
+    "method": "StarDist",
+    "values": [
+     82,
+     69,
+     70,
+     57,
+     51,
+     10,
+     52
+    ]
+   },
+   {
+    "method": "CP-Mamba",
+    "values": [
+     82,
+     62,
+     64,
+     54,
+     50,
+     31,
+     52
+    ]
+   },
+   {
+    "method": "CPP-Net",
+    "values": [
+     82,
+     70,
+     72,
+     58,
+     53,
+     38,
+     58
+    ]
+   },
+   {
+    "method": "HistoNeXt",
+    "values": [
+     82,
+     70,
+     71,
+     58,
+     52,
+     36,
+     57
+    ]
+   },
+   {
+    "method": "PointNu-Net",
+    "values": [
+     81,
+     73,
+     73,
+     60,
+     58,
+     31,
+     59
+    ]
+   },
+   {
+    "method": "NuLite-H",
+    "values": [
+     83,
+     71,
+     73,
+     58,
+     53,
+     37,
+     58
+    ]
+   },
+   {
+    "method": "CellViT",
+    "values": [
+     83,
+     71,
+     73,
+     58,
+     53,
+     36,
+     58
+    ]
+   },
+   {
+    "method": "MOTDNet",
+    "values": [
+     83,
+     70,
+     72,
+     59,
+     52,
+     36,
+     58
+    ]
+   },
+   {
+    "method": "PromptNucSeg",
+    "values": [
+     84,
+     71,
+     76,
+     59,
+     55,
+     46,
+     61
+    ]
+   },
+   {
+    "method": "NuHTC (train+val merged)",
+    "values": [
+     83,
+     71,
+     73,
+     57,
+     57,
+     31,
+     58
+    ]
+   }
+  ],
+  "pq": [
+   {
+    "method": "Mask R-CNN",
+    "values": [
+     47.2,
+     40.3,
+     29.0,
+     30.0,
+     6.9,
+     30.7
+    ]
+   },
+   {
+    "method": "DIST",
+    "values": [
+     43.9,
+     29.0,
+     34.3,
+     27.5,
+     0.0,
+     26.9
+    ]
+   },
+   {
+    "method": "Micro-Net",
+    "values": [
+     50.4,
+     44.2,
+     33.3,
+     33.4,
+     5.1,
+     33.3
+    ]
+   },
+   {
+    "method": "FKDNuSeg",
+    "values": [
+     55.1,
+     48.3,
+     40.8,
+     36.7,
+     15.0,
+     39.2
+    ]
+   },
+   {
+    "method": "HoVer-Net",
+    "values": [
+     55.1,
+     49.1,
+     41.7,
+     38.8,
+     13.9,
+     39.7
+    ]
+   },
+   {
+    "method": "StarDist",
+    "values": [
+     54.7,
+     53.2,
+     42.4,
+     38.0,
+     12.3,
+     40.1
+    ]
+   },
+   {
+    "method": "CPP-Net",
+    "values": [
+     57.1,
+     56.5,
+     40.5,
+     39.5,
+     13.1,
+     41.3
+    ]
+   },
+   {
+    "method": "NuLite-H",
+    "values": [
+     57.7,
+     57.1,
+     41.7,
+     41.3,
+     14.5,
+     42.5
+    ]
+   },
+   {
+    "method": "MOTDNet",
+    "values": [
+     57.8,
+     56.3,
+     44.0,
+     41.0,
+     13.6,
+     42.5
+    ]
+   },
+   {
+    "method": "PointNu-Net",
+    "values": [
+     57.8,
+     57.7,
+     43.3,
+     40.9,
+     15.4,
+     43.0
+    ]
+   },
+   {
+    "method": "CellViT",
+    "values": [
+     58.1,
+     58.3,
+     41.7,
+     42.3,
+     14.9,
+     43.1
+    ]
+   },
+   {
+    "method": "PromptNucSeg",
+    "values": [
+     59.8,
+     58.2,
+     44.1,
+     43.3,
+     16.1,
+     44.3
+    ]
+   },
+   {
+    "method": "NuHTC (train+val merged)",
+    "values": [
+     59.1,
+     58.4,
+     45.2,
+     43.2,
+     18.8,
+     44.9
+    ]
+   }
+  ]
+ },
  "excluded": [
   {
    "method": "HoVer-Net fast (official PanNuke checkpoint)",
@@ -346,6 +894,7 @@
    "status": "EXCLUDED"
   }
  ],
- "history": "Earlier ICLR/MedIA LiNA numbers (Det/Cls greedy F1, image-averaged mPQ) and the legacy test-selected Table 1 (mPQ 49.90/50.93/52.05/53.13) are historical and not shown.",
- "main_table_policy": "Main table = SENA Eff/Cls/Seg/Full (clean confirmatory) + PromptNucSeg SAM-H + NuHTC reproduction + CellViT-SAM-H retrain. No literature-reported numbers in the main table."
+ "main_table_policy": "Main table = SENA Eff/Cls/Seg/Full (clean confirmatory) + PromptNucSeg SAM-H + NuHTC reproduction + CellViT-SAM-H retrain. No literature-reported numbers in the main table.",
+ "history": "Earlier ICLR/MedIA \"Ours\" Det/Cls values (greedy same-class matching) are HISTORICAL \u2014 INCOMPATIBLE METRIC DEFINITION and are not shown; the legacy test-selected Table 1 is HISTORICAL / TEST-SELECTED / NOT CONFIRMATORY.",
+ "provenance": "NBE extension/benchmark_reconstruction (raw scorer JSON, BENCHMARK_RECONSTRUCTION_AUDIT.md, gen_tables.py, gen_page_json.py); PromptNucSeg config 233 = canonical regenerated dump 2026-10-07"
 }

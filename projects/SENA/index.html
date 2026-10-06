@@ -162,19 +162,28 @@ sitemap: false
     <section id="results" class="section">
       <div class="section-head"><h2>PanNuke quantitative evaluation</h2></div>
       <p>SENA exposes four inference modes from one trained system. Eff provides the lowest-compute operating point; Cls activates direct pathology-aware semantic information; Seg adds local spatial refinement; Full activates both.</p>
+      <div class="bench-tabs" role="tablist" aria-label="Benchmark views">
+        <button role="tab" data-tab="overview" aria-selected="true">Overview</button>
+        <button role="tab" data-tab="detcls" aria-selected="false">Detection &amp; classification</button>
+        <button role="tab" data-tab="pq" aria-selected="false">Per-class PQ</button>
+        <button role="tab" data-tab="organ" aria-selected="false">By tissue</button>
+      </div>
+      <div class="bench-organ-toggle" id="bench-organ-toggle" hidden>
+        <label><input type="radio" name="organ-metric" value="bPQ" checked> bPQ</label>
+        <label><input type="radio" name="organ-metric" value="mPQ"> mPQ</label>
+      </div>
       <div class="table-wrap">
         <table class="mode-table bench-table" id="bench-table" aria-describedby="bench-note">
-          <thead><tr>
-            <th>Method</th>
-            <th class="num"><abbr title="Detection F1: HoVer-Net pairing of nucleus centroids (Hungarian, 12 px)">Detection F<sub>d</sub></abbr> ↑</th>
-            <th class="num"><abbr title="Type accuracy over paired nuclei (HoVer-Net definition)">Classification Acc<sub>type</sub></abbr> ↑</th>
-            <th class="num"><abbr title="Multi-class panoptic quality, official PanNuke organ-averaged definition">mPQ</abbr> ↑</th>
-            <th class="num"><abbr title="Binary panoptic quality, official PanNuke organ-averaged definition">bPQ</abbr> ↑</th>
-          </tr></thead>
-          <tbody><tr><td colspan="5" class="muted">Loading…</td></tr></tbody>
+          <thead></thead>
+          <tbody><tr><td class="muted">Loading…</td></tr></tbody>
         </table>
       </div>
-      <p id="bench-note" class="table-note">Values (×100) are equal-weight means over three prespecified training configurations spanning two unique official PanNuke test folds (configurations 133 and 233 → Fold 3; 311 → Fold 1); same scorer per column, applied to stored prediction outputs; no value is taken from a publication. NuHTC and CellViT-SAM-H are our per-split reproductions with the authors' code (CellViT-SAM-H scores below its published result). Methods whose released weights were trained on the evaluated test folds, or whose training folds are undocumented, are not listed. Performance and resource measurements are reported separately; no composite quality–efficiency score is used.</p>
+      <p id="bench-metric" class="table-note"></p>
+      <div id="bench-lit" hidden>
+        <p class="bench-lit-head">Prior literature — values reported in the original publications (protocols not re-verified; not ranked against the table above)</p>
+        <div class="table-wrap"><table class="mode-table bench-table" id="bench-lit-table"><thead></thead><tbody></tbody></table></div>
+      </div>
+      <p id="bench-note" class="table-note">Values (×100) are equal-weight means over three prespecified training configurations spanning two unique official PanNuke test folds (configurations 133 and 233 → Fold 3; 311 → Fold 1); same scorer per column, applied to stored prediction outputs. NuHTC and CellViT-SAM-H are our per-split reproductions with the authors' code (CellViT-SAM-H scores below its published result). Methods whose released weights were trained on the evaluated test folds, or whose training folds are undocumented, are not listed in the canonical table. Performance and resource measurements are reported separately; no composite quality–efficiency score is used.</p>
     </section>
 
     <section id="code" class="section">
