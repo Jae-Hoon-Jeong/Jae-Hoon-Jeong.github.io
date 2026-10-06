@@ -100,6 +100,7 @@
   viewer.canvas.appendChild(canvas);
   const gtBox = el('layer-gt'), predBox = el('layer-pred'), rtInput = el('route-input'), rtOut = el('route-out'), rtCount = el('route-count');
   const preds = {};              // slide.id + mode -> predicted tumour area JSON
+  const predNote = el('pred-note');
   const modeInputs = Array.from(document.querySelectorAll('input[name="model-mode"]'));
 
   function overlayBase(slide, m) { return slide.overlays && slide.overlays[m]; }
@@ -221,7 +222,11 @@
       ctx.closePath();
       ctx.fillStyle = 'rgba(0, 229, 255, 0.12)'; ctx.fill('evenodd');
     }
-    const pm = predMode(), pa = pm && predBox && predBox.checked ? preds[current.id + '/' + pm] : null;
+    // A routed Eff view (budget > 0) shows Cls classes in routed patches; no budget-specific tumour map exists yet,
+    // so no area is drawn there (the Eff map would not match the classes on screen).
+    const routed = mode === 'Eff' && budget > 0;
+    if (predNote) predNote.hidden = !(routed && predBox && predBox.checked);
+    const pm = predMode(), pa = pm && !routed && predBox && predBox.checked ? preds[current.id + '/' + pm] : null;
     const pathOf = d => { ctx.beginPath(); d.regions.forEach(r => r.points.forEach((p, i) => { const v = V(p[0], p[1]); i ? ctx.lineTo(v[0], v[1]) : ctx.moveTo(v[0], v[1]); }) ); };
     if (pa) { pathOf(pa); ctx.fillStyle = 'rgba(255, 64, 200, 0.10)'; ctx.fill('evenodd'); }
     const strokeGT = () => {    // outlines are drawn last so nuclei never hide them

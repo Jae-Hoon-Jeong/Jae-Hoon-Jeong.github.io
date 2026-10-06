@@ -165,3 +165,4 @@ input[type=range] { width: 100%; accent-color: var(--ink); height: 28px; }
 .ws:fullscreen .ws-body { flex: 1; min-height: 0; }
 .ws:fullscreen .osd { height: 100%; min-height: 0; }
 .btn .ic { width: 16px; height: 16px; flex: none; }
+.side-note { margin: .2rem 0 0 1.5rem; font-size: .74rem; line-height: 1.35; color: var(--muted); }
