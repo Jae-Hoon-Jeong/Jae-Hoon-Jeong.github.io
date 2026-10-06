@@ -288,7 +288,7 @@
  "excluded": [
   {
    "method": "HoVer-Net fast (official PanNuke checkpoint)",
-   "reason": "training folds of the official checkpoint are undocumented; overlap with the evaluated test folds cannot be excluded \u2014 held pending decision",
+   "reason": "Official checkpoint training folds are undocumented; overlap with the evaluated test folds cannot be excluded. Values kept for provenance; to be re-reviewed if the training folds are established. (Decision 2026-10-07: excluded for evaluation cleanliness, not performance.)",
    "would_be": {
     "method": "HoVer-Net fast",
     "configuration": "official checkpoint",
@@ -326,20 +326,25 @@
     "mPQ": 46.16,
     "bPQ": 66.0,
     "source": "our canonical rescoring of stored prediction dumps (50024 ~/nbe_parity/dumps)"
-   }
+   },
+   "status": "WITHHELD FROM MAIN TABLE \u2014 TRAINING-FOLD PROVENANCE UNRESOLVED"
   },
   {
    "method": "NuLite-T / NuLite-H (official)",
-   "reason": "trained on the whole PanNuke dataset (test folds included)"
+   "reason": "trained on the whole PanNuke dataset (test folds included)",
+   "status": "EXCLUDED"
   },
   {
    "method": "CellViT-SAM-H public x40",
-   "reason": "trained on 90% of all folds (test folds included); no PanNuke dump"
+   "reason": "trained on 90% of all folds (test folds included); no PanNuke dump",
+   "status": "EXCLUDED"
   },
   {
    "method": "literature-reported rows from earlier ICLR/MedIA tables",
-   "reason": "scorer/metric definition not verifiable; no predictions"
+   "reason": "scorer/metric definition not verifiable; no predictions",
+   "status": "EXCLUDED"
   }
  ],
- "history": "Earlier ICLR/MedIA LiNA numbers (Det/Cls greedy F1, image-averaged mPQ) and the legacy test-selected Table 1 (mPQ 49.90/50.93/52.05/53.13) are historical and not shown."
+ "history": "Earlier ICLR/MedIA LiNA numbers (Det/Cls greedy F1, image-averaged mPQ) and the legacy test-selected Table 1 (mPQ 49.90/50.93/52.05/53.13) are historical and not shown.",
+ "main_table_policy": "Main table = SENA Eff/Cls/Seg/Full (clean confirmatory) + PromptNucSeg SAM-H + NuHTC reproduction + CellViT-SAM-H retrain. No literature-reported numbers in the main table."
 }
