@@ -130,7 +130,13 @@
 
   async function getJSON(url) { const r = await fetch(url); if (!r.ok) throw new Error(url + ' ' + r.status); return r.json(); }
   // Predicted tumour area (model prediction, A-simple rule) of the selected model mode; Cls when no mode is selected.
-  function predMode() { return current && current.pred_area ? (current.pred_area[mode] ? mode : 'Cls') : null; }
+  // In the Eff view the routing budget decides: 0% = Eff alone (Eff map), 100% = every patch on the Cls path (Cls map);
+  // in between no budget-specific map exists yet, so no area is drawn (see render()).
+  function predMode() {
+    if (!current || !current.pred_area) return null;
+    if (mode === 'Eff' && budget >= 1) return current.pred_area.Cls ? 'Cls' : null;
+    return current.pred_area[mode] ? mode : 'Cls';
+  }
   function loadPred() {
     const m = predMode(); if (!m || !predBox || !predBox.checked) return;
     const k = current.id + '/' + m, sl = current;
@@ -224,7 +230,7 @@
     }
     // A routed Eff view (budget > 0) shows Cls classes in routed patches; no budget-specific tumour map exists yet,
     // so no area is drawn there (the Eff map would not match the classes on screen).
-    const routed = mode === 'Eff' && budget > 0;
+    const routed = mode === 'Eff' && budget > 0 && budget < 1;
     if (predNote) predNote.hidden = !(routed && predBox && predBox.checked);
     const pm = predMode(), pa = pm && !routed && predBox && predBox.checked ? preds[current.id + '/' + pm] : null;
     const pathOf = d => { ctx.beginPath(); d.regions.forEach(r => r.points.forEach((p, i) => { const v = V(p[0], p[1]); i ? ctx.lineTo(v[0], v[1]) : ctx.moveTo(v[0], v[1]); }) ); };
@@ -296,6 +302,7 @@
     // The routing budget acts on the Eff view: moving it selects Eff; geometry stays, only classes in routed patches change.
     const onRoute = e => {
       budget = Number(rtInput.value) / 100; rtOut.textContent = rtInput.value + '%';
+      loadPred();
       if (e && mode !== 'Eff' && current && overlayBase(current, 'Eff')) setModelMode('Eff');
       if (current && overlayBase(current, 'Eff')) loadIndex(current, 'Eff').then(() => { updateCount(); draw(); }, () => {});
       updateCount(); draw();
@@ -350,6 +357,6 @@
   }).catch(() => { slides = [FALLBACK]; }).then(() => {
     slides.forEach(s => select.add(new Option(s.title, s.id)));
     openSlide(slides[0]);
-    if (overlayBase(slides[0], 'Eff')) setModelMode('Eff');   // default view: Eff with the routing budget from the slider (0% = Eff alone; its tumor-area map is shown)
+    if (overlayBase(slides[0], 'Eff')) setModelMode('Eff');   // default view: Eff with the routing budget from the slider (100% = Cls on every patch; the Cls tumor-area map is shown)
   });
 })();
