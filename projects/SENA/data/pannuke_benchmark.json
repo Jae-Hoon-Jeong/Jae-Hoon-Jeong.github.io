@@ -1,7 +1,7 @@
 {
  "title": "PanNuke quantitative evaluation",
  "updated": "2026-10-07",
- "protocol": "Three split-specific training configurations (133, 233, 311) evaluated on two official PanNuke test folds (Fold 3, Fold 3, Fold 1); values are equal-weight means over the three configurations.",
+ "protocol": "Equal-weight means over three prespecified training configurations (133, 233, 311) spanning two unique official PanNuke test folds (Fold 3, Fold 3, Fold 1); same scorer per column.",
  "metrics": {
   "Fd": "Detection F1, HoVer-Net pairing (Hungarian on centroids, radius 12 px); identical code for every row (directional_errors.py / analyze_official.py, same definitions)",
   "Acc_type": "Type accuracy over paired nuclei (HoVer-Net definition, same pairing)",
@@ -171,9 +171,9 @@
    "method": "PromptNucSeg SAM-H",
    "group": "baseline",
    "configuration": "official released prompter + SAM-H segmentor per split (123/213/321)",
-   "checkpoint": "official per-split release weights (byte match to the authors' download not re-verified)",
+   "checkpoint": "official per-split release weights. Split 213: prompter 4b7d8ce8\u2026, segmentor d4f19576\u2026 (same files as Table B and PNS\u2013PAIP). Split 123: from_64 pannuke123 (prompter c048c223\u2026). Split 321: dump produced 2026-09-29 by parity_pns_dump.py with official weights; the 321 checkpoint file is not currently located on accessible servers [unverified].",
    "provenance_status": "canonical rescoring of stored predictions",
-   "note": "Final instance maps of the authors' two-stage pipeline.",
+   "note": "Final instance maps of the authors' two-stage pipeline. Config 233 (PNS split 213) uses the canonical regeneration with the known checkpoint (2026-10-07).",
    "per_configuration": [
     {
      "config": "133",
@@ -189,7 +189,8 @@
      "Fd": 83.67,
      "Acc_type": 86.07,
      "mPQ": 50.83,
-     "bPQ": 69.16
+     "bPQ": 69.16,
+     "source": "canonical regenerated dump 2026-10-07 (50024 ~/nbe_parity/dumps_canon/pns213_fold3_canon_20261007; SHA256SUMS e1410766\u2026); prompter 4b7d8ce8\u2026, segmentor d4f19576\u2026; parity_score_nbe: mPQ 50.83, bPQ 69.16 (identical to the earlier dump)"
     },
     {
      "config": "311",
