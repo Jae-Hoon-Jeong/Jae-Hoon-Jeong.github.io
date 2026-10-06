@@ -301,6 +301,10 @@
       updateCount(); draw();
     };
     rtInput.addEventListener('input', onRoute); onRoute();
+    // Choosing the Eff model means Eff alone (= routing 0%), so its own tumour-area map applies; moving the slider
+    // above 0% afterwards gives the routed view again (area hidden, see render()).
+    const effRadio = modeInputs.find(r => r.value === 'Eff');
+    if (effRadio) effRadio.addEventListener('click', () => { if (rtInput.value !== '0') { rtInput.value = '0'; onRoute(); } });
   }
 
   function nearest(x, y, rad) {
