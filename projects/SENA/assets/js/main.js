@@ -350,6 +350,6 @@
   }).catch(() => { slides = [FALLBACK]; }).then(() => {
     slides.forEach(s => select.add(new Option(s.title, s.id)));
     openSlide(slides[0]);
-    if (overlayBase(slides[0], 'Eff')) setModelMode('Eff');   // default view: Eff with the routing budget from the slider (100%)
+    if (overlayBase(slides[0], 'Eff')) setModelMode('Eff');   // default view: Eff with the routing budget from the slider (0% = Eff alone; its tumor-area map is shown)
   });
 })();

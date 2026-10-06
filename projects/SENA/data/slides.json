@@ -11,7 +11,7 @@
       ],
       "mpp": 0.2522,
       "attribution": "PAIP2020 training_data_44, provided by Seoul National University Hospital (CC BY-NC 4.0); web-display Deep Zoom (0.50 µm/px) derived from the original slide.",
-      "note": "Whole Tumor Area = pathologist annotation from PAIP2020. Nucleus layers and predicted tumor area = model predictions (frozen release v1.0.1).",
+      "note": "Whole Tumor Area = pathologist annotation from PAIP2020. Nucleus layers and predicted tumor area = model predictions (frozen release v1.0.1; tumor area: Neoplastic core plus Connective/Dead-supported tissue within 100 µm, holes filled).",
       "gt": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_44/gt/whole_tumor_area.json",
       "overlays": {
         "Eff": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_44/overlays/EffRouting/",
@@ -19,9 +19,9 @@
         "Seg": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_44/overlays/Seg/"
       },
       "pred_area": {
-        "Eff": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_44/pred_area/Eff.json",
-        "Cls": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_44/pred_area/Cls.json",
-        "Seg": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_44/pred_area/Seg.json"
+        "Eff": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_44/pred_area_d100/Eff.json",
+        "Cls": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_44/pred_area_d100/Cls.json",
+        "Seg": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_44/pred_area_d100/Seg.json"
       }
     },
     {
@@ -34,7 +34,7 @@
       ],
       "mpp": 0.2522,
       "attribution": "PAIP2020 training_data_03, provided by Seoul National University Hospital (CC BY-NC 4.0); web-display Deep Zoom (0.50 µm/px) derived from the original slide.",
-      "note": "Whole Tumor Area = pathologist annotation from PAIP2020. Nucleus layers and predicted tumor area = model predictions (frozen release v1.0.1).",
+      "note": "Whole Tumor Area = pathologist annotation from PAIP2020. Nucleus layers and predicted tumor area = model predictions (frozen release v1.0.1; tumor area: Neoplastic core plus Connective/Dead-supported tissue within 100 µm, holes filled).",
       "gt": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_03/gt/whole_tumor_area.json",
       "overlays": {
         "Eff": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_03/overlays/EffRouting/",
@@ -42,9 +42,9 @@
         "Seg": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_03/overlays/Seg/"
       },
       "pred_area": {
-        "Eff": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_03/pred_area/Eff.json",
-        "Cls": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_03/pred_area/Cls.json",
-        "Seg": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_03/pred_area/Seg.json"
+        "Eff": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_03/pred_area_d100/Eff.json",
+        "Cls": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_03/pred_area_d100/Cls.json",
+        "Seg": "https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/paip/training_data_03/pred_area_d100/Seg.json"
       }
     }
   ]
