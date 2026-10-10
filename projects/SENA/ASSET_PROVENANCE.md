@@ -69,3 +69,13 @@ Notes
 
 ## Button icons
 - PDF and GitHub icons: inline SVG. Hugging Face icon: Simple Icons 13.21.0 `huggingface.svg` (CC0-1.0), inline SVG.
+
+## Fourier-epicycle illustration (added 2026-10-11)
+
+| Asset | Source (primary) | Licence | Served from |
+|---|---|---|---|
+| `nucleus1_harmonics_K1-10.mp4`, `nucleus{1..4}_epicycles_K10.mp4` (+ `.jpg` posters) | PanNuke Fold 3 ground-truth nuclei (Gamper et al., ECDP 2019; arXiv:2003.10778), Fold 3 image idx 2479 / 587 / 613 / 588 | CC BY-NC-SA 4.0 (derived videos shared under the same licence) | `https://jae-hoon-jeong.github.io/projectpage_essets/projects/sena_nbe/v2/fourier/` |
+
+Illustration of ground-truth contours only; no model output. Generation record, file sizes and SHA-256:
+`projectpage_essets/projects/sena_nbe/PROVENANCE.md`, section `v2/fourier`.
+Attribution shown on the page: "Nuclei from PanNuke Fold 3 (Gamper et al.), CC BY-NC-SA 4.0."

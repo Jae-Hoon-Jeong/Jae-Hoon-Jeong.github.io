@@ -131,6 +131,12 @@ input[type=range] { width: 100%; accent-color: var(--ink); height: 28px; }
 .cols3 > div { padding: 0 1.2rem; border-left: 1px solid var(--line); }
 .cols3 > div:first-child { padding-left: 0; border-left: 0; }
 .cols3 p { margin: 0; color: var(--fg2); font-size: .9rem; }
+.fourier { margin: 1.6rem 0 0; }
+.fourier video { display: block; width: 100%; height: auto; border-radius: 6px; background: var(--surface); }
+.fourier-main { max-width: 900px; margin: 0 auto; aspect-ratio: 1440 / 1020; }
+.fourier-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; max-width: 900px; margin: .5rem auto 0; }
+.fourier-row video { aspect-ratio: 1 / 1; }
+.fourier figcaption { max-width: 900px; margin: .7rem auto 0; color: var(--fg2); font-size: .85rem; }
 
 /* code */
 .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: .4rem 2rem; margin: 0; }
@@ -156,6 +162,7 @@ input[type=range] { width: 100%; accent-color: var(--ink); height: 28px; }
   .tb-actions button { flex: 1; height: 40px; }
   .cols3 { grid-template-columns: 1fr; gap: 1rem; }
   .cols3 > div { padding: 0; border-left: 0; }
+  .fourier-row { grid-template-columns: repeat(2, 1fr); }
   .mode-matrix { grid-template-columns: 5.5rem 1fr 1fr; }
   .mm-cell span { font-size: .8rem; }
 }
