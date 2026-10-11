@@ -201,21 +201,7 @@ sitemap: false
 
     <section id="cost" class="section">
       <div class="section-head"><h2>Computational cost</h2></div>
-      <p>The semantic pathway is the costly addition; the spatial refiner is small per nucleus but scales with nucleus count. Cost is reported per mode and is never combined with accuracy into a single score.</p>
-
-      <h3 class="cost-head">Model size and computation per tile</h3>
-      <div class="table-wrap">
-        <table class="mode-table bench-table">
-          <thead><tr><th>Mode</th><th class="num">Parameters (M)</th><th class="num">GFLOPs per 256×256 tile</th><th>Added at inference</th></tr></thead>
-          <tbody>
-            <tr class="sena"><td>Eff</td><td class="num">36.4</td><td class="num">36.9</td><td>—</td></tr>
-            <tr class="sena"><td>Cls</td><td class="num">717.8</td><td class="num">408.2</td><td>Frozen pathology foundation model (UNI2-h) + fusion</td></tr>
-            <tr class="sena"><td>Seg</td><td class="num">37.2</td><td class="num">36.9 + 2.0 per nucleus</td><td>Local spatial refiner (median 23.7 GFLOPs per tile)</td></tr>
-            <tr class="sena"><td>Full</td><td class="num">718.6</td><td class="num">408.2 + 2.0 per nucleus</td><td>Both</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="table-note">Totals per mode. Eff: 36.36M parameters (trunk 33.65M); Cls adds UNI2-h (681.4M) with 371.1 GFLOPs of foundation-model computation and 0.2 GFLOPs of fusion per tile; Seg adds the 0.875M-parameter refiner, whose cost is 2.0 GFLOPs per nucleus (range 2.0–61.1 GFLOPs per tile on PanNuke).</p>
+      <p>The semantic pathway is the costly addition; the spatial refiner is small per nucleus but scales with nucleus count. Cost and accuracy are never combined into a single score.</p>
 
       <h3 class="cost-head">Whole-slide operational benchmark (fixed modes)</h3>
       <div class="table-wrap">
