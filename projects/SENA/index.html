@@ -23,6 +23,7 @@ sitemap: false
       <a href="#routing">Routing</a>
       <a href="#method">Method</a>
       <a href="#results">Results</a>
+      <a href="#tumour">Tumour</a>
       <a href="#cost">Cost</a>
       <a href="#code">Code</a>
     </nav>
@@ -197,6 +198,47 @@ sitemap: false
         <div class="table-wrap"><table class="mode-table bench-table" id="bench-lit-table"><thead></thead><tbody></tbody></table></div>
       </div>
       <p id="bench-note" class="table-note">Values (×100) are equal-weight means over three prespecified training configurations spanning two unique official PanNuke test folds (configurations 133 and 233 → Fold 3; 311 → Fold 1); same scorer per column, applied to stored prediction outputs. NuHTC and CellViT-SAM-H are our per-split reproductions with the authors' code (CellViT-SAM-H scores below its published result). Methods whose released weights were trained on the evaluated test folds, or whose training folds are undocumented, are not listed in the canonical table. Bold, highest value per column within each table (the literature table is marked separately). Performance and resource measurements are reported separately; no composite quality–efficiency score is used.</p>
+    </section>
+
+    <section id="tumour" class="section">
+      <div class="section-head"><h2>Tumour-region readout (PAIP2020)</h2></div>
+      <p>Classified nuclei are aggregated into a tissue-level tumour region without a separate tumour-segmentation model: 100-µm bins with a Neoplastic majority form the core, and nearby bins dominated by connective or dead nuclei are added within 500&nbsp;µm. The construction, endpoints and code were fixed on a separate ten-slide discovery set before the 34-slide confirmation cohort was inspected; the frozen system was run without fine-tuning or threshold tuning.</p>
+
+      <h3 class="cost-head">Agreement with pathologist tumour outlines (34 confirmation slides)</h3>
+      <div class="table-wrap">
+        <table class="mode-table bench-table">
+          <thead><tr><th>Mode</th><th class="num">Dice [95% CI] ↑</th></tr></thead>
+          <tbody>
+            <tr class="sena"><td>SENA Eff</td><td class="num">0.780 [0.748, 0.809]</td></tr>
+            <tr class="sena"><td>SENA Cls</td><td class="num"><strong>0.851 [0.829, 0.871]</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Canonical tumour-bed construction from the whole-slide nucleus outputs, scored against the union of the pathologist tumour polygons (PAIP2020); slide-bootstrap 95% CI. Paired Cls − Eff difference +0.071 [0.051, 0.094], Cls higher on 33 of 34 slides (descriptive). Routed budgets are shown in the routing table below. Bold, highest.</p>
+
+      <h3 class="cost-head">Other tumour-region methods on the same cohort (context, not a ranking)</h3>
+      <div class="table-wrap">
+        <table class="mode-table bench-table">
+          <thead><tr><th>Method</th><th>Category</th><th class="num">Dice [95% CI]</th><th class="num">Precision</th><th class="num">Recall</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr class="sena"><td>SENA Cls</td><td>SENA, harmonized scorer</td><td class="num">0.848 [0.825, 0.868]</td><td class="num">0.877</td><td class="num">0.833</td><td></td></tr>
+            <tr class="sena"><td>SENA Eff</td><td>SENA, harmonized scorer</td><td class="num">0.777 [0.746, 0.807]</td><td class="num">0.743</td><td class="num">0.843</td><td></td></tr>
+            <tr class="grp-start"><td>KEEP (TUM)</td><td>Zero-shot pathology FM / VLM</td><td class="num">0.826 [0.786, 0.859]</td><td class="num">0.980</td><td class="num">0.727</td><td></td></tr>
+            <tr><td>CONCH (TUM)</td><td>Zero-shot pathology FM / VLM</td><td class="num">0.647 [0.591, 0.698]</td><td class="num">0.995</td><td class="num">0.499</td><td></td></tr>
+            <tr><td>ZEUS-CONCH, blur-free</td><td>Conditional / sensitivity</td><td class="num">0.814 [0.748, 0.868]</td><td class="num">0.982</td><td class="num">0.728</td><td>primary pipeline</td></tr>
+            <tr><td>ZEUS-CONCH, official blur</td><td>Conditional / sensitivity</td><td class="num">0.851 [0.795, 0.895]</td><td class="num">0.940</td><td class="num">0.808</td><td>sensitivity</td></tr>
+            <tr><td>VISTA-PATH (Otsu)</td><td>PAIP-unseen supervised segmentation FM</td><td class="num">0.587 [0.551, 0.621]</td><td class="num">0.674</td><td class="num">0.557</td><td>preprint</td></tr>
+            <tr><td>PathSegmentor</td><td>PAIP-unseen supervised segmentation FM</td><td class="num">0.541 [0.511, 0.572]</td><td class="num">0.802</td><td class="num">0.422</td><td></td></tr>
+            <tr><td>icgi</td><td>Supervised whole-tumour segmentation</td><td class="num">0.837 [0.770, 0.884]</td><td class="num">0.956</td><td class="num">0.754</td><td></td></tr>
+            <tr><td>IDaRS</td><td>Supervised CRC tumour/non-tumour patch classifier</td><td class="num">0.796 [0.749, 0.836]</td><td class="num">0.955</td><td class="num">0.705</td><td>uncalibrated<sup>a</sup></td></tr>
+            <tr><td>Kather100K</td><td>Supervised colorectal tissue-type classifier (TUM)</td><td class="num">0.762 [0.721, 0.800]</td><td class="num">0.924</td><td class="num">0.671</td><td>uncalibrated<sup>a</sup></td></tr>
+            <tr><td>HD-Yolo colon A (official region mask)</td><td>Adapted public nucleus-derived</td><td class="num">0.679 [0.631, 0.724]</td><td class="num">0.583</td><td class="num">0.879</td><td></td></tr>
+            <tr><td>HD-Yolo colon B (density rule)</td><td>Adapted public nucleus-derived</td><td class="num">0.764 [0.738, 0.789]</td><td class="num">0.784</td><td class="num">0.770</td><td>pre-specified sensitivity</td></tr>
+            <tr><td>MuTILs, TUMOR</td><td>External transfer (breast)</td><td class="num">0.322 [0.275, 0.369]</td><td class="num">0.817</td><td class="num">0.213</td><td>primary mapping</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">All rows scored on the same 34 slides with one harmonized scorer (union of pathologist tumour polygons, 25-µm raster, release tissue mask); SENA is shown with this scorer here (0.848 / 0.777), the canonical values above are the primary result. Comparators used their published post-processing without PAIP calibration. Their target definitions differ from the whole-tumour outline (tumour-cell classes for CONCH, KEEP, ZEUS-CONCH, Kather100K and MuTILs), they are not reproductions of published pipelines, and no ranking is implied. The published HD-Staining + density-rule method could not be run (weights not released). <sup>a</sup>Uncalibrated baseline pipeline; tissue clipping at the 100-µm bin level. Mean Dice with slide-bootstrap 95% CI.</p>
     </section>
 
     <section id="cost" class="section">
