@@ -379,6 +379,9 @@
   };
   let d, view = 'overview', metric = 'bPQ';
   const fmt = v => (typeof v === 'number' ? v.toFixed(2) : '–');
+  // bold = highest displayed value per column (ties all bold); computed separately for each table
+  const best = vals => Math.max(...vals.filter(v => typeof v === 'number').map(v => +v.toFixed(2)));
+  const cell = (v, m) => `<td class="num">${typeof v === 'number' && +v.toFixed(2) === m ? '<strong>' + fmt(v) + '</strong>' : fmt(v)}</td>`;
   const th = (h, cls) => `<th${cls ? ' class="' + cls + '"' : ''}>${h}</th>`;
   function nameCell(x) { return `<td>${x.method}${x.group !== 'SENA' && x.sub ? '<div class="cfg">' + x.sub + '</div>' : ''}</td>`; }
   function render() {
@@ -387,16 +390,19 @@
     if (view === 'organ') {
       const organs = Object.keys(rows[0].organ[metric]);
       head.innerHTML = '<tr>' + th('Tissue') + rows.map(x => th(x.method, 'num')).join('') + '</tr>';
-      body.innerHTML = organs.map(o => '<tr><td>' + o.replace('_', ' ').replace('HeadNeck', 'Head &amp; neck') + '</td>' + rows.map(x => `<td class="num">${fmt(x.organ[metric][o])}</td>`).join('') + '</tr>').join('')
-        + '<tr class="grp-start"><td>Average</td>' + rows.map(x => `<td class="num">${fmt(x.overview[metric])}</td>`).join('') + '</tr>';
+      const rowB = vals => { const m = best(vals); return vals.map(v => cell(v, m)).join(''); };
+      body.innerHTML = organs.map(o => '<tr><td>' + o.replace('_', ' ').replace('HeadNeck', 'Head &amp; neck') + '</td>' + rowB(rows.map(x => x.organ[metric][o])) + '</tr>').join('')
+        + '<tr class="grp-start"><td>Average</td>' + rowB(rows.map(x => x.overview[metric])) + '</tr>';
     } else {
       head.innerHTML = '<tr>' + th('Method') + V.cols.map(c => th(c[1] + ' ↑', 'num')).join('') + '</tr>';
-      body.innerHTML = rows.map((x, i) => `<tr class="${x.group === 'SENA' ? 'sena' : ''}${i > 0 && x.group !== rows[i - 1].group ? ' grp-start' : ''}">` + nameCell(x) + V.cols.map(c => `<td class="num">${fmt(x[c[2] || V.key][c[0]])}</td>`).join('') + '</tr>').join('');
+      const val = (x, c) => x[c[2] || V.key][c[0]], colBest = V.cols.map(c => best(rows.map(x => val(x, c))));
+      body.innerHTML = rows.map((x, i) => `<tr class="${x.group === 'SENA' ? 'sena' : ''}${i > 0 && x.group !== rows[i - 1].group ? ' grp-start' : ''}">` + nameCell(x) + V.cols.map((c, j) => cell(val(x, c), colBest[j])).join('') + '</tr>').join('');
     }
     if (V.lit) {
       litBox.hidden = false; const L = d.literature[V.lit];
       lit.querySelector('thead').innerHTML = '<tr>' + th('Method') + V.cols.map(c => th(c[1], 'num')).join('') + '</tr>';
-      lit.querySelector('tbody').innerHTML = L.map(x => '<tr><td>' + x.method + '</td>' + x.values.map(v => `<td class="num">${v}</td>`).join('') + '</tr>').join('');
+      const lb = V.cols.map((c, j) => Math.max(...L.map(x => x.values[j])));   // bold within the literature table only (never ranked against the canonical table)
+      lit.querySelector('tbody').innerHTML = L.map(x => '<tr><td>' + x.method + '</td>' + x.values.map((v, j) => `<td class="num">${v === lb[j] ? '<strong>' + v + '</strong>' : v}</td>`).join('') + '</tr>').join('');
     } else litBox.hidden = true;
   }
   document.querySelectorAll('.bench-tabs [role=tab]').forEach(b => b.addEventListener('click', () => {
