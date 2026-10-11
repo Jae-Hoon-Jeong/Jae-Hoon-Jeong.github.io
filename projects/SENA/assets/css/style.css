@@ -184,3 +184,5 @@ input[type=range] { width: 100%; accent-color: var(--ink); height: 28px; }
 .bench-organ-toggle { font-size: .8rem; color: var(--fg2); margin-bottom: .4rem; display: flex; gap: .9rem; }
 .bench-lit-head { font-size: .8rem; color: var(--fg2); margin: 1.1rem 0 .2rem; }
 .bench-organ-toggle[hidden], #bench-lit[hidden] { display: none; }
+
+.cost-head { margin: 1.6rem 0 .5rem; }

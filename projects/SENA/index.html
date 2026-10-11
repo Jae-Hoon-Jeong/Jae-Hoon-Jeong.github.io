@@ -23,6 +23,7 @@ sitemap: false
       <a href="#routing">Routing</a>
       <a href="#method">Method</a>
       <a href="#results">Results</a>
+      <a href="#cost">Cost</a>
       <a href="#code">Code</a>
     </nav>
   </header>
@@ -147,7 +148,7 @@ sitemap: false
           </tbody>
         </table>
       </div>
-      <p class="muted">PanNuke accuracy is reported <a href="#results">below</a>; cost figures will be added with the paper.</p>
+      <p class="muted">PanNuke accuracy and computational cost are reported <a href="#results">below</a>.</p>
     </section>
 
     <section id="method" class="section">
@@ -196,6 +197,62 @@ sitemap: false
         <div class="table-wrap"><table class="mode-table bench-table" id="bench-lit-table"><thead></thead><tbody></tbody></table></div>
       </div>
       <p id="bench-note" class="table-note">Values (×100) are equal-weight means over three prespecified training configurations spanning two unique official PanNuke test folds (configurations 133 and 233 → Fold 3; 311 → Fold 1); same scorer per column, applied to stored prediction outputs. NuHTC and CellViT-SAM-H are our per-split reproductions with the authors' code (CellViT-SAM-H scores below its published result). Methods whose released weights were trained on the evaluated test folds, or whose training folds are undocumented, are not listed in the canonical table. Performance and resource measurements are reported separately; no composite quality–efficiency score is used.</p>
+    </section>
+
+    <section id="cost" class="section">
+      <div class="section-head"><h2>Computational cost</h2></div>
+      <p>The semantic pathway is the costly addition; the spatial refiner is small per nucleus but scales with nucleus count. Cost is reported per mode and is never combined with accuracy into a single score.</p>
+
+      <h3 class="cost-head">Model size and computation per tile</h3>
+      <div class="table-wrap">
+        <table class="mode-table bench-table">
+          <thead><tr><th>Mode</th><th class="num">Parameters (M)</th><th class="num">GFLOPs per 256×256 tile</th><th>Added at inference</th></tr></thead>
+          <tbody>
+            <tr class="sena"><td>Eff</td><td class="num">36.4</td><td class="num">36.9</td><td>—</td></tr>
+            <tr class="sena"><td>Cls</td><td class="num">36.4 + 681.4</td><td class="num">36.9 + 371.3</td><td>Frozen pathology foundation model (UNI2-h) + fusion</td></tr>
+            <tr class="sena"><td>Seg</td><td class="num">36.4 + 0.88</td><td class="num">36.9 + 2.0 per nucleus</td><td>Local spatial refiner (median 23.7 GFLOPs per tile)</td></tr>
+            <tr class="sena"><td>Full</td><td class="num">36.4 + 681.4 + 0.88</td><td class="num">Cls + Seg additions</td><td>Both</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Cls adds 371.1 GFLOPs of foundation-model computation and 0.2 GFLOPs of fusion per tile. Seg refiner cost is 2.0 GFLOPs per nucleus (range 2.0–61.1 GFLOPs per tile on PanNuke).</p>
+
+      <h3 class="cost-head">Whole-slide operational benchmark (fixed modes)</h3>
+      <div class="table-wrap">
+        <table class="mode-table bench-table">
+          <thead><tr><th>Method</th><th class="num">Runtime (min) ↓</th><th class="num">GPU memory (GB) ↓</th><th class="num">CPU memory (GB) ↓</th><th class="num">GPU energy (Wh) ↓</th></tr></thead>
+          <tbody>
+            <tr class="sena"><td>SENA Eff</td><td class="num">7.66</td><td class="num">2.18</td><td class="num">3.6</td><td class="num">12.1</td></tr>
+            <tr class="sena"><td>SENA Cls</td><td class="num">14.66</td><td class="num">5.05</td><td class="num">6.5</td><td class="num">49.1</td></tr>
+            <tr class="sena"><td>SENA Seg</td><td class="num">22.12</td><td class="num">3.68</td><td class="num">3.7</td><td class="num">58.4</td></tr>
+            <tr class="sena"><td>SENA Full</td><td class="num">32.30</td><td class="num">6.45</td><td class="num">6.5</td><td class="num">100.3</td></tr>
+            <tr class="grp-start"><td>HoVer-Net</td><td class="num">24.78</td><td class="num">23.21</td><td class="num">25.4</td><td class="num">49.0</td></tr>
+            <tr><td>CellViT-H</td><td class="num">25.15</td><td class="num">7.05</td><td class="num">115.5</td><td class="num">54.3</td></tr>
+            <tr><td>PromptNucSeg-H</td><td class="num">37.96</td><td class="num">3.89</td><td class="num">7.4</td><td class="num">112.4</td></tr>
+            <tr><td>NuHTC</td><td class="num">52.67</td><td class="num">25.22</td><td class="num">61.6</td><td class="num">80.2</td></tr>
+            <tr><td>NuLite-T</td><td class="num">17.27</td><td class="num">1.66</td><td class="num">19.7</td><td class="num">11.8</td></tr>
+            <tr><td>NuLite-H</td><td class="num">17.45</td><td class="num">2.35</td><td class="num">19.4</td><td class="num">15.7</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">All pipelines processed the same whole-slide image (TCGA-A6-2671; 42&nbsp;mm² tissue) on the same RTX A5000 workstation with the same external harness, timed from the raw slide file to the final nucleus output (pre-processing, inference, post-processing and writing). Medians over valid repetitions (three per configuration; two for NuLite-T, NuLite-H and PromptNucSeg-H). GPU memory, peak per-process NVML memory; CPU memory, peak resident set size; energy, NVML GPU energy counter (GPU only). The four SENA rows are operating modes of one frozen package. Comparison methods used their authors' whole-slide pipelines (PromptNucSeg-H: common tiled wrapper, no official whole-slide pipeline). HoVer-Net appears here for resource use only; it is not in the accuracy table above because its checkpoint's training folds are undocumented.</p>
+
+      <h3 class="cost-head">Semantic routing: cost by budget</h3>
+      <div class="table-wrap">
+        <table class="mode-table bench-table">
+          <thead><tr><th>Configuration</th><th class="num">Runtime (min)</th><th class="num">GPU energy (Wh)</th><th class="num">Energy relative to native Cls</th></tr></thead>
+          <tbody>
+            <tr class="sena"><td>Native Eff</td><td class="num">7.40</td><td class="num">11.70</td><td class="num">0.24</td></tr>
+            <tr><td>Routing 10%</td><td class="num">9.20</td><td class="num">16.76</td><td class="num">0.34</td></tr>
+            <tr><td>Routing 20%</td><td class="num">10.50</td><td class="num">21.24</td><td class="num">0.43</td></tr>
+            <tr><td>Routing 30%</td><td class="num">11.86</td><td class="num">25.87</td><td class="num">0.52</td></tr>
+            <tr><td>Routing 50%</td><td class="num">14.46</td><td class="num">34.81</td><td class="num">0.70</td></tr>
+            <tr><td>Routing 70%</td><td class="num">17.14</td><td class="num">44.01</td><td class="num">0.89</td></tr>
+            <tr class="sena"><td>Native Cls</td><td class="num">15.08</td><td class="num">49.71</td><td class="num">1.00</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">The student runs on every tissue tile; the foundation model runs only on the given share of eligible tiles, ranked by the student's classification entropy (training-free). One reference whole-slide image (TCGA-A6-2671), one host (RTX A5000), medians of three valid repetitions; NVML GPU energy. Peak GPU memory is not reduced (5.11&nbsp;GB routed vs 5.05&nbsp;GB native Cls) because the foundation model stays resident. This is a separate within-host benchmark and is not combined with the fixed-mode table above. No optimal budget is defined.</p>
     </section>
 
     <section id="code" class="section">

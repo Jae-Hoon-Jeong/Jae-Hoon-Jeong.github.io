@@ -369,8 +369,8 @@
   const note = document.getElementById('bench-metric'), tog = document.getElementById('bench-organ-toggle');
   const C = ['Neoplastic', 'Epithelial', 'Inflammatory', 'Connective', 'Dead'], A = ['Neo', 'Epi', 'Infl', 'Conn', 'Dead'];
   const VIEWS = {
-    overview: { cols: [['Fd', 'Detection F<sub>d</sub>'], ['Acc_type', 'Classification Acc<sub>type</sub>'], ['mPQ', 'mPQ'], ['bPQ', 'bPQ']], key: 'overview',
-      note: 'F<sub>d</sub> and Acc<sub>type</sub>: unmodified HoVer-Net nuclei-type evaluator (commit 67e2ce5, 12-px centroid pairing). mPQ, bPQ: official PanNuke organ-averaged panoptic quality.' },
+    overview: { cols: [['Fd', 'Detection F<sub>d</sub>'], ['macro', 'Classification macro F<sub>c</sub>', 'detcls'], ['mPQ', 'mPQ'], ['bPQ', 'bPQ']], key: 'overview',
+      note: 'F<sub>d</sub>, detection F1; macro F<sub>c</sub>, unweighted mean of the five type-specific F1 scores (unmodified HoVer-Net nuclei-type evaluator, commit 67e2ce5, 12-px centroid pairing). mPQ, bPQ: official PanNuke organ-averaged panoptic quality.' },
     detcls: { cols: [['Fd', 'F<sub>d</sub>']].concat(C.map((c, i) => [c, A[i] + ' F<sub>c</sub>'])).concat([['macro', 'macro F<sub>c</sub>']]), key: 'detcls', lit: 'detcls',
       note: 'Unmodified HoVer-Net nuclei-type evaluator (commit 67e2ce5): F<sub>d</sub>, detection F1; F<sub>c</sub>, type-specific F1; macro, unweighted mean of the five types. Seg = Eff and Full = Cls for detection and classification by construction.' },
     pq: { cols: C.map((c, i) => [c, A[i] + ' PQ']).concat([['avgPQ', 'avgPQ']]), key: 'pq', lit: 'pq',
@@ -391,7 +391,7 @@
         + '<tr class="grp-start"><td>Average</td>' + rows.map(x => `<td class="num">${fmt(x.overview[metric])}</td>`).join('') + '</tr>';
     } else {
       head.innerHTML = '<tr>' + th('Method') + V.cols.map(c => th(c[1] + ' ↑', 'num')).join('') + '</tr>';
-      body.innerHTML = rows.map((x, i) => `<tr class="${x.group === 'SENA' ? 'sena' : ''}${i > 0 && x.group !== rows[i - 1].group ? ' grp-start' : ''}">` + nameCell(x) + V.cols.map(c => `<td class="num">${fmt(x[V.key][c[0]])}</td>`).join('') + '</tr>').join('');
+      body.innerHTML = rows.map((x, i) => `<tr class="${x.group === 'SENA' ? 'sena' : ''}${i > 0 && x.group !== rows[i - 1].group ? ' grp-start' : ''}">` + nameCell(x) + V.cols.map(c => `<td class="num">${fmt(x[c[2] || V.key][c[0]])}</td>`).join('') + '</tr>').join('');
     }
     if (V.lit) {
       litBox.hidden = false; const L = d.literature[V.lit];
