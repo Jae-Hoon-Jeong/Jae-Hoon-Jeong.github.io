@@ -1,301 +1,85 @@
 {
  "title": "PanNuke quantitative evaluation",
- "updated": "2026-10-07",
+ "updated": "2026-10-12",
  "version": 2,
- "protocol": "Equal-weight means over three prespecified training configurations (133, 233, 311) spanning two unique official PanNuke test folds (Fold 3, Fold 3, Fold 1); same scorer per column; \u00d7100.",
+ "protocol": "Equal-weight means over three prespecified training configurations (133, 233, 311) spanning two unique official PanNuke test folds (Fold 3, Fold 3, Fold 1); same scorer per column; ×100.",
  "evaluators": {
-  "Fd_Fc_Acc": "unmodified HoVer-Net compute_stats.run_nuclei_type_stat, vqdang/hover_net commit 67e2ce5 (compute_stats.py sha256 aab4548e\u2026, metrics/stats_utils.py 34dd46f6\u2026), 12-px centroid pairing; adapter_to_mat.py ba7472cf\u2026, run_upstream_hovernet.py 9e598969\u2026 \u2014 same definition as the manuscript Table 1",
-  "per_class_PQ": "parity_score_nbe.py (md5 28801ded\u2026) pq_internal_per_class: PQ per type averaged over images containing the type; avgPQ = mean of 5 types \u2014 manuscript Table 2",
-  "mPQ_bPQ": "official PanNuke organ-averaged definition (PanNuke-metrics), parity_score_nbe.py \u2014 manuscript Table 4",
-  "organ": "official organ-wise bPQ/mPQ, parity_score_nbe score_one grouped by types.npy (organ_pq.py 855e5ec3\u2026) \u2014 manuscript Extended Data Table 1a/1b"
+  "Fd_Fc_Acc": "unmodified HoVer-Net compute_stats.run_nuclei_type_stat, vqdang/hover_net commit 67e2ce5 (compute_stats.py sha256 aab4548e…, metrics/stats_utils.py 34dd46f6…), 12-px centroid pairing; adapter_to_mat.py ba7472cf…, run_upstream_hovernet.py 9e598969… — same definition as the manuscript Table 1",
+  "per_class_PQ": "parity_score_nbe.py (md5 28801ded…) pq_internal_per_class: PQ per type averaged over images containing the type; avgPQ = mean of 5 types — manuscript Table 2",
+  "mPQ_bPQ": "official PanNuke organ-averaged definition (PanNuke-metrics), parity_score_nbe.py — manuscript Table 4",
+  "organ": "official organ-wise bPQ/mPQ, parity_score_nbe score_one grouped by types.npy (organ_pq.py 855e5ec3…) — manuscript Extended Data Table 1a/1b"
  },
- "rule": "same column = same metric definition + same scorer; canonical and literature-reported values are never ranked together; no composite quality\u2013efficiency score",
+ "rule": "same column = same metric definition + same scorer; canonical and literature-reported values are never ranked together; no composite quality–efficiency score",
  "rows": [
   {
-   "method": "SENA Eff",
-   "group": "SENA",
-   "sub": "",
+   "method": "CellViT-SAM-H",
+   "group": "baseline",
+   "sub": "our per-split retraining (below published)",
    "overview": {
-    "Fd": 83.81,
-    "Acc_type": 85.81,
-    "mPQ": 49.71,
-    "bPQ": 67.87
+    "Fd": 79.36,
+    "Acc_type": 81.71,
+    "mPQ": 43.62,
+    "bPQ": 62.38
    },
    "detcls": {
-    "Fd": 83.81,
-    "Neoplastic": 71.2,
-    "Epithelial": 73.84,
-    "Inflammatory": 58.78,
-    "Connective": 54.22,
-    "Dead": 40.74,
-    "macro": 59.76
+    "Fd": 79.36,
+    "Neoplastic": 62.9,
+    "Epithelial": 61.51,
+    "Inflammatory": 54.34,
+    "Connective": 47.19,
+    "Dead": 33.17,
+    "macro": 51.82
    },
    "pq": {
-    "Neoplastic": 58.55,
-    "Epithelial": 58.0,
-    "Inflammatory": 42.1,
-    "Connective": 41.6,
-    "Dead": 16.13,
-    "avgPQ": 43.28
+    "Neoplastic": 49.39,
+    "Epithelial": 47.9,
+    "Inflammatory": 40.2,
+    "Connective": 35.73,
+    "Dead": 11.31,
+    "avgPQ": 36.91
    },
    "organ": {
     "bPQ": {
-     "Adrenal_gland": 70.65,
-     "Bile-duct": 67.67,
-     "Bladder": 71.42,
-     "Breast": 67.51,
-     "Cervix": 69.26,
-     "Colon": 59.83,
-     "Esophagus": 67.9,
-     "HeadNeck": 65.41,
-     "Kidney": 70.1,
-     "Liver": 72.64,
-     "Lung": 64.35,
-     "Ovarian": 67.58,
-     "Pancreatic": 66.28,
-     "Prostate": 68.08,
-     "Skin": 65.41,
-     "Stomach": 69.83,
-     "Testis": 69.07,
-     "Thyroid": 70.84,
-     "Uterus": 65.68
+     "Adrenal_gland": 65.44,
+     "Bile-duct": 63.23,
+     "Bladder": 66.6,
+     "Breast": 62.25,
+     "Cervix": 64.66,
+     "Colon": 51.79,
+     "Esophagus": 60.6,
+     "HeadNeck": 59.68,
+     "Kidney": 65.13,
+     "Liver": 68.21,
+     "Lung": 58.6,
+     "Ovarian": 61.11,
+     "Pancreatic": 62.92,
+     "Prostate": 62.45,
+     "Skin": 57.99,
+     "Stomach": 64.96,
+     "Testis": 64.41,
+     "Thyroid": 66.96,
+     "Uterus": 58.34
     },
     "mPQ": {
-     "Adrenal_gland": 50.22,
-     "Bile-duct": 48.85,
-     "Bladder": 58.94,
-     "Breast": 51.72,
-     "Cervix": 50.27,
-     "Colon": 45.27,
-     "Esophagus": 55.67,
-     "HeadNeck": 49.78,
-     "Kidney": 53.9,
-     "Liver": 52.14,
-     "Lung": 42.67,
-     "Ovarian": 53.66,
-     "Pancreatic": 48.24,
-     "Prostate": 53.43,
-     "Skin": 41.4,
-     "Stomach": 45.25,
-     "Testis": 50.13,
-     "Thyroid": 46.08,
-     "Uterus": 46.93
-    }
-   }
-  },
-  {
-   "method": "SENA Cls",
-   "group": "SENA",
-   "sub": "",
-   "overview": {
-    "Fd": 83.81,
-    "Acc_type": 86.34,
-    "mPQ": 50.38,
-    "bPQ": 67.87
-   },
-   "detcls": {
-    "Fd": 83.81,
-    "Neoplastic": 71.74,
-    "Epithelial": 75.85,
-    "Inflammatory": 59.02,
-    "Connective": 54.86,
-    "Dead": 41.6,
-    "macro": 60.61
-   },
-   "pq": {
-    "Neoplastic": 58.76,
-    "Epithelial": 59.21,
-    "Inflammatory": 42.59,
-    "Connective": 42.03,
-    "Dead": 17.96,
-    "avgPQ": 44.11
-   },
-   "organ": {
-    "bPQ": {
-     "Adrenal_gland": 70.66,
-     "Bile-duct": 67.67,
-     "Bladder": 71.42,
-     "Breast": 67.51,
-     "Cervix": 69.26,
-     "Colon": 59.83,
-     "Esophagus": 67.9,
-     "HeadNeck": 65.42,
-     "Kidney": 70.1,
-     "Liver": 72.64,
-     "Lung": 64.36,
-     "Ovarian": 67.58,
-     "Pancreatic": 66.29,
-     "Prostate": 68.08,
-     "Skin": 65.41,
-     "Stomach": 69.82,
-     "Testis": 69.07,
-     "Thyroid": 70.84,
-     "Uterus": 65.68
-    },
-    "mPQ": {
-     "Adrenal_gland": 50.7,
-     "Bile-duct": 49.0,
-     "Bladder": 60.19,
-     "Breast": 52.13,
-     "Cervix": 50.78,
-     "Colon": 45.55,
-     "Esophagus": 56.11,
-     "HeadNeck": 50.32,
-     "Kidney": 55.22,
-     "Liver": 52.67,
-     "Lung": 42.98,
-     "Ovarian": 54.58,
-     "Pancreatic": 48.76,
-     "Prostate": 53.67,
-     "Skin": 42.68,
-     "Stomach": 45.71,
-     "Testis": 51.15,
-     "Thyroid": 47.39,
-     "Uterus": 47.73
-    }
-   }
-  },
-  {
-   "method": "SENA Seg",
-   "group": "SENA",
-   "sub": "",
-   "overview": {
-    "Fd": 83.81,
-    "Acc_type": 85.81,
-    "mPQ": 51.71,
-    "bPQ": 70.58
-   },
-   "detcls": {
-    "Fd": 83.81,
-    "Neoplastic": 71.2,
-    "Epithelial": 73.84,
-    "Inflammatory": 58.78,
-    "Connective": 54.22,
-    "Dead": 40.74,
-    "macro": 59.76
-   },
-   "pq": {
-    "Neoplastic": 60.54,
-    "Epithelial": 60.03,
-    "Inflammatory": 43.72,
-    "Connective": 43.57,
-    "Dead": 17.92,
-    "avgPQ": 45.16
-   },
-   "organ": {
-    "bPQ": {
-     "Adrenal_gland": 73.28,
-     "Bile-duct": 70.29,
-     "Bladder": 74.15,
-     "Breast": 69.84,
-     "Cervix": 71.87,
-     "Colon": 62.72,
-     "Esophagus": 70.21,
-     "HeadNeck": 68.34,
-     "Kidney": 72.93,
-     "Liver": 75.46,
-     "Lung": 67.44,
-     "Ovarian": 70.07,
-     "Pancreatic": 69.24,
-     "Prostate": 70.69,
-     "Skin": 68.19,
-     "Stomach": 73.05,
-     "Testis": 71.52,
-     "Thyroid": 72.96,
-     "Uterus": 68.83
-    },
-    "mPQ": {
-     "Adrenal_gland": 52.08,
-     "Bile-duct": 50.82,
-     "Bladder": 61.24,
-     "Breast": 53.57,
-     "Cervix": 52.08,
-     "Colon": 47.53,
-     "Esophagus": 57.55,
-     "HeadNeck": 52.05,
-     "Kidney": 56.15,
-     "Liver": 54.14,
-     "Lung": 44.54,
-     "Ovarian": 55.69,
-     "Pancreatic": 50.26,
-     "Prostate": 55.67,
-     "Skin": 43.3,
-     "Stomach": 47.37,
-     "Testis": 51.83,
-     "Thyroid": 47.42,
-     "Uterus": 49.13
-    }
-   }
-  },
-  {
-   "method": "SENA Full",
-   "group": "SENA",
-   "sub": "",
-   "overview": {
-    "Fd": 83.81,
-    "Acc_type": 86.34,
-    "mPQ": 52.44,
-    "bPQ": 70.58
-   },
-   "detcls": {
-    "Fd": 83.81,
-    "Neoplastic": 71.74,
-    "Epithelial": 75.85,
-    "Inflammatory": 59.02,
-    "Connective": 54.86,
-    "Dead": 41.6,
-    "macro": 60.61
-   },
-   "pq": {
-    "Neoplastic": 60.77,
-    "Epithelial": 61.31,
-    "Inflammatory": 44.24,
-    "Connective": 44.02,
-    "Dead": 20.07,
-    "avgPQ": 46.08
-   },
-   "organ": {
-    "bPQ": {
-     "Adrenal_gland": 73.28,
-     "Bile-duct": 70.29,
-     "Bladder": 74.15,
-     "Breast": 69.84,
-     "Cervix": 71.87,
-     "Colon": 62.72,
-     "Esophagus": 70.21,
-     "HeadNeck": 68.35,
-     "Kidney": 72.93,
-     "Liver": 75.46,
-     "Lung": 67.45,
-     "Ovarian": 70.07,
-     "Pancreatic": 69.24,
-     "Prostate": 70.69,
-     "Skin": 68.19,
-     "Stomach": 73.03,
-     "Testis": 71.52,
-     "Thyroid": 72.96,
-     "Uterus": 68.82
-    },
-    "mPQ": {
-     "Adrenal_gland": 52.58,
-     "Bile-duct": 50.97,
-     "Bladder": 62.57,
-     "Breast": 53.98,
-     "Cervix": 52.65,
-     "Colon": 47.85,
-     "Esophagus": 57.99,
-     "HeadNeck": 52.62,
-     "Kidney": 57.57,
-     "Liver": 54.85,
-     "Lung": 44.9,
-     "Ovarian": 56.69,
-     "Pancreatic": 50.84,
-     "Prostate": 55.9,
-     "Skin": 44.65,
-     "Stomach": 47.87,
-     "Testis": 52.93,
-     "Thyroid": 48.81,
-     "Uterus": 50.06
+     "Adrenal_gland": 43.05,
+     "Bile-duct": 43.67,
+     "Bladder": 55.34,
+     "Breast": 46.03,
+     "Cervix": 44.62,
+     "Colon": 37.58,
+     "Esophagus": 47.34,
+     "HeadNeck": 42.82,
+     "Kidney": 47.17,
+     "Liver": 47.28,
+     "Lung": 35.28,
+     "Ovarian": 46.94,
+     "Pancreatic": 44.37,
+     "Prostate": 46.01,
+     "Skin": 35.33,
+     "Stomach": 39.64,
+     "Testis": 45.98,
+     "Thyroid": 39.65,
+     "Uterus": 40.63
     }
    }
   },
@@ -444,74 +228,290 @@
    }
   },
   {
-   "method": "CellViT-SAM-H",
-   "group": "baseline",
-   "sub": "our per-split retraining (below published)",
+   "method": "SENA Eff",
+   "group": "SENA",
+   "sub": "",
    "overview": {
-    "Fd": 79.36,
-    "Acc_type": 81.71,
-    "mPQ": 43.62,
-    "bPQ": 62.38
+    "Fd": 84.03,
+    "Acc_type": 86.25,
+    "mPQ": 50.07,
+    "bPQ": 68.02
    },
    "detcls": {
-    "Fd": 79.36,
-    "Neoplastic": 62.9,
-    "Epithelial": 61.51,
-    "Inflammatory": 54.34,
-    "Connective": 47.19,
-    "Dead": 33.17,
-    "macro": 51.82
+    "Fd": 84.03,
+    "Neoplastic": 71.7,
+    "Epithelial": 73.55,
+    "Inflammatory": 59.76,
+    "Connective": 55.53,
+    "Dead": 40.79,
+    "macro": 60.27
    },
    "pq": {
-    "Neoplastic": 49.39,
-    "Epithelial": 47.9,
-    "Inflammatory": 40.2,
-    "Connective": 35.73,
-    "Dead": 11.31,
-    "avgPQ": 36.91
+    "Neoplastic": 58.71,
+    "Epithelial": 58.06,
+    "Inflammatory": 43.8,
+    "Connective": 42.18,
+    "Dead": 18.57,
+    "avgPQ": 44.26
    },
    "organ": {
     "bPQ": {
-     "Adrenal_gland": 65.44,
-     "Bile-duct": 63.23,
-     "Bladder": 66.6,
-     "Breast": 62.25,
-     "Cervix": 64.66,
-     "Colon": 51.79,
-     "Esophagus": 60.6,
-     "HeadNeck": 59.68,
-     "Kidney": 65.13,
-     "Liver": 68.21,
-     "Lung": 58.6,
-     "Ovarian": 61.11,
-     "Pancreatic": 62.92,
-     "Prostate": 62.45,
-     "Skin": 57.99,
-     "Stomach": 64.96,
-     "Testis": 64.41,
-     "Thyroid": 66.96,
-     "Uterus": 58.34
+     "Adrenal_gland": 71.63,
+     "Bile-duct": 68.41,
+     "Bladder": 71.26,
+     "Breast": 67.63,
+     "Cervix": 68.84,
+     "Colon": 59.88,
+     "Esophagus": 67.85,
+     "HeadNeck": 65.47,
+     "Kidney": 70.34,
+     "Liver": 72.66,
+     "Lung": 64.4,
+     "Ovarian": 67.85,
+     "Pancreatic": 66.52,
+     "Prostate": 68.15,
+     "Skin": 65.37,
+     "Stomach": 69.86,
+     "Testis": 69.48,
+     "Thyroid": 70.84,
+     "Uterus": 65.91
     },
     "mPQ": {
-     "Adrenal_gland": 43.05,
-     "Bile-duct": 43.67,
-     "Bladder": 55.34,
-     "Breast": 46.03,
-     "Cervix": 44.62,
-     "Colon": 37.58,
-     "Esophagus": 47.34,
-     "HeadNeck": 42.82,
-     "Kidney": 47.17,
-     "Liver": 47.28,
-     "Lung": 35.28,
-     "Ovarian": 46.94,
-     "Pancreatic": 44.37,
-     "Prostate": 46.01,
-     "Skin": 35.33,
-     "Stomach": 39.64,
-     "Testis": 45.98,
-     "Thyroid": 39.65,
-     "Uterus": 40.63
+     "Adrenal_gland": 49.86,
+     "Bile-duct": 49.5,
+     "Bladder": 58.92,
+     "Breast": 52.64,
+     "Cervix": 51.06,
+     "Colon": 46.35,
+     "Esophagus": 55.75,
+     "HeadNeck": 50.01,
+     "Kidney": 56.57,
+     "Liver": 51.61,
+     "Lung": 41.09,
+     "Ovarian": 54.66,
+     "Pancreatic": 48.66,
+     "Prostate": 53.42,
+     "Skin": 40.05,
+     "Stomach": 45.79,
+     "Testis": 50.94,
+     "Thyroid": 46.16,
+     "Uterus": 48.35
+    }
+   }
+  },
+  {
+   "method": "SENA Cls",
+   "group": "SENA",
+   "sub": "",
+   "overview": {
+    "Fd": 84.03,
+    "Acc_type": 86.72,
+    "mPQ": 50.87,
+    "bPQ": 68.02
+   },
+   "detcls": {
+    "Fd": 84.03,
+    "Neoplastic": 72.18,
+    "Epithelial": 75.42,
+    "Inflammatory": 60.07,
+    "Connective": 56.12,
+    "Dead": 41.12,
+    "macro": 60.98
+   },
+   "pq": {
+    "Neoplastic": 59.07,
+    "Epithelial": 59.18,
+    "Inflammatory": 44.42,
+    "Connective": 42.64,
+    "Dead": 20.19,
+    "avgPQ": 45.1
+   },
+   "organ": {
+    "bPQ": {
+     "Adrenal_gland": 71.63,
+     "Bile-duct": 68.41,
+     "Bladder": 71.26,
+     "Breast": 67.63,
+     "Cervix": 68.84,
+     "Colon": 59.88,
+     "Esophagus": 67.85,
+     "HeadNeck": 65.48,
+     "Kidney": 70.34,
+     "Liver": 72.66,
+     "Lung": 64.4,
+     "Ovarian": 67.85,
+     "Pancreatic": 66.52,
+     "Prostate": 68.15,
+     "Skin": 65.36,
+     "Stomach": 69.86,
+     "Testis": 69.48,
+     "Thyroid": 70.82,
+     "Uterus": 65.91
+    },
+    "mPQ": {
+     "Adrenal_gland": 51.07,
+     "Bile-duct": 50.25,
+     "Bladder": 59.99,
+     "Breast": 52.92,
+     "Cervix": 51.36,
+     "Colon": 46.6,
+     "Esophagus": 56.16,
+     "HeadNeck": 50.57,
+     "Kidney": 57.89,
+     "Liver": 52.99,
+     "Lung": 41.78,
+     "Ovarian": 55.37,
+     "Pancreatic": 49.49,
+     "Prostate": 54.23,
+     "Skin": 41.5,
+     "Stomach": 46.02,
+     "Testis": 52.42,
+     "Thyroid": 47.19,
+     "Uterus": 48.65
+    }
+   }
+  },
+  {
+   "method": "SENA Seg",
+   "group": "SENA",
+   "sub": "",
+   "overview": {
+    "Fd": 84.03,
+    "Acc_type": 86.25,
+    "mPQ": 52.24,
+    "bPQ": 70.88
+   },
+   "detcls": {
+    "Fd": 84.03,
+    "Neoplastic": 71.7,
+    "Epithelial": 73.55,
+    "Inflammatory": 59.76,
+    "Connective": 55.53,
+    "Dead": 40.79,
+    "macro": 60.27
+   },
+   "pq": {
+    "Neoplastic": 60.76,
+    "Epithelial": 60.23,
+    "Inflammatory": 45.56,
+    "Connective": 44.29,
+    "Dead": 21.01,
+    "avgPQ": 46.37
+   },
+   "organ": {
+    "bPQ": {
+     "Adrenal_gland": 74.11,
+     "Bile-duct": 71.04,
+     "Bladder": 74.5,
+     "Breast": 70.04,
+     "Cervix": 71.48,
+     "Colon": 63.05,
+     "Esophagus": 70.24,
+     "HeadNeck": 68.79,
+     "Kidney": 73.52,
+     "Liver": 75.5,
+     "Lung": 67.8,
+     "Ovarian": 70.45,
+     "Pancreatic": 69.41,
+     "Prostate": 70.79,
+     "Skin": 68.59,
+     "Stomach": 73.29,
+     "Testis": 71.94,
+     "Thyroid": 73.17,
+     "Uterus": 69.08
+    },
+    "mPQ": {
+     "Adrenal_gland": 51.64,
+     "Bile-duct": 51.51,
+     "Bladder": 61.66,
+     "Breast": 54.53,
+     "Cervix": 52.97,
+     "Colon": 48.9,
+     "Esophagus": 57.71,
+     "HeadNeck": 52.68,
+     "Kidney": 59.25,
+     "Liver": 53.69,
+     "Lung": 43.09,
+     "Ovarian": 56.86,
+     "Pancreatic": 50.75,
+     "Prostate": 55.83,
+     "Skin": 42.22,
+     "Stomach": 48.29,
+     "Testis": 52.73,
+     "Thyroid": 47.66,
+     "Uterus": 50.66
+    }
+   }
+  },
+  {
+   "method": "SENA Full",
+   "group": "SENA",
+   "sub": "",
+   "overview": {
+    "Fd": 84.03,
+    "Acc_type": 86.72,
+    "mPQ": 53.07,
+    "bPQ": 70.88
+   },
+   "detcls": {
+    "Fd": 84.03,
+    "Neoplastic": 72.18,
+    "Epithelial": 75.42,
+    "Inflammatory": 60.07,
+    "Connective": 56.12,
+    "Dead": 41.12,
+    "macro": 60.98
+   },
+   "pq": {
+    "Neoplastic": 61.13,
+    "Epithelial": 61.41,
+    "Inflammatory": 46.2,
+    "Connective": 44.76,
+    "Dead": 22.83,
+    "avgPQ": 47.27
+   },
+   "organ": {
+    "bPQ": {
+     "Adrenal_gland": 74.11,
+     "Bile-duct": 71.04,
+     "Bladder": 74.5,
+     "Breast": 70.04,
+     "Cervix": 71.48,
+     "Colon": 63.06,
+     "Esophagus": 70.24,
+     "HeadNeck": 68.79,
+     "Kidney": 73.53,
+     "Liver": 75.49,
+     "Lung": 67.79,
+     "Ovarian": 70.45,
+     "Pancreatic": 69.41,
+     "Prostate": 70.79,
+     "Skin": 68.59,
+     "Stomach": 73.29,
+     "Testis": 71.94,
+     "Thyroid": 73.14,
+     "Uterus": 69.08
+    },
+    "mPQ": {
+     "Adrenal_gland": 52.9,
+     "Bile-duct": 52.29,
+     "Bladder": 62.78,
+     "Breast": 54.82,
+     "Cervix": 53.29,
+     "Colon": 49.19,
+     "Esophagus": 58.14,
+     "HeadNeck": 53.24,
+     "Kidney": 60.63,
+     "Liver": 55.21,
+     "Lung": 43.77,
+     "Ovarian": 57.59,
+     "Pancreatic": 51.59,
+     "Prostate": 56.68,
+     "Skin": 43.68,
+     "Stomach": 48.52,
+     "Testis": 54.29,
+     "Thyroid": 48.73,
+     "Uterus": 51.03
     }
    }
   }
@@ -544,6 +544,18 @@
     ]
    },
    {
+    "method": "StarDist",
+    "values": [
+     82,
+     69,
+     70,
+     57,
+     51,
+     10,
+     52
+    ]
+   },
+   {
     "method": "Micro-Net",
     "values": [
      80,
@@ -568,30 +580,6 @@
     ]
    },
    {
-    "method": "StarDist",
-    "values": [
-     82,
-     69,
-     70,
-     57,
-     51,
-     10,
-     52
-    ]
-   },
-   {
-    "method": "CP-Mamba",
-    "values": [
-     82,
-     62,
-     64,
-     54,
-     50,
-     31,
-     52
-    ]
-   },
-   {
     "method": "CPP-Net",
     "values": [
      82,
@@ -601,18 +589,6 @@
      53,
      38,
      58
-    ]
-   },
-   {
-    "method": "HistoNeXt",
-    "values": [
-     82,
-     70,
-     71,
-     58,
-     52,
-     36,
-     57
     ]
    },
    {
@@ -628,18 +604,6 @@
     ]
    },
    {
-    "method": "NuLite-H",
-    "values": [
-     83,
-     71,
-     73,
-     58,
-     53,
-     37,
-     58
-    ]
-   },
-   {
     "method": "CellViT",
     "values": [
      83,
@@ -647,18 +611,6 @@
      73,
      58,
      53,
-     36,
-     58
-    ]
-   },
-   {
-    "method": "MOTDNet",
-    "values": [
-     83,
-     70,
-     72,
-     59,
-     52,
      36,
      58
     ]
@@ -676,6 +628,30 @@
     ]
    },
    {
+    "method": "HistoNeXt",
+    "values": [
+     82,
+     70,
+     71,
+     58,
+     52,
+     36,
+     57
+    ]
+   },
+   {
+    "method": "CP-Mamba",
+    "values": [
+     82,
+     62,
+     64,
+     54,
+     50,
+     31,
+     52
+    ]
+   },
+   {
     "method": "NuHTC (train+val merged)",
     "values": [
      83,
@@ -684,6 +660,30 @@
      57,
      57,
      31,
+     58
+    ]
+   },
+   {
+    "method": "NuLite-H",
+    "values": [
+     83,
+     71,
+     73,
+     58,
+     53,
+     37,
+     58
+    ]
+   },
+   {
+    "method": "MOTDNet",
+    "values": [
+     83,
+     70,
+     72,
+     59,
+     52,
+     36,
      58
     ]
    }
@@ -712,6 +712,17 @@
     ]
    },
    {
+    "method": "StarDist",
+    "values": [
+     54.7,
+     53.2,
+     42.4,
+     38.0,
+     12.3,
+     40.1
+    ]
+   },
+   {
     "method": "Micro-Net",
     "values": [
      50.4,
@@ -720,17 +731,6 @@
      33.4,
      5.1,
      33.3
-    ]
-   },
-   {
-    "method": "FKDNuSeg",
-    "values": [
-     55.1,
-     48.3,
-     40.8,
-     36.7,
-     15.0,
-     39.2
     ]
    },
    {
@@ -745,17 +745,6 @@
     ]
    },
    {
-    "method": "StarDist",
-    "values": [
-     54.7,
-     53.2,
-     42.4,
-     38.0,
-     12.3,
-     40.1
-    ]
-   },
-   {
     "method": "CPP-Net",
     "values": [
      57.1,
@@ -764,28 +753,6 @@
      39.5,
      13.1,
      41.3
-    ]
-   },
-   {
-    "method": "NuLite-H",
-    "values": [
-     57.7,
-     57.1,
-     41.7,
-     41.3,
-     14.5,
-     42.5
-    ]
-   },
-   {
-    "method": "MOTDNet",
-    "values": [
-     57.8,
-     56.3,
-     44.0,
-     41.0,
-     13.6,
-     42.5
     ]
    },
    {
@@ -830,6 +797,39 @@
      43.2,
      18.8,
      44.9
+    ]
+   },
+   {
+    "method": "NuLite-H",
+    "values": [
+     57.7,
+     57.1,
+     41.7,
+     41.3,
+     14.5,
+     42.5
+    ]
+   },
+   {
+    "method": "MOTDNet",
+    "values": [
+     57.8,
+     56.3,
+     44.0,
+     41.0,
+     13.6,
+     42.5
+    ]
+   },
+   {
+    "method": "FKDNuSeg",
+    "values": [
+     55.1,
+     48.3,
+     40.8,
+     36.7,
+     15.0,
+     39.2
     ]
    }
   ]
@@ -876,7 +876,7 @@
     "bPQ": 66.0,
     "source": "our canonical rescoring of stored prediction dumps (50024 ~/nbe_parity/dumps)"
    },
-   "status": "WITHHELD FROM MAIN TABLE \u2014 TRAINING-FOLD PROVENANCE UNRESOLVED"
+   "status": "WITHHELD FROM MAIN TABLE — TRAINING-FOLD PROVENANCE UNRESOLVED"
   },
   {
    "method": "NuLite-T / NuLite-H (official)",
@@ -895,6 +895,7 @@
   }
  ],
  "main_table_policy": "Main table = SENA Eff/Cls/Seg/Full (clean confirmatory) + PromptNucSeg SAM-H + NuHTC reproduction + CellViT-SAM-H retrain. No literature-reported numbers in the main table.",
- "history": "Earlier ICLR/MedIA \"Ours\" Det/Cls values (greedy same-class matching) are HISTORICAL \u2014 INCOMPATIBLE METRIC DEFINITION and are not shown; the legacy test-selected Table 1 is HISTORICAL / TEST-SELECTED / NOT CONFIRMATORY.",
- "provenance": "NBE extension/benchmark_reconstruction (raw scorer JSON, BENCHMARK_RECONSTRUCTION_AUDIT.md, gen_tables.py, gen_page_json.py); PromptNucSeg config 233 = canonical regenerated dump 2026-10-07"
+ "history": "Earlier ICLR/MedIA \"Ours\" Det/Cls values (greedy same-class matching) are HISTORICAL — INCOMPATIBLE METRIC DEFINITION and are not shown; the legacy test-selected Table 1 is HISTORICAL / TEST-SELECTED / NOT CONFIRMATORY.",
+ "provenance": "NBE extension/benchmark_reconstruction (raw scorer JSON, BENCHMARK_RECONSTRUCTION_AUDIT.md, gen_tables.py, gen_page_json.py); PromptNucSeg config 233 = canonical regenerated dump 2026-10-07",
+ "sena_source": "SENA rows = teacher-sweep UNI2-h (manuscript main results; user decision 2026-10-07/2026-10-12), generated by gen_page_json_sweep.py from raw_sweep/"
 }

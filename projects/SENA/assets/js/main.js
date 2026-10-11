@@ -383,7 +383,7 @@
   function nameCell(x) { return `<td>${x.method}${x.group !== 'SENA' && x.sub ? '<div class="cfg">' + x.sub + '</div>' : ''}</td>`; }
   function render() {
     const V = VIEWS[view]; note.innerHTML = V.note; tog.hidden = view !== 'organ';
-    const rows = d.rows.filter(x => x.group === 'SENA').concat(d.rows.filter(x => x.group !== 'SENA'));
+    const rows = d.rows.filter(x => x.group !== 'SENA').concat(d.rows.filter(x => x.group === 'SENA'));   // manuscript order: comparisons, then SENA Eff/Cls/Seg/Full
     if (view === 'organ') {
       const organs = Object.keys(rows[0].organ[metric]);
       head.innerHTML = '<tr>' + th('Tissue') + rows.map(x => th(x.method, 'num')).join('') + '</tr>';
