@@ -401,8 +401,7 @@
     if (V.lit) {
       litBox.hidden = false; const L = d.literature[V.lit];
       lit.querySelector('thead').innerHTML = '<tr>' + th('Method') + V.cols.map(c => th(c[1], 'num')).join('') + '</tr>';
-      const lb = V.cols.map((c, j) => Math.max(...L.map(x => x.values[j])));   // bold within the literature table only (never ranked against the canonical table)
-      lit.querySelector('tbody').innerHTML = L.map(x => '<tr><td>' + x.method + '</td>' + x.values.map((v, j) => `<td class="num">${v === lb[j] ? '<strong>' + v + '</strong>' : v}</td>`).join('') + '</tr>').join('');
+      lit.querySelector('tbody').innerHTML = L.map(x => '<tr><td>' + x.method + '</td>' + x.values.map(v => `<td class="num">${v}</td>`).join('') + '</tr>').join('');   // literature table: no bold
     } else litBox.hidden = true;
   }
   document.querySelectorAll('.bench-tabs [role=tab]').forEach(b => b.addEventListener('click', () => {
