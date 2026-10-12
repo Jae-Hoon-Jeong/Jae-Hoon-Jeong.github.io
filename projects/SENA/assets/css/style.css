@@ -188,3 +188,4 @@ input[type=range] { width: 100%; accent-color: var(--ink); height: 28px; }
 .cost-head { margin: 1.6rem 0 .5rem; }
 .bench-table th.perf, .bench-table td.perf { border-left: 1px solid var(--line); }
 .tumour-fig { margin: 1.4rem 0 0; } .tumour-fig img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 6px; } .tumour-fig figcaption { font-size: .82rem; color: var(--muted); margin-top: .5rem; }
+.bench-table th.sena-col, .bench-table td.sena-col { background: color-mix(in srgb, var(--fg) 6%, transparent); }

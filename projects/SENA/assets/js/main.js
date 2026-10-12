@@ -381,7 +381,7 @@
   const fmt = v => (typeof v === 'number' ? v.toFixed(2) : '–');
   // bold = highest displayed value per column (ties all bold); computed separately for each table
   const best = vals => Math.max(...vals.filter(v => typeof v === 'number').map(v => +v.toFixed(2)));
-  const cell = (v, m) => `<td class="num">${typeof v === 'number' && +v.toFixed(2) === m ? '<strong>' + fmt(v) + '</strong>' : fmt(v)}</td>`;
+  const cell = (v, m, extra) => `<td class="num${extra ? ' ' + extra : ''}">${typeof v === 'number' && +v.toFixed(2) === m ? '<strong>' + fmt(v) + '</strong>' : fmt(v)}</td>`;
   const th = (h, cls) => `<th${cls ? ' class="' + cls + '"' : ''}>${h}</th>`;
   function nameCell(x) { return `<td>${x.method}${x.group !== 'SENA' && x.sub ? '<div class="cfg">' + x.sub + '</div>' : ''}</td>`; }
   function render() {
@@ -389,8 +389,8 @@
     const rows = d.rows.filter(x => x.group !== 'SENA').concat(d.rows.filter(x => x.group === 'SENA'));   // manuscript order: comparisons, then SENA Eff/Cls/Seg/Full
     if (view === 'organ') {
       const organs = Object.keys(rows[0].organ[metric]);
-      head.innerHTML = '<tr>' + th('Tissue') + rows.map(x => th(x.method, 'num')).join('') + '</tr>';
-      const rowB = vals => { const m = best(vals); return vals.map(v => cell(v, m)).join(''); };
+      head.innerHTML = '<tr>' + th('Tissue') + rows.map(x => th(x.method, 'num' + (x.group === 'SENA' ? ' sena-col' : ''))).join('') + '</tr>';
+      const rowB = vals => { const m = best(vals); return vals.map((v, i) => cell(v, m, rows[i].group === 'SENA' ? 'sena-col' : '')).join(''); };
       body.innerHTML = organs.map(o => '<tr><td>' + o.replace('_', ' ').replace('HeadNeck', 'Head &amp; neck') + '</td>' + rowB(rows.map(x => x.organ[metric][o])) + '</tr>').join('')
         + '<tr class="grp-start"><td>Average</td>' + rowB(rows.map(x => x.overview[metric])) + '</tr>';
     } else {
