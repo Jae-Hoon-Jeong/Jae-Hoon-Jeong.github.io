@@ -13,7 +13,7 @@ sitemap: false
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="assets/css/style.css?v=20261018b">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261018c">
 </head>
 <body>
   <header class="topbar">
@@ -551,13 +551,7 @@ sitemap: false
           </tbody>
         </table>
       </div>
-      <p class="pc-head">Observed pairwise comparisons (whole-slide runtime)</p>
-      <div class="pareto-cards" role="list" aria-label="Observed pairwise comparisons">
-        <div class="pc" role="listitem"><span class="pc-k">SENA Cls vs NuLite-T <em>(fastest comparison)</em></span><span class="pc-v">1.18× faster</span><span class="pc-s">+2.2 avgPQ points · 14.66 vs 17.27 min · 45.1 vs 42.9</span></div>
-        <div class="pc" role="listitem"><span class="pc-k">SENA Cls vs NuHTC <em>(highest avgPQ among comparisons)</em></span><span class="pc-v">3.59× faster</span><span class="pc-s">+0.2 avgPQ points · 14.66 vs 52.67 min · 45.1 vs 44.9</span></div>
-        <div class="pc" role="listitem"><span class="pc-k">SENA Eff vs PromptNucSeg-H</span><span class="pc-v">4.95× faster</span><span class="pc-s">same avgPQ (44.3) · 7.66 vs 37.96 min</span></div>
-      </div>
-      <p class="table-note">Observed pairs only (no interpolated baseline performance), using reported PanNuke avgPQ paired with measured whole-slide resources. <strong>Hypervolume (secondary summary).</strong> Two objectives per resource, avgPQ (maximise) and the resource (minimise), normalised with one rule fixed for every resource: u = (C<sub>ref</sub> − c)/C<sub>ref</sub> with C<sub>ref</sub> = 1.1 × the largest value of that resource among the ten configurations (runtime 57.94 min, GPU energy 123.63 Wh, CPU pkg.+DRAM 54.54 Wh, GPU memory 27.74 GB), and v = (avgPQ − 35)/(50 − 35); HV is the area of the union of the rectangles [0, u] × [0, v]; relative gain = ΔHV / baseline HV. HV values are shown to four decimals and ΔHV is their displayed difference. The magnitude is reference-dependent: with C<sub>ref</sub> = 1.05–2.0 × the maximum and avgPQ reference 30–39.5 the relative gain ranged +30% to +106% (runtime), +15% to +49% (GPU energy), +28% to +77% (CPU pkg.+DRAM) and +18% to +58% (GPU memory), whereas the positive gain, the dominated counts and the Pareto-front composition are unchanged. (The previous runtime-only version used a fixed 60-min reference: HV 0.4171 → 0.6635, +59.1%.) Resource and accuracy values come from different benchmarks; HV summarises each frontier as a whole and is not a per-method score. <sup>†</sup>Checkpoints are not matched for every comparison method: avgPQ values of the comparison methods are those reported in the original publications (three-fold), whereas the whole-slide runs used the CellViT-SAM-H public ×40 checkpoint, the released NuHTC pannuke.pth, the official PromptNucSeg split-213 weights, the official HoVer-Net PanNuke checkpoint and the NuLite PanNuke weights (trained on all of PanNuke, so no held-out score exists for that checkpoint); SENA avgPQ is the three-split mean of its training procedure and the whole-slide runs used the release package (v1.0.1).</p>
+      <p class="table-note"><strong>Hypervolume (secondary summary).</strong> Reported PanNuke avgPQ paired with measured whole-slide resources; only observed points are used (no interpolated baseline performance). Two objectives per resource, avgPQ (maximise) and the resource (minimise), normalised with one rule fixed for every resource: u = (C<sub>ref</sub> − c)/C<sub>ref</sub> with C<sub>ref</sub> = 1.1 × the largest value of that resource among the ten configurations (runtime 57.94 min, GPU energy 123.63 Wh, CPU pkg.+DRAM 54.54 Wh, GPU memory 27.74 GB), and v = (avgPQ − 35)/(50 − 35); HV is the area of the union of the rectangles [0, u] × [0, v]; relative gain = ΔHV / baseline HV. HV values are shown to four decimals and ΔHV is their displayed difference. The magnitude is reference-dependent: with C<sub>ref</sub> = 1.05–2.0 × the maximum and avgPQ reference 30–39.5 the relative gain ranged +30% to +106% (runtime), +15% to +49% (GPU energy), +28% to +77% (CPU pkg.+DRAM) and +18% to +58% (GPU memory), whereas the positive gain, the dominated counts and the Pareto-front composition are unchanged. (The previous runtime-only version used a fixed 60-min reference: HV 0.4171 → 0.6635, +59.1%.) Resource and accuracy values come from different benchmarks; HV summarises each frontier as a whole and is not a per-method score. <sup>†</sup>Checkpoints are not matched for every comparison method: avgPQ values of the comparison methods are those reported in the original publications (three-fold), whereas the whole-slide runs used the CellViT-SAM-H public ×40 checkpoint, the released NuHTC pannuke.pth, the official PromptNucSeg split-213 weights, the official HoVer-Net PanNuke checkpoint and the NuLite PanNuke weights (trained on all of PanNuke, so no held-out score exists for that checkpoint); SENA avgPQ is the three-split mean of its training procedure and the whole-slide runs used the release package (v1.0.1).</p>
 
       <h3 class="cost-head">Whole-slide operational benchmark (fixed modes)</h3>
       <div class="table-wrap">
@@ -613,6 +607,6 @@ sitemap: false
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1.1/build/openseadragon/openseadragon.min.js"></script>
-  <script src="assets/js/main.js?v=20261018b"></script>
+  <script src="assets/js/main.js?v=20261018c"></script>
 </body>
 </html>
