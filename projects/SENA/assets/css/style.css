@@ -230,3 +230,9 @@ input[type=range] { width: 100%; accent-color: var(--ink); height: 28px; }
 @media (max-width: 720px) { .res-grid .res-panel { overflow-x: auto; } }
 .res-legend { display: flex; flex-wrap: wrap; gap: .3rem 1.1rem; font-size: .8rem; color: var(--fg2); margin: .2rem 0 .6rem; }
 .res-legend span { display: inline-flex; align-items: center; gap: .35rem; }
+/* 2x2 frontier grid at any width >= 560px, kept compact */
+.res-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 920px; margin-left: auto; margin-right: auto; gap: .8rem 1rem; }
+.res-legend { max-width: 920px; margin-left: auto; margin-right: auto; }
+.res-grid .pareto-svg { min-width: 0; }
+.res-grid .res-panel { overflow: visible; }
+@media (max-width: 559px) { .res-grid { grid-template-columns: 1fr; } }
