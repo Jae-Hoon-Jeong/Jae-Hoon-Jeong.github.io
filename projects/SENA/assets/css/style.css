@@ -208,3 +208,4 @@ input[type=range] { width: 100%; accent-color: var(--ink); height: 28px; }
 .res-table, .route-table { width: auto; min-width: 100%; }
 @media (max-width: 720px) { .pareto-fig { overflow-x: auto; } .pareto-svg { min-width: 600px; } }
 @media (min-width: 900px) { .res-table, .route-table { min-width: 0; width: 100%; max-width: 980px; } }
+.pareto-key { font-size: .9rem; color: var(--fg); margin: 1rem 0 .2rem; max-width: 60rem; }
