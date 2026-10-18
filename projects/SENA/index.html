@@ -260,309 +260,297 @@ sitemap: false
 
       <h3 class="cost-head">Accuracy–resource Pareto frontiers</h3>
       <p class="cost-lead">SENA’s accuracy–efficiency advantage is not restricted to runtime. In this benchmark its configurable modes occupy strong Pareto operating points across time, energy and memory constraints.</p>
-      <div class="res-tabs" role="tablist" aria-label="Resource axis"><button type="button" role="tab" id="tab-runtime" data-res="runtime" aria-controls="res-runtime" aria-selected="true">Runtime</button><button type="button" role="tab" id="tab-gpu_energy" data-res="gpu_energy" aria-controls="res-gpu_energy" aria-selected="false">GPU energy</button><button type="button" role="tab" id="tab-cpu_energy" data-res="cpu_energy" aria-controls="res-cpu_energy" aria-selected="false">CPU energy</button><button type="button" role="tab" id="tab-gpu_memory" data-res="gpu_memory" aria-controls="res-gpu_memory" aria-selected="false">GPU memory</button></div>
-      <figure class="pareto-fig">
-        <div class="res-panel" id="res-runtime" role="tabpanel" aria-labelledby="tab-runtime">
-<svg class="pareto-svg" viewBox="0 0 760 440" role="img" aria-label="avgPQ against Whole-slide runtime (min): comparison methods, the four SENA modes and the non-dominated frontiers with and without SENA" font-family="Inter, system-ui, sans-serif" xmlns="http://www.w3.org/2000/svg">
-<line x1="64.0" y1="382.0" x2="64.0" y2="22.0" stroke="#eaeaea"/>
-<text x="64.0" y="399.0" font-size="11" fill="#555" text-anchor="middle">0</text>
-<line x1="176.3" y1="382.0" x2="176.3" y2="22.0" stroke="#eaeaea"/>
-<text x="176.3" y="399.0" font-size="11" fill="#555" text-anchor="middle">10</text>
-<line x1="288.7" y1="382.0" x2="288.7" y2="22.0" stroke="#eaeaea"/>
-<text x="288.7" y="399.0" font-size="11" fill="#555" text-anchor="middle">20</text>
-<line x1="401.0" y1="382.0" x2="401.0" y2="22.0" stroke="#eaeaea"/>
-<text x="401.0" y="399.0" font-size="11" fill="#555" text-anchor="middle">30</text>
-<line x1="513.3" y1="382.0" x2="513.3" y2="22.0" stroke="#eaeaea"/>
-<text x="513.3" y="399.0" font-size="11" fill="#555" text-anchor="middle">40</text>
-<line x1="625.7" y1="382.0" x2="625.7" y2="22.0" stroke="#eaeaea"/>
-<text x="625.7" y="399.0" font-size="11" fill="#555" text-anchor="middle">50</text>
-<line x1="738.0" y1="382.0" x2="738.0" y2="22.0" stroke="#eaeaea"/>
-<text x="738.0" y="399.0" font-size="11" fill="#555" text-anchor="middle">60</text>
-<line x1="64.0" y1="382.0" x2="738.0" y2="382.0" stroke="#eaeaea"/>
-<text x="56.0" y="386.0" font-size="11" fill="#555" text-anchor="end">39</text>
-<line x1="64.0" y1="342.0" x2="738.0" y2="342.0" stroke="#eaeaea"/>
-<text x="56.0" y="346.0" font-size="11" fill="#555" text-anchor="end">40</text>
-<line x1="64.0" y1="302.0" x2="738.0" y2="302.0" stroke="#eaeaea"/>
-<text x="56.0" y="306.0" font-size="11" fill="#555" text-anchor="end">41</text>
-<line x1="64.0" y1="262.0" x2="738.0" y2="262.0" stroke="#eaeaea"/>
-<text x="56.0" y="266.0" font-size="11" fill="#555" text-anchor="end">42</text>
-<line x1="64.0" y1="222.0" x2="738.0" y2="222.0" stroke="#eaeaea"/>
-<text x="56.0" y="226.0" font-size="11" fill="#555" text-anchor="end">43</text>
-<line x1="64.0" y1="182.0" x2="738.0" y2="182.0" stroke="#eaeaea"/>
-<text x="56.0" y="186.0" font-size="11" fill="#555" text-anchor="end">44</text>
-<line x1="64.0" y1="142.0" x2="738.0" y2="142.0" stroke="#eaeaea"/>
-<text x="56.0" y="146.0" font-size="11" fill="#555" text-anchor="end">45</text>
-<line x1="64.0" y1="102.0" x2="738.0" y2="102.0" stroke="#eaeaea"/>
-<text x="56.0" y="106.0" font-size="11" fill="#555" text-anchor="end">46</text>
-<line x1="64.0" y1="62.0" x2="738.0" y2="62.0" stroke="#eaeaea"/>
-<text x="56.0" y="66.0" font-size="11" fill="#555" text-anchor="end">47</text>
-<line x1="64.0" y1="22.0" x2="738.0" y2="22.0" stroke="#eaeaea"/>
+      <div class="res-legend" aria-hidden="true"><span><svg width="14" height="14"><circle cx="7" cy="7" r="5" fill="#171717"/></svg>SENA: one frozen package, four inference modes</span><span><svg width="14" height="14"><circle cx="7" cy="7" r="4.5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"/></svg>Comparison methods</span><span><svg width="22" height="14"><line x1="1" y1="7" x2="21" y2="7" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="5 4"/></svg>Frontier, comparison methods only</span><span><svg width="22" height="14"><line x1="1" y1="7" x2="21" y2="7" stroke="#171717" stroke-width="1.6"/></svg>Frontier with SENA</span><span><svg width="16" height="14"><rect x="1" y="2" width="14" height="10" fill="rgba(2,132,199,0.18)"/></svg>Area added by SENA</span></div>
+      <div class="res-grid">
+        <figure class="res-panel" id="res-runtime">
+          <figcaption class="rp-title">Whole-slide runtime</figcaption>
+<svg class="pareto-svg" viewBox="0 0 600 400" role="img" aria-label="avgPQ against Whole-slide runtime (min): comparison methods, the four SENA modes and the non-dominated frontiers with and without SENA" font-family="Inter, system-ui, sans-serif" xmlns="http://www.w3.org/2000/svg">
+<line x1="64.0" y1="342.0" x2="64.0" y2="22.0" stroke="#eaeaea"/>
+<text x="64.0" y="359.0" font-size="11" fill="#555" text-anchor="middle">0</text>
+<line x1="149.7" y1="342.0" x2="149.7" y2="22.0" stroke="#eaeaea"/>
+<text x="149.7" y="359.0" font-size="11" fill="#555" text-anchor="middle">10</text>
+<line x1="235.3" y1="342.0" x2="235.3" y2="22.0" stroke="#eaeaea"/>
+<text x="235.3" y="359.0" font-size="11" fill="#555" text-anchor="middle">20</text>
+<line x1="321.0" y1="342.0" x2="321.0" y2="22.0" stroke="#eaeaea"/>
+<text x="321.0" y="359.0" font-size="11" fill="#555" text-anchor="middle">30</text>
+<line x1="406.7" y1="342.0" x2="406.7" y2="22.0" stroke="#eaeaea"/>
+<text x="406.7" y="359.0" font-size="11" fill="#555" text-anchor="middle">40</text>
+<line x1="492.3" y1="342.0" x2="492.3" y2="22.0" stroke="#eaeaea"/>
+<text x="492.3" y="359.0" font-size="11" fill="#555" text-anchor="middle">50</text>
+<line x1="578.0" y1="342.0" x2="578.0" y2="22.0" stroke="#eaeaea"/>
+<text x="578.0" y="359.0" font-size="11" fill="#555" text-anchor="middle">60</text>
+<line x1="64.0" y1="342.0" x2="578.0" y2="342.0" stroke="#eaeaea"/>
+<text x="56.0" y="346.0" font-size="11" fill="#555" text-anchor="end">39</text>
+<line x1="64.0" y1="306.4" x2="578.0" y2="306.4" stroke="#eaeaea"/>
+<text x="56.0" y="310.4" font-size="11" fill="#555" text-anchor="end">40</text>
+<line x1="64.0" y1="270.9" x2="578.0" y2="270.9" stroke="#eaeaea"/>
+<text x="56.0" y="274.9" font-size="11" fill="#555" text-anchor="end">41</text>
+<line x1="64.0" y1="235.3" x2="578.0" y2="235.3" stroke="#eaeaea"/>
+<text x="56.0" y="239.3" font-size="11" fill="#555" text-anchor="end">42</text>
+<line x1="64.0" y1="199.8" x2="578.0" y2="199.8" stroke="#eaeaea"/>
+<text x="56.0" y="203.8" font-size="11" fill="#555" text-anchor="end">43</text>
+<line x1="64.0" y1="164.2" x2="578.0" y2="164.2" stroke="#eaeaea"/>
+<text x="56.0" y="168.2" font-size="11" fill="#555" text-anchor="end">44</text>
+<line x1="64.0" y1="128.7" x2="578.0" y2="128.7" stroke="#eaeaea"/>
+<text x="56.0" y="132.7" font-size="11" fill="#555" text-anchor="end">45</text>
+<line x1="64.0" y1="93.1" x2="578.0" y2="93.1" stroke="#eaeaea"/>
+<text x="56.0" y="97.1" font-size="11" fill="#555" text-anchor="end">46</text>
+<line x1="64.0" y1="57.6" x2="578.0" y2="57.6" stroke="#eaeaea"/>
+<text x="56.0" y="61.6" font-size="11" fill="#555" text-anchor="end">47</text>
+<line x1="64.0" y1="22.0" x2="578.0" y2="22.0" stroke="#eaeaea"/>
 <text x="56.0" y="26.0" font-size="11" fill="#555" text-anchor="end">48</text>
-<line x1="64.0" y1="382.0" x2="738.0" y2="382.0" stroke="#171717"/>
-<line x1="64.0" y1="382.0" x2="64.0" y2="22.0" stroke="#171717"/>
-<text x="401.0" y="426" font-size="12.5" fill="#171717" text-anchor="middle">Whole-slide runtime (min) · lower is better ←</text>
-<text transform="translate(16 202.0) rotate(-90)" font-size="12.5" fill="#171717" text-anchor="middle">avgPQ (×100) · higher is better →</text>
-<path d="M150.1,382.0 L150.1,170.0 L228.7,170.0 L228.7,138.0 L312.5,138.0 L312.5,86.0 L426.9,86.0 L426.9,50.0 L738.0,50.0 L738.0,146.0 L655.7,146.0 L655.7,170.0 L490.4,170.0 L490.4,218.0 L346.5,218.0 L346.5,226.0 L258.0,226.0 L258.0,382.0 Z" fill="rgba(2,132,199,0.10)" stroke="none"/>
-<path d="M258.0,382.0 L258.0,226.0 L346.5,226.0 L346.5,218.0 L490.4,218.0 L490.4,170.0 L655.7,170.0 L655.7,146.0 L738.0,146.0" fill="none" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="5 4"/>
-<path d="M150.1,382.0 L150.1,170.0 L228.7,170.0 L228.7,138.0 L312.5,138.0 L312.5,86.0 L426.9,86.0 L426.9,50.0 L738.0,50.0" fill="none" stroke="#171717" stroke-width="1.6"/>
-<circle cx="342.4" cy="354.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>HoVer-Net: 24.78 min, avgPQ 39.7</title></circle>
-<text x="350.4" y="358.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">HoVer-Net</text>
-<circle cx="346.5" cy="218.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>CellViT-H: 25.15 min, avgPQ 43.1</title></circle>
-<text x="354.5" y="211.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">CellViT-H</text>
-<circle cx="490.4" cy="170.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>PromptNucSeg-H: 37.96 min, avgPQ 44.3</title></circle>
-<text x="498.4" y="185.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">PromptNucSeg-H</text>
-<circle cx="655.7" cy="146.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuHTC: 52.67 min, avgPQ 44.9</title></circle>
-<text x="655.7" y="135.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">NuHTC</text>
-<circle cx="258.0" cy="226.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-T: 17.27 min, avgPQ 42.9</title></circle>
-<text x="266.0" y="219.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">NuLite-T</text>
-<circle cx="260.0" cy="242.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-H: 17.45 min, avgPQ 42.5</title></circle>
-<text x="268.0" y="255.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">NuLite-H</text>
-<circle cx="150.1" cy="170.0" r="5.5" fill="#171717"><title>SENA Eff: 7.66 min, avgPQ 44.3</title></circle>
-<text x="148.1" y="159.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Eff</text>
-<circle cx="228.7" cy="138.0" r="5.5" fill="#171717"><title>SENA Cls: 14.66 min, avgPQ 45.1</title></circle>
-<text x="226.7" y="127.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Cls</text>
-<circle cx="312.5" cy="86.0" r="5.5" fill="#171717"><title>SENA Seg: 22.12 min, avgPQ 46.4</title></circle>
-<text x="310.5" y="75.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Seg</text>
-<circle cx="426.9" cy="50.0" r="5.5" fill="#171717"><title>SENA Full: 32.30 min, avgPQ 47.3</title></circle>
-<text x="424.9" y="39.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Full</text>
-<g stroke="#171717" stroke-width="1.3" fill="none"><path d="M131.7,340.0 L101.7,310.0"/><path d="M101.7,322.0 L101.7,310.0 L113.7,310.0"/></g>
-<text x="137.7" y="344.0" font-size="11" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke">better</text>
-<g font-size="11.5" fill="#555">
-<circle cx="475.1" cy="288.0" r="5.5" fill="#171717"/><text x="487.1" y="292.0">SENA: one frozen package, four inference modes</text>
-<circle cx="475.1" cy="307.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"/><text x="487.1" y="311.0">Comparison methods</text>
-<line x1="467.1" y1="326.0" x2="483.1" y2="326.0" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="5 4"/><text x="487.1" y="330.0">Frontier, comparison methods only</text>
-<line x1="467.1" y1="345.0" x2="483.1" y2="345.0" stroke="#171717" stroke-width="1.6"/><text x="487.1" y="349.0">Frontier with SENA (shaded: added area)</text>
-</g>
+<line x1="64.0" y1="342.0" x2="578.0" y2="342.0" stroke="#171717"/>
+<line x1="64.0" y1="342.0" x2="64.0" y2="22.0" stroke="#171717"/>
+<text x="321.0" y="386" font-size="12.5" fill="#171717" text-anchor="middle">Whole-slide runtime (min) · lower is better ←</text>
+<text transform="translate(16 182.0) rotate(-90)" font-size="12.5" fill="#171717" text-anchor="middle">avgPQ (×100) · higher is better →</text>
+<path d="M129.6,342.0 L129.6,153.6 L189.6,153.6 L189.6,125.1 L253.5,125.1 L253.5,78.9 L340.7,78.9 L340.7,46.9 L578.0,46.9 L578.0,132.2 L515.2,132.2 L515.2,153.6 L389.2,153.6 L389.2,196.2 L279.5,196.2 L279.5,203.3 L211.9,203.3 L211.9,342.0 Z" fill="rgba(2,132,199,0.10)" stroke="none"/>
+<path d="M211.9,342.0 L211.9,203.3 L279.5,203.3 L279.5,196.2 L389.2,196.2 L389.2,153.6 L515.2,153.6 L515.2,132.2 L578.0,132.2" fill="none" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="5 4"/>
+<path d="M129.6,342.0 L129.6,153.6 L189.6,153.6 L189.6,125.1 L253.5,125.1 L253.5,78.9 L340.7,78.9 L340.7,46.9 L578.0,46.9" fill="none" stroke="#171717" stroke-width="1.6"/>
+<circle cx="276.3" cy="317.1" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>HoVer-Net: 24.78 min, avgPQ 39.7</title></circle>
+<text x="284.3" y="321.1" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">HoVer-Net</text>
+<circle cx="279.5" cy="196.2" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>CellViT-H: 25.15 min, avgPQ 43.1</title></circle>
+<text x="287.5" y="189.2" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">CellViT-H</text>
+<circle cx="389.2" cy="153.6" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>PromptNucSeg-H: 37.96 min, avgPQ 44.3</title></circle>
+<text x="397.2" y="168.6" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">PromptNucSeg-H</text>
+<circle cx="515.2" cy="132.2" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuHTC: 52.67 min, avgPQ 44.9</title></circle>
+<text x="515.2" y="121.2" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">NuHTC</text>
+<circle cx="211.9" cy="203.3" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-T: 17.27 min, avgPQ 42.9</title></circle>
+<text x="219.9" y="196.3" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">NuLite-T</text>
+<circle cx="213.5" cy="217.6" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-H: 17.45 min, avgPQ 42.5</title></circle>
+<text x="221.5" y="230.6" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">NuLite-H</text>
+<circle cx="129.6" cy="153.6" r="5.5" fill="#171717"><title>SENA Eff: 7.66 min, avgPQ 44.3</title></circle>
+<text x="127.6" y="142.6" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Eff</text>
+<circle cx="189.6" cy="125.1" r="5.5" fill="#171717"><title>SENA Cls: 14.66 min, avgPQ 45.1</title></circle>
+<text x="187.6" y="114.1" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Cls</text>
+<circle cx="253.5" cy="78.9" r="5.5" fill="#171717"><title>SENA Seg: 22.12 min, avgPQ 46.4</title></circle>
+<text x="251.5" y="67.9" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Seg</text>
+<circle cx="340.7" cy="46.9" r="5.5" fill="#171717"><title>SENA Full: 32.30 min, avgPQ 47.3</title></circle>
+<text x="338.7" y="35.9" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Full</text>
+<g stroke="#171717" stroke-width="1.3" fill="none"><path d="M123.7,307.1 L93.7,277.1"/><path d="M93.7,289.1 L93.7,277.1 L105.7,277.1"/></g>
+<text x="129.7" y="311.1" font-size="11" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke">better</text>
 </svg>
-          <div class="hv-cards"><div class="pc hv"><span class="pc-k">Baseline HV</span><span class="pc-v">0.4084</span></div><div class="pc hv"><span class="pc-k">+SENA HV</span><span class="pc-v">0.6580</span></div><div class="pc hv"><span class="pc-k">ΔHV</span><span class="pc-v">+0.2496</span></div><div class="pc hv"><span class="pc-k">Relative gain</span><span class="pc-v">+61.1%</span></div></div>
-          <p class="pareto-key"><strong>Pareto-dominated baselines: 6 / 6</strong>. Frontier of the comparison methods alone: NuLite-T, CellViT-H, PromptNucSeg-H, NuHTC. Frontier after adding SENA: SENA&nbsp;Eff, SENA&nbsp;Cls, SENA&nbsp;Seg, SENA&nbsp;Full. <span class="pk-note">HV magnitude is reference-dependent (relative gain +30% to +106% across the tested settings); the dominated count and frontiers are not.</span></p>
-        </div>
-        <div class="res-panel" id="res-gpu_energy" role="tabpanel" aria-labelledby="tab-gpu_energy" hidden>
-<svg class="pareto-svg" viewBox="0 0 760 440" role="img" aria-label="avgPQ against GPU energy (Wh): comparison methods, the four SENA modes and the non-dominated frontiers with and without SENA" font-family="Inter, system-ui, sans-serif" xmlns="http://www.w3.org/2000/svg">
-<line x1="64.0" y1="382.0" x2="64.0" y2="22.0" stroke="#eaeaea"/>
-<text x="64.0" y="399.0" font-size="11" fill="#555" text-anchor="middle">0</text>
-<line x1="198.8" y1="382.0" x2="198.8" y2="22.0" stroke="#eaeaea"/>
-<text x="198.8" y="399.0" font-size="11" fill="#555" text-anchor="middle">25</text>
-<line x1="333.6" y1="382.0" x2="333.6" y2="22.0" stroke="#eaeaea"/>
-<text x="333.6" y="399.0" font-size="11" fill="#555" text-anchor="middle">50</text>
-<line x1="468.4" y1="382.0" x2="468.4" y2="22.0" stroke="#eaeaea"/>
-<text x="468.4" y="399.0" font-size="11" fill="#555" text-anchor="middle">75</text>
-<line x1="603.2" y1="382.0" x2="603.2" y2="22.0" stroke="#eaeaea"/>
-<text x="603.2" y="399.0" font-size="11" fill="#555" text-anchor="middle">100</text>
-<line x1="738.0" y1="382.0" x2="738.0" y2="22.0" stroke="#eaeaea"/>
-<text x="738.0" y="399.0" font-size="11" fill="#555" text-anchor="middle">125</text>
-<line x1="64.0" y1="382.0" x2="738.0" y2="382.0" stroke="#eaeaea"/>
-<text x="56.0" y="386.0" font-size="11" fill="#555" text-anchor="end">39</text>
-<line x1="64.0" y1="342.0" x2="738.0" y2="342.0" stroke="#eaeaea"/>
-<text x="56.0" y="346.0" font-size="11" fill="#555" text-anchor="end">40</text>
-<line x1="64.0" y1="302.0" x2="738.0" y2="302.0" stroke="#eaeaea"/>
-<text x="56.0" y="306.0" font-size="11" fill="#555" text-anchor="end">41</text>
-<line x1="64.0" y1="262.0" x2="738.0" y2="262.0" stroke="#eaeaea"/>
-<text x="56.0" y="266.0" font-size="11" fill="#555" text-anchor="end">42</text>
-<line x1="64.0" y1="222.0" x2="738.0" y2="222.0" stroke="#eaeaea"/>
-<text x="56.0" y="226.0" font-size="11" fill="#555" text-anchor="end">43</text>
-<line x1="64.0" y1="182.0" x2="738.0" y2="182.0" stroke="#eaeaea"/>
-<text x="56.0" y="186.0" font-size="11" fill="#555" text-anchor="end">44</text>
-<line x1="64.0" y1="142.0" x2="738.0" y2="142.0" stroke="#eaeaea"/>
-<text x="56.0" y="146.0" font-size="11" fill="#555" text-anchor="end">45</text>
-<line x1="64.0" y1="102.0" x2="738.0" y2="102.0" stroke="#eaeaea"/>
-<text x="56.0" y="106.0" font-size="11" fill="#555" text-anchor="end">46</text>
-<line x1="64.0" y1="62.0" x2="738.0" y2="62.0" stroke="#eaeaea"/>
-<text x="56.0" y="66.0" font-size="11" fill="#555" text-anchor="end">47</text>
-<line x1="64.0" y1="22.0" x2="738.0" y2="22.0" stroke="#eaeaea"/>
+          <p class="rp-dom"><strong>Pareto-dominated baselines: 6 / 6</strong></p>
+        </figure>
+        <figure class="res-panel" id="res-gpu_energy">
+          <figcaption class="rp-title">GPU energy</figcaption>
+<svg class="pareto-svg" viewBox="0 0 600 400" role="img" aria-label="avgPQ against GPU energy (Wh): comparison methods, the four SENA modes and the non-dominated frontiers with and without SENA" font-family="Inter, system-ui, sans-serif" xmlns="http://www.w3.org/2000/svg">
+<line x1="64.0" y1="342.0" x2="64.0" y2="22.0" stroke="#eaeaea"/>
+<text x="64.0" y="359.0" font-size="11" fill="#555" text-anchor="middle">0</text>
+<line x1="166.8" y1="342.0" x2="166.8" y2="22.0" stroke="#eaeaea"/>
+<text x="166.8" y="359.0" font-size="11" fill="#555" text-anchor="middle">25</text>
+<line x1="269.6" y1="342.0" x2="269.6" y2="22.0" stroke="#eaeaea"/>
+<text x="269.6" y="359.0" font-size="11" fill="#555" text-anchor="middle">50</text>
+<line x1="372.4" y1="342.0" x2="372.4" y2="22.0" stroke="#eaeaea"/>
+<text x="372.4" y="359.0" font-size="11" fill="#555" text-anchor="middle">75</text>
+<line x1="475.2" y1="342.0" x2="475.2" y2="22.0" stroke="#eaeaea"/>
+<text x="475.2" y="359.0" font-size="11" fill="#555" text-anchor="middle">100</text>
+<line x1="578.0" y1="342.0" x2="578.0" y2="22.0" stroke="#eaeaea"/>
+<text x="578.0" y="359.0" font-size="11" fill="#555" text-anchor="middle">125</text>
+<line x1="64.0" y1="342.0" x2="578.0" y2="342.0" stroke="#eaeaea"/>
+<text x="56.0" y="346.0" font-size="11" fill="#555" text-anchor="end">39</text>
+<line x1="64.0" y1="306.4" x2="578.0" y2="306.4" stroke="#eaeaea"/>
+<text x="56.0" y="310.4" font-size="11" fill="#555" text-anchor="end">40</text>
+<line x1="64.0" y1="270.9" x2="578.0" y2="270.9" stroke="#eaeaea"/>
+<text x="56.0" y="274.9" font-size="11" fill="#555" text-anchor="end">41</text>
+<line x1="64.0" y1="235.3" x2="578.0" y2="235.3" stroke="#eaeaea"/>
+<text x="56.0" y="239.3" font-size="11" fill="#555" text-anchor="end">42</text>
+<line x1="64.0" y1="199.8" x2="578.0" y2="199.8" stroke="#eaeaea"/>
+<text x="56.0" y="203.8" font-size="11" fill="#555" text-anchor="end">43</text>
+<line x1="64.0" y1="164.2" x2="578.0" y2="164.2" stroke="#eaeaea"/>
+<text x="56.0" y="168.2" font-size="11" fill="#555" text-anchor="end">44</text>
+<line x1="64.0" y1="128.7" x2="578.0" y2="128.7" stroke="#eaeaea"/>
+<text x="56.0" y="132.7" font-size="11" fill="#555" text-anchor="end">45</text>
+<line x1="64.0" y1="93.1" x2="578.0" y2="93.1" stroke="#eaeaea"/>
+<text x="56.0" y="97.1" font-size="11" fill="#555" text-anchor="end">46</text>
+<line x1="64.0" y1="57.6" x2="578.0" y2="57.6" stroke="#eaeaea"/>
+<text x="56.0" y="61.6" font-size="11" fill="#555" text-anchor="end">47</text>
+<line x1="64.0" y1="22.0" x2="578.0" y2="22.0" stroke="#eaeaea"/>
 <text x="56.0" y="26.0" font-size="11" fill="#555" text-anchor="end">48</text>
-<line x1="64.0" y1="382.0" x2="738.0" y2="382.0" stroke="#171717"/>
-<line x1="64.0" y1="382.0" x2="64.0" y2="22.0" stroke="#171717"/>
-<text x="401.0" y="426" font-size="12.5" fill="#171717" text-anchor="middle">GPU energy (Wh) · lower is better ←</text>
-<text transform="translate(16 202.0) rotate(-90)" font-size="12.5" fill="#171717" text-anchor="middle">avgPQ (×100) · higher is better →</text>
-<path d="M127.6,382.0 L127.6,226.0 L129.1,226.0 L129.1,170.0 L328.5,170.0 L328.5,138.0 L378.7,138.0 L378.7,86.0 L604.6,86.0 L604.6,50.0 L738.0,50.0 L738.0,146.0 L496.2,146.0 L496.2,218.0 L356.8,218.0 L356.8,226.0 L127.6,226.0 L127.6,382.0 Z" fill="rgba(2,132,199,0.10)" stroke="none"/>
-<path d="M127.6,382.0 L127.6,226.0 L356.8,226.0 L356.8,218.0 L496.2,218.0 L496.2,146.0 L738.0,146.0" fill="none" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="5 4"/>
-<path d="M127.6,382.0 L127.6,226.0 L129.1,226.0 L129.1,170.0 L328.5,170.0 L328.5,138.0 L378.7,138.0 L378.7,86.0 L604.6,86.0 L604.6,50.0 L738.0,50.0" fill="none" stroke="#171717" stroke-width="1.6"/>
-<circle cx="328.0" cy="354.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>HoVer-Net: 49.0 Wh, avgPQ 39.7</title></circle>
-<text x="320.0" y="358.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="end">HoVer-Net</text>
-<circle cx="356.8" cy="218.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>CellViT-H: 54.3 Wh, avgPQ 43.1</title></circle>
-<text x="364.8" y="233.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">CellViT-H</text>
-<circle cx="670.0" cy="170.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>PromptNucSeg-H: 112.4 Wh, avgPQ 44.3</title></circle>
-<text x="662.0" y="185.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="end">PromptNucSeg-H</text>
-<circle cx="496.2" cy="146.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuHTC: 80.2 Wh, avgPQ 44.9</title></circle>
-<text x="496.2" y="135.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">NuHTC</text>
-<circle cx="127.6" cy="226.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-T: 11.8 Wh, avgPQ 42.9</title></circle>
-<text x="119.6" y="219.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="end">NuLite-T</text>
-<circle cx="148.9" cy="242.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-H: 15.7 Wh, avgPQ 42.5</title></circle>
-<text x="156.9" y="255.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">NuLite-H</text>
-<circle cx="129.1" cy="170.0" r="5.5" fill="#171717"><title>SENA Eff: 12.1 Wh, avgPQ 44.3</title></circle>
-<text x="127.1" y="159.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Eff</text>
-<circle cx="328.5" cy="138.0" r="5.5" fill="#171717"><title>SENA Cls: 49.1 Wh, avgPQ 45.1</title></circle>
-<text x="326.5" y="127.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Cls</text>
-<circle cx="378.7" cy="86.0" r="5.5" fill="#171717"><title>SENA Seg: 58.4 Wh, avgPQ 46.4</title></circle>
-<text x="376.7" y="75.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Seg</text>
-<circle cx="604.6" cy="50.0" r="5.5" fill="#171717"><title>SENA Full: 100.3 Wh, avgPQ 47.3</title></circle>
-<text x="602.6" y="39.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Full</text>
-<g stroke="#171717" stroke-width="1.3" fill="none"><path d="M232.8,340.0 L202.8,310.0"/><path d="M202.8,322.0 L202.8,310.0 L214.8,310.0"/></g>
-<text x="238.8" y="344.0" font-size="11" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke">better</text>
-<g font-size="11.5" fill="#555">
-<circle cx="441.4" cy="288.0" r="5.5" fill="#171717"/><text x="453.4" y="292.0">SENA: one frozen package, four inference modes</text>
-<circle cx="441.4" cy="307.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"/><text x="453.4" y="311.0">Comparison methods</text>
-<line x1="433.4" y1="326.0" x2="449.4" y2="326.0" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="5 4"/><text x="453.4" y="330.0">Frontier, comparison methods only</text>
-<line x1="433.4" y1="345.0" x2="449.4" y2="345.0" stroke="#171717" stroke-width="1.6"/><text x="453.4" y="349.0">Frontier with SENA (shaded: added area)</text>
-</g>
+<line x1="64.0" y1="342.0" x2="578.0" y2="342.0" stroke="#171717"/>
+<line x1="64.0" y1="342.0" x2="64.0" y2="22.0" stroke="#171717"/>
+<text x="321.0" y="386" font-size="12.5" fill="#171717" text-anchor="middle">GPU energy (Wh) · lower is better ←</text>
+<text transform="translate(16 182.0) rotate(-90)" font-size="12.5" fill="#171717" text-anchor="middle">avgPQ (×100) · higher is better →</text>
+<path d="M112.5,342.0 L112.5,203.3 L113.6,203.3 L113.6,153.6 L265.7,153.6 L265.7,125.1 L304.0,125.1 L304.0,78.9 L476.2,78.9 L476.2,46.9 L578.0,46.9 L578.0,132.2 L393.6,132.2 L393.6,196.2 L287.3,196.2 L287.3,203.3 L112.5,203.3 L112.5,342.0 Z" fill="rgba(2,132,199,0.10)" stroke="none"/>
+<path d="M112.5,342.0 L112.5,203.3 L287.3,203.3 L287.3,196.2 L393.6,196.2 L393.6,132.2 L578.0,132.2" fill="none" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="5 4"/>
+<path d="M112.5,342.0 L112.5,203.3 L113.6,203.3 L113.6,153.6 L265.7,153.6 L265.7,125.1 L304.0,125.1 L304.0,78.9 L476.2,78.9 L476.2,46.9 L578.0,46.9" fill="none" stroke="#171717" stroke-width="1.6"/>
+<circle cx="265.4" cy="317.1" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>HoVer-Net: 49.0 Wh, avgPQ 39.7</title></circle>
+<text x="257.4" y="321.1" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="end">HoVer-Net</text>
+<circle cx="287.3" cy="196.2" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>CellViT-H: 54.3 Wh, avgPQ 43.1</title></circle>
+<text x="295.3" y="211.2" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">CellViT-H</text>
+<circle cx="526.1" cy="153.6" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>PromptNucSeg-H: 112.4 Wh, avgPQ 44.3</title></circle>
+<text x="518.1" y="168.6" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="end">PromptNucSeg-H</text>
+<circle cx="393.6" cy="132.2" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuHTC: 80.2 Wh, avgPQ 44.9</title></circle>
+<text x="393.6" y="121.2" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">NuHTC</text>
+<circle cx="112.5" cy="203.3" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-T: 11.8 Wh, avgPQ 42.9</title></circle>
+<text x="104.5" y="196.3" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="end">NuLite-T</text>
+<circle cx="128.7" cy="217.6" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-H: 15.7 Wh, avgPQ 42.5</title></circle>
+<text x="136.7" y="230.6" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">NuLite-H</text>
+<circle cx="113.6" cy="153.6" r="5.5" fill="#171717"><title>SENA Eff: 12.1 Wh, avgPQ 44.3</title></circle>
+<text x="111.6" y="142.6" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Eff</text>
+<circle cx="265.7" cy="125.1" r="5.5" fill="#171717"><title>SENA Cls: 49.1 Wh, avgPQ 45.1</title></circle>
+<text x="263.7" y="114.1" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Cls</text>
+<circle cx="304.0" cy="78.9" r="5.5" fill="#171717"><title>SENA Seg: 58.4 Wh, avgPQ 46.4</title></circle>
+<text x="302.0" y="67.9" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Seg</text>
+<circle cx="476.2" cy="46.9" r="5.5" fill="#171717"><title>SENA Full: 100.3 Wh, avgPQ 47.3</title></circle>
+<text x="474.2" y="35.9" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Full</text>
+<g stroke="#171717" stroke-width="1.3" fill="none"><path d="M406.4,307.1 L376.4,277.1"/><path d="M376.4,289.1 L376.4,277.1 L388.4,277.1"/></g>
+<text x="412.4" y="311.1" font-size="11" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke">better</text>
 </svg>
-          <div class="hv-cards"><div class="pc hv"><span class="pc-k">Baseline HV</span><span class="pc-v">0.5261</span></div><div class="pc hv"><span class="pc-k">+SENA HV</span><span class="pc-v">0.6499</span></div><div class="pc hv"><span class="pc-k">ΔHV</span><span class="pc-v">+0.1238</span></div><div class="pc hv"><span class="pc-k">Relative gain</span><span class="pc-v">+23.5%</span></div></div>
-          <p class="pareto-key"><strong>Pareto-dominated baselines: 5 / 6</strong> (not dominated: NuLite-T). Frontier of the comparison methods alone: NuLite-T, CellViT-H, NuHTC. Frontier after adding SENA: NuLite-T, SENA&nbsp;Eff, SENA&nbsp;Cls, SENA&nbsp;Seg, SENA&nbsp;Full. <span class="pk-note">HV magnitude is reference-dependent (relative gain +15% to +49% across the tested settings); the dominated count and frontiers are not.</span></p>
-        </div>
-        <div class="res-panel" id="res-cpu_energy" role="tabpanel" aria-labelledby="tab-cpu_energy" hidden>
-<svg class="pareto-svg" viewBox="0 0 760 440" role="img" aria-label="avgPQ against CPU package + DRAM dynamic energy (Wh): comparison methods, the four SENA modes and the non-dominated frontiers with and without SENA" font-family="Inter, system-ui, sans-serif" xmlns="http://www.w3.org/2000/svg">
-<line x1="64.0" y1="382.0" x2="64.0" y2="22.0" stroke="#eaeaea"/>
-<text x="64.0" y="399.0" font-size="11" fill="#555" text-anchor="middle">0</text>
-<line x1="186.5" y1="382.0" x2="186.5" y2="22.0" stroke="#eaeaea"/>
-<text x="186.5" y="399.0" font-size="11" fill="#555" text-anchor="middle">10</text>
-<line x1="309.1" y1="382.0" x2="309.1" y2="22.0" stroke="#eaeaea"/>
-<text x="309.1" y="399.0" font-size="11" fill="#555" text-anchor="middle">20</text>
-<line x1="431.6" y1="382.0" x2="431.6" y2="22.0" stroke="#eaeaea"/>
-<text x="431.6" y="399.0" font-size="11" fill="#555" text-anchor="middle">30</text>
-<line x1="554.2" y1="382.0" x2="554.2" y2="22.0" stroke="#eaeaea"/>
-<text x="554.2" y="399.0" font-size="11" fill="#555" text-anchor="middle">40</text>
-<line x1="676.7" y1="382.0" x2="676.7" y2="22.0" stroke="#eaeaea"/>
-<text x="676.7" y="399.0" font-size="11" fill="#555" text-anchor="middle">50</text>
-<line x1="64.0" y1="382.0" x2="738.0" y2="382.0" stroke="#eaeaea"/>
-<text x="56.0" y="386.0" font-size="11" fill="#555" text-anchor="end">39</text>
-<line x1="64.0" y1="342.0" x2="738.0" y2="342.0" stroke="#eaeaea"/>
-<text x="56.0" y="346.0" font-size="11" fill="#555" text-anchor="end">40</text>
-<line x1="64.0" y1="302.0" x2="738.0" y2="302.0" stroke="#eaeaea"/>
-<text x="56.0" y="306.0" font-size="11" fill="#555" text-anchor="end">41</text>
-<line x1="64.0" y1="262.0" x2="738.0" y2="262.0" stroke="#eaeaea"/>
-<text x="56.0" y="266.0" font-size="11" fill="#555" text-anchor="end">42</text>
-<line x1="64.0" y1="222.0" x2="738.0" y2="222.0" stroke="#eaeaea"/>
-<text x="56.0" y="226.0" font-size="11" fill="#555" text-anchor="end">43</text>
-<line x1="64.0" y1="182.0" x2="738.0" y2="182.0" stroke="#eaeaea"/>
-<text x="56.0" y="186.0" font-size="11" fill="#555" text-anchor="end">44</text>
-<line x1="64.0" y1="142.0" x2="738.0" y2="142.0" stroke="#eaeaea"/>
-<text x="56.0" y="146.0" font-size="11" fill="#555" text-anchor="end">45</text>
-<line x1="64.0" y1="102.0" x2="738.0" y2="102.0" stroke="#eaeaea"/>
-<text x="56.0" y="106.0" font-size="11" fill="#555" text-anchor="end">46</text>
-<line x1="64.0" y1="62.0" x2="738.0" y2="62.0" stroke="#eaeaea"/>
-<text x="56.0" y="66.0" font-size="11" fill="#555" text-anchor="end">47</text>
-<line x1="64.0" y1="22.0" x2="738.0" y2="22.0" stroke="#eaeaea"/>
+          <p class="rp-dom"><strong>Pareto-dominated baselines: 5 / 6</strong> · not dominated: NuLite-T</p>
+        </figure>
+        <figure class="res-panel" id="res-cpu_energy">
+          <figcaption class="rp-title">CPU package + DRAM energy</figcaption>
+<svg class="pareto-svg" viewBox="0 0 600 400" role="img" aria-label="avgPQ against CPU package + DRAM dynamic energy (Wh): comparison methods, the four SENA modes and the non-dominated frontiers with and without SENA" font-family="Inter, system-ui, sans-serif" xmlns="http://www.w3.org/2000/svg">
+<line x1="64.0" y1="342.0" x2="64.0" y2="22.0" stroke="#eaeaea"/>
+<text x="64.0" y="359.0" font-size="11" fill="#555" text-anchor="middle">0</text>
+<line x1="157.5" y1="342.0" x2="157.5" y2="22.0" stroke="#eaeaea"/>
+<text x="157.5" y="359.0" font-size="11" fill="#555" text-anchor="middle">10</text>
+<line x1="250.9" y1="342.0" x2="250.9" y2="22.0" stroke="#eaeaea"/>
+<text x="250.9" y="359.0" font-size="11" fill="#555" text-anchor="middle">20</text>
+<line x1="344.4" y1="342.0" x2="344.4" y2="22.0" stroke="#eaeaea"/>
+<text x="344.4" y="359.0" font-size="11" fill="#555" text-anchor="middle">30</text>
+<line x1="437.8" y1="342.0" x2="437.8" y2="22.0" stroke="#eaeaea"/>
+<text x="437.8" y="359.0" font-size="11" fill="#555" text-anchor="middle">40</text>
+<line x1="531.3" y1="342.0" x2="531.3" y2="22.0" stroke="#eaeaea"/>
+<text x="531.3" y="359.0" font-size="11" fill="#555" text-anchor="middle">50</text>
+<line x1="64.0" y1="342.0" x2="578.0" y2="342.0" stroke="#eaeaea"/>
+<text x="56.0" y="346.0" font-size="11" fill="#555" text-anchor="end">39</text>
+<line x1="64.0" y1="306.4" x2="578.0" y2="306.4" stroke="#eaeaea"/>
+<text x="56.0" y="310.4" font-size="11" fill="#555" text-anchor="end">40</text>
+<line x1="64.0" y1="270.9" x2="578.0" y2="270.9" stroke="#eaeaea"/>
+<text x="56.0" y="274.9" font-size="11" fill="#555" text-anchor="end">41</text>
+<line x1="64.0" y1="235.3" x2="578.0" y2="235.3" stroke="#eaeaea"/>
+<text x="56.0" y="239.3" font-size="11" fill="#555" text-anchor="end">42</text>
+<line x1="64.0" y1="199.8" x2="578.0" y2="199.8" stroke="#eaeaea"/>
+<text x="56.0" y="203.8" font-size="11" fill="#555" text-anchor="end">43</text>
+<line x1="64.0" y1="164.2" x2="578.0" y2="164.2" stroke="#eaeaea"/>
+<text x="56.0" y="168.2" font-size="11" fill="#555" text-anchor="end">44</text>
+<line x1="64.0" y1="128.7" x2="578.0" y2="128.7" stroke="#eaeaea"/>
+<text x="56.0" y="132.7" font-size="11" fill="#555" text-anchor="end">45</text>
+<line x1="64.0" y1="93.1" x2="578.0" y2="93.1" stroke="#eaeaea"/>
+<text x="56.0" y="97.1" font-size="11" fill="#555" text-anchor="end">46</text>
+<line x1="64.0" y1="57.6" x2="578.0" y2="57.6" stroke="#eaeaea"/>
+<text x="56.0" y="61.6" font-size="11" fill="#555" text-anchor="end">47</text>
+<line x1="64.0" y1="22.0" x2="578.0" y2="22.0" stroke="#eaeaea"/>
 <text x="56.0" y="26.0" font-size="11" fill="#555" text-anchor="end">48</text>
-<line x1="64.0" y1="382.0" x2="738.0" y2="382.0" stroke="#171717"/>
-<line x1="64.0" y1="382.0" x2="64.0" y2="22.0" stroke="#171717"/>
-<text x="401.0" y="426" font-size="12.5" fill="#171717" text-anchor="middle">CPU package + DRAM dynamic energy (Wh) · lower is better ←</text>
-<text transform="translate(16 202.0) rotate(-90)" font-size="12.5" fill="#171717" text-anchor="middle">avgPQ (×100) · higher is better →</text>
-<path d="M127.3,382.0 L127.3,170.0 L224.3,170.0 L224.3,138.0 L319.1,138.0 L319.1,86.0 L431.1,86.0 L431.1,50.0 L738.0,50.0 L738.0,146.0 L671.6,146.0 L671.6,170.0 L247.6,170.0 L247.6,382.0 Z" fill="rgba(2,132,199,0.10)" stroke="none"/>
-<path d="M247.6,382.0 L247.6,170.0 L671.6,170.0 L671.6,146.0 L738.0,146.0" fill="none" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="5 4"/>
-<path d="M127.3,382.0 L127.3,170.0 L224.3,170.0 L224.3,138.0 L319.1,138.0 L319.1,86.0 L431.1,86.0 L431.1,50.0 L738.0,50.0" fill="none" stroke="#171717" stroke-width="1.6"/>
-<circle cx="437.9" cy="354.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>HoVer-Net: 30.5 Wh, avgPQ 39.7</title></circle>
-<text x="429.9" y="358.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="end">HoVer-Net</text>
-<circle cx="452.8" cy="218.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>CellViT-H: 31.7 Wh, avgPQ 43.1</title></circle>
-<text x="460.8" y="211.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">CellViT-H</text>
-<circle cx="247.6" cy="170.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>PromptNucSeg-H: 15.0 Wh, avgPQ 44.3</title></circle>
-<text x="255.6" y="185.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">PromptNucSeg-H</text>
-<circle cx="671.6" cy="146.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuHTC: 49.6 Wh, avgPQ 44.9</title></circle>
-<text x="671.6" y="135.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">NuHTC</text>
-<circle cx="347.7" cy="226.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-T: 23.2 Wh, avgPQ 42.9</title></circle>
-<text x="355.7" y="219.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">NuLite-T</text>
-<circle cx="342.8" cy="242.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-H: 22.8 Wh, avgPQ 42.5</title></circle>
-<text x="350.8" y="255.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">NuLite-H</text>
-<circle cx="127.3" cy="170.0" r="5.5" fill="#171717"><title>SENA Eff: 5.2 Wh, avgPQ 44.3</title></circle>
-<text x="125.3" y="159.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Eff</text>
-<circle cx="224.3" cy="138.0" r="5.5" fill="#171717"><title>SENA Cls: 13.1 Wh, avgPQ 45.1</title></circle>
-<text x="222.3" y="127.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Cls</text>
-<circle cx="319.1" cy="86.0" r="5.5" fill="#171717"><title>SENA Seg: 20.8 Wh, avgPQ 46.4</title></circle>
-<text x="317.1" y="75.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Seg</text>
-<circle cx="431.1" cy="50.0" r="5.5" fill="#171717"><title>SENA Full: 30.0 Wh, avgPQ 47.3</title></circle>
-<text x="429.1" y="39.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Full</text>
-<g stroke="#171717" stroke-width="1.3" fill="none"><path d="M131.7,340.0 L101.7,310.0"/><path d="M101.7,322.0 L101.7,310.0 L113.7,310.0"/></g>
-<text x="137.7" y="344.0" font-size="11" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke">better</text>
-<g font-size="11.5" fill="#555">
-<circle cx="441.4" cy="288.0" r="5.5" fill="#171717"/><text x="453.4" y="292.0">SENA: one frozen package, four inference modes</text>
-<circle cx="441.4" cy="307.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"/><text x="453.4" y="311.0">Comparison methods</text>
-<line x1="433.4" y1="326.0" x2="449.4" y2="326.0" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="5 4"/><text x="453.4" y="330.0">Frontier, comparison methods only</text>
-<line x1="433.4" y1="345.0" x2="449.4" y2="345.0" stroke="#171717" stroke-width="1.6"/><text x="453.4" y="349.0">Frontier with SENA (shaded: added area)</text>
-</g>
+<line x1="64.0" y1="342.0" x2="578.0" y2="342.0" stroke="#171717"/>
+<line x1="64.0" y1="342.0" x2="64.0" y2="22.0" stroke="#171717"/>
+<text x="321.0" y="386" font-size="12.5" fill="#171717" text-anchor="middle">CPU package + DRAM dynamic energy (Wh) · lower is better ←</text>
+<text transform="translate(16 182.0) rotate(-90)" font-size="12.5" fill="#171717" text-anchor="middle">avgPQ (×100) · higher is better →</text>
+<path d="M112.2,342.0 L112.2,153.6 L186.2,153.6 L186.2,125.1 L258.5,125.1 L258.5,78.9 L344.0,78.9 L344.0,46.9 L578.0,46.9 L578.0,132.2 L527.4,132.2 L527.4,153.6 L204.0,153.6 L204.0,342.0 Z" fill="rgba(2,132,199,0.10)" stroke="none"/>
+<path d="M204.0,342.0 L204.0,153.6 L527.4,153.6 L527.4,132.2 L578.0,132.2" fill="none" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="5 4"/>
+<path d="M112.2,342.0 L112.2,153.6 L186.2,153.6 L186.2,125.1 L258.5,125.1 L258.5,78.9 L344.0,78.9 L344.0,46.9 L578.0,46.9" fill="none" stroke="#171717" stroke-width="1.6"/>
+<circle cx="349.2" cy="317.1" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>HoVer-Net: 30.5 Wh, avgPQ 39.7</title></circle>
+<text x="341.2" y="321.1" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="end">HoVer-Net</text>
+<circle cx="360.5" cy="196.2" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>CellViT-H: 31.7 Wh, avgPQ 43.1</title></circle>
+<text x="368.5" y="189.2" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">CellViT-H</text>
+<circle cx="204.0" cy="153.6" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>PromptNucSeg-H: 15.0 Wh, avgPQ 44.3</title></circle>
+<text x="212.0" y="168.6" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">PromptNucSeg-H</text>
+<circle cx="527.4" cy="132.2" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuHTC: 49.6 Wh, avgPQ 44.9</title></circle>
+<text x="527.4" y="121.2" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">NuHTC</text>
+<circle cx="280.3" cy="203.3" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-T: 23.2 Wh, avgPQ 42.9</title></circle>
+<text x="288.3" y="196.3" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">NuLite-T</text>
+<circle cx="276.6" cy="217.6" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-H: 22.8 Wh, avgPQ 42.5</title></circle>
+<text x="284.6" y="230.6" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">NuLite-H</text>
+<circle cx="112.2" cy="153.6" r="5.5" fill="#171717"><title>SENA Eff: 5.2 Wh, avgPQ 44.3</title></circle>
+<text x="110.2" y="142.6" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Eff</text>
+<circle cx="186.2" cy="125.1" r="5.5" fill="#171717"><title>SENA Cls: 13.1 Wh, avgPQ 45.1</title></circle>
+<text x="184.2" y="114.1" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Cls</text>
+<circle cx="258.5" cy="78.9" r="5.5" fill="#171717"><title>SENA Seg: 20.8 Wh, avgPQ 46.4</title></circle>
+<text x="256.5" y="67.9" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Seg</text>
+<circle cx="344.0" cy="46.9" r="5.5" fill="#171717"><title>SENA Full: 30.0 Wh, avgPQ 47.3</title></circle>
+<text x="342.0" y="35.9" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Full</text>
+<g stroke="#171717" stroke-width="1.3" fill="none"><path d="M123.7,307.1 L93.7,277.1"/><path d="M93.7,289.1 L93.7,277.1 L105.7,277.1"/></g>
+<text x="129.7" y="311.1" font-size="11" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke">better</text>
 </svg>
-          <div class="hv-cards"><div class="pc hv"><span class="pc-k">Baseline HV</span><span class="pc-v">0.4533</span></div><div class="pc hv"><span class="pc-k">+SENA HV</span><span class="pc-v">0.6825</span></div><div class="pc hv"><span class="pc-k">ΔHV</span><span class="pc-v">+0.2292</span></div><div class="pc hv"><span class="pc-k">Relative gain</span><span class="pc-v">+50.6%</span></div></div>
-          <p class="pareto-key"><strong>Pareto-dominated baselines: 6 / 6</strong>. Frontier of the comparison methods alone: PromptNucSeg-H, NuHTC. Frontier after adding SENA: SENA&nbsp;Eff, SENA&nbsp;Cls, SENA&nbsp;Seg, SENA&nbsp;Full. <span class="pk-note">HV magnitude is reference-dependent (relative gain +28% to +77% across the tested settings); the dominated count and frontiers are not.</span></p>
-        </div>
-        <div class="res-panel" id="res-gpu_memory" role="tabpanel" aria-labelledby="tab-gpu_memory" hidden>
-<svg class="pareto-svg" viewBox="0 0 760 440" role="img" aria-label="avgPQ against Peak GPU memory (GB): comparison methods, the four SENA modes and the non-dominated frontiers with and without SENA" font-family="Inter, system-ui, sans-serif" xmlns="http://www.w3.org/2000/svg">
-<line x1="64.0" y1="382.0" x2="64.0" y2="22.0" stroke="#eaeaea"/>
-<text x="64.0" y="399.0" font-size="11" fill="#555" text-anchor="middle">0</text>
-<line x1="160.3" y1="382.0" x2="160.3" y2="22.0" stroke="#eaeaea"/>
-<text x="160.3" y="399.0" font-size="11" fill="#555" text-anchor="middle">4</text>
-<line x1="256.6" y1="382.0" x2="256.6" y2="22.0" stroke="#eaeaea"/>
-<text x="256.6" y="399.0" font-size="11" fill="#555" text-anchor="middle">8</text>
-<line x1="352.9" y1="382.0" x2="352.9" y2="22.0" stroke="#eaeaea"/>
-<text x="352.9" y="399.0" font-size="11" fill="#555" text-anchor="middle">12</text>
-<line x1="449.1" y1="382.0" x2="449.1" y2="22.0" stroke="#eaeaea"/>
-<text x="449.1" y="399.0" font-size="11" fill="#555" text-anchor="middle">16</text>
-<line x1="545.4" y1="382.0" x2="545.4" y2="22.0" stroke="#eaeaea"/>
-<text x="545.4" y="399.0" font-size="11" fill="#555" text-anchor="middle">20</text>
-<line x1="641.7" y1="382.0" x2="641.7" y2="22.0" stroke="#eaeaea"/>
-<text x="641.7" y="399.0" font-size="11" fill="#555" text-anchor="middle">24</text>
-<line x1="738.0" y1="382.0" x2="738.0" y2="22.0" stroke="#eaeaea"/>
-<text x="738.0" y="399.0" font-size="11" fill="#555" text-anchor="middle">28</text>
-<line x1="64.0" y1="382.0" x2="738.0" y2="382.0" stroke="#eaeaea"/>
-<text x="56.0" y="386.0" font-size="11" fill="#555" text-anchor="end">39</text>
-<line x1="64.0" y1="342.0" x2="738.0" y2="342.0" stroke="#eaeaea"/>
-<text x="56.0" y="346.0" font-size="11" fill="#555" text-anchor="end">40</text>
-<line x1="64.0" y1="302.0" x2="738.0" y2="302.0" stroke="#eaeaea"/>
-<text x="56.0" y="306.0" font-size="11" fill="#555" text-anchor="end">41</text>
-<line x1="64.0" y1="262.0" x2="738.0" y2="262.0" stroke="#eaeaea"/>
-<text x="56.0" y="266.0" font-size="11" fill="#555" text-anchor="end">42</text>
-<line x1="64.0" y1="222.0" x2="738.0" y2="222.0" stroke="#eaeaea"/>
-<text x="56.0" y="226.0" font-size="11" fill="#555" text-anchor="end">43</text>
-<line x1="64.0" y1="182.0" x2="738.0" y2="182.0" stroke="#eaeaea"/>
-<text x="56.0" y="186.0" font-size="11" fill="#555" text-anchor="end">44</text>
-<line x1="64.0" y1="142.0" x2="738.0" y2="142.0" stroke="#eaeaea"/>
-<text x="56.0" y="146.0" font-size="11" fill="#555" text-anchor="end">45</text>
-<line x1="64.0" y1="102.0" x2="738.0" y2="102.0" stroke="#eaeaea"/>
-<text x="56.0" y="106.0" font-size="11" fill="#555" text-anchor="end">46</text>
-<line x1="64.0" y1="62.0" x2="738.0" y2="62.0" stroke="#eaeaea"/>
-<text x="56.0" y="66.0" font-size="11" fill="#555" text-anchor="end">47</text>
-<line x1="64.0" y1="22.0" x2="738.0" y2="22.0" stroke="#eaeaea"/>
+          <p class="rp-dom"><strong>Pareto-dominated baselines: 6 / 6</strong></p>
+        </figure>
+        <figure class="res-panel" id="res-gpu_memory">
+          <figcaption class="rp-title">Peak GPU memory</figcaption>
+<svg class="pareto-svg" viewBox="0 0 600 400" role="img" aria-label="avgPQ against Peak GPU memory (GB): comparison methods, the four SENA modes and the non-dominated frontiers with and without SENA" font-family="Inter, system-ui, sans-serif" xmlns="http://www.w3.org/2000/svg">
+<line x1="64.0" y1="342.0" x2="64.0" y2="22.0" stroke="#eaeaea"/>
+<text x="64.0" y="359.0" font-size="11" fill="#555" text-anchor="middle">0</text>
+<line x1="137.4" y1="342.0" x2="137.4" y2="22.0" stroke="#eaeaea"/>
+<text x="137.4" y="359.0" font-size="11" fill="#555" text-anchor="middle">4</text>
+<line x1="210.9" y1="342.0" x2="210.9" y2="22.0" stroke="#eaeaea"/>
+<text x="210.9" y="359.0" font-size="11" fill="#555" text-anchor="middle">8</text>
+<line x1="284.3" y1="342.0" x2="284.3" y2="22.0" stroke="#eaeaea"/>
+<text x="284.3" y="359.0" font-size="11" fill="#555" text-anchor="middle">12</text>
+<line x1="357.7" y1="342.0" x2="357.7" y2="22.0" stroke="#eaeaea"/>
+<text x="357.7" y="359.0" font-size="11" fill="#555" text-anchor="middle">16</text>
+<line x1="431.1" y1="342.0" x2="431.1" y2="22.0" stroke="#eaeaea"/>
+<text x="431.1" y="359.0" font-size="11" fill="#555" text-anchor="middle">20</text>
+<line x1="504.6" y1="342.0" x2="504.6" y2="22.0" stroke="#eaeaea"/>
+<text x="504.6" y="359.0" font-size="11" fill="#555" text-anchor="middle">24</text>
+<line x1="578.0" y1="342.0" x2="578.0" y2="22.0" stroke="#eaeaea"/>
+<text x="578.0" y="359.0" font-size="11" fill="#555" text-anchor="middle">28</text>
+<line x1="64.0" y1="342.0" x2="578.0" y2="342.0" stroke="#eaeaea"/>
+<text x="56.0" y="346.0" font-size="11" fill="#555" text-anchor="end">39</text>
+<line x1="64.0" y1="306.4" x2="578.0" y2="306.4" stroke="#eaeaea"/>
+<text x="56.0" y="310.4" font-size="11" fill="#555" text-anchor="end">40</text>
+<line x1="64.0" y1="270.9" x2="578.0" y2="270.9" stroke="#eaeaea"/>
+<text x="56.0" y="274.9" font-size="11" fill="#555" text-anchor="end">41</text>
+<line x1="64.0" y1="235.3" x2="578.0" y2="235.3" stroke="#eaeaea"/>
+<text x="56.0" y="239.3" font-size="11" fill="#555" text-anchor="end">42</text>
+<line x1="64.0" y1="199.8" x2="578.0" y2="199.8" stroke="#eaeaea"/>
+<text x="56.0" y="203.8" font-size="11" fill="#555" text-anchor="end">43</text>
+<line x1="64.0" y1="164.2" x2="578.0" y2="164.2" stroke="#eaeaea"/>
+<text x="56.0" y="168.2" font-size="11" fill="#555" text-anchor="end">44</text>
+<line x1="64.0" y1="128.7" x2="578.0" y2="128.7" stroke="#eaeaea"/>
+<text x="56.0" y="132.7" font-size="11" fill="#555" text-anchor="end">45</text>
+<line x1="64.0" y1="93.1" x2="578.0" y2="93.1" stroke="#eaeaea"/>
+<text x="56.0" y="97.1" font-size="11" fill="#555" text-anchor="end">46</text>
+<line x1="64.0" y1="57.6" x2="578.0" y2="57.6" stroke="#eaeaea"/>
+<text x="56.0" y="61.6" font-size="11" fill="#555" text-anchor="end">47</text>
+<line x1="64.0" y1="22.0" x2="578.0" y2="22.0" stroke="#eaeaea"/>
 <text x="56.0" y="26.0" font-size="11" fill="#555" text-anchor="end">48</text>
-<line x1="64.0" y1="382.0" x2="738.0" y2="382.0" stroke="#171717"/>
-<line x1="64.0" y1="382.0" x2="64.0" y2="22.0" stroke="#171717"/>
-<text x="401.0" y="426" font-size="12.5" fill="#171717" text-anchor="middle">Peak GPU memory (GB) · lower is better ←</text>
-<text transform="translate(16 202.0) rotate(-90)" font-size="12.5" fill="#171717" text-anchor="middle">avgPQ (×100) · higher is better →</text>
-<path d="M104.0,382.0 L104.0,226.0 L116.4,226.0 L116.4,170.0 L152.6,170.0 L152.6,86.0 L219.3,86.0 L219.3,50.0 L738.0,50.0 L738.0,146.0 L671.1,146.0 L671.1,170.0 L157.6,170.0 L157.6,226.0 L104.0,226.0 L104.0,382.0 Z" fill="rgba(2,132,199,0.10)" stroke="none"/>
-<path d="M104.0,382.0 L104.0,226.0 L157.6,226.0 L157.6,170.0 L671.1,170.0 L671.1,146.0 L738.0,146.0" fill="none" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="5 4"/>
-<path d="M104.0,382.0 L104.0,226.0 L116.4,226.0 L116.4,170.0 L152.6,170.0 L152.6,86.0 L219.3,86.0 L219.3,50.0 L738.0,50.0" fill="none" stroke="#171717" stroke-width="1.6"/>
-<circle cx="622.7" cy="354.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>HoVer-Net: 23.21 GB, avgPQ 39.7</title></circle>
-<text x="614.7" y="358.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="end">HoVer-Net</text>
-<circle cx="233.7" cy="218.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>CellViT-H: 7.05 GB, avgPQ 43.1</title></circle>
-<text x="241.7" y="211.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">CellViT-H</text>
-<circle cx="157.6" cy="170.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>PromptNucSeg-H: 3.89 GB, avgPQ 44.3</title></circle>
-<text x="165.6" y="185.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">PromptNucSeg-H</text>
-<circle cx="671.1" cy="146.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuHTC: 25.22 GB, avgPQ 44.9</title></circle>
-<text x="663.1" y="137.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="end">NuHTC</text>
-<circle cx="104.0" cy="226.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-T: 1.66 GB, avgPQ 42.9</title></circle>
-<text x="116.0" y="214.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">NuLite-T</text>
-<circle cx="120.6" cy="242.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-H: 2.35 GB, avgPQ 42.5</title></circle>
-<text x="128.6" y="255.0" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">NuLite-H</text>
-<circle cx="116.4" cy="170.0" r="5.5" fill="#171717"><title>SENA Eff: 2.18 GB, avgPQ 44.3</title></circle>
-<text x="114.4" y="159.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Eff</text>
-<circle cx="185.6" cy="138.0" r="5.5" fill="#171717"><title>SENA Cls: 5.05 GB, avgPQ 45.1</title></circle>
-<text x="183.6" y="127.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Cls</text>
-<circle cx="152.6" cy="86.0" r="5.5" fill="#171717"><title>SENA Seg: 3.68 GB, avgPQ 46.4</title></circle>
-<text x="150.6" y="75.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Seg</text>
-<circle cx="219.3" cy="50.0" r="5.5" fill="#171717"><title>SENA Full: 6.45 GB, avgPQ 47.3</title></circle>
-<text x="217.3" y="39.0" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Full</text>
-<g stroke="#171717" stroke-width="1.3" fill="none"><path d="M246.3,340.0 L216.3,310.0"/><path d="M216.3,322.0 L216.3,310.0 L228.3,310.0"/></g>
-<text x="252.3" y="344.0" font-size="11" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke">better</text>
-<g font-size="11.5" fill="#555">
-<circle cx="333.6" cy="264.0" r="5.5" fill="#171717"/><text x="345.6" y="268.0">SENA: one frozen package, four inference modes</text>
-<circle cx="333.6" cy="283.0" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"/><text x="345.6" y="287.0">Comparison methods</text>
-<line x1="325.6" y1="302.0" x2="341.6" y2="302.0" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="5 4"/><text x="345.6" y="306.0">Frontier, comparison methods only</text>
-<line x1="325.6" y1="321.0" x2="341.6" y2="321.0" stroke="#171717" stroke-width="1.6"/><text x="345.6" y="325.0">Frontier with SENA (shaded: added area)</text>
-</g>
+<line x1="64.0" y1="342.0" x2="578.0" y2="342.0" stroke="#171717"/>
+<line x1="64.0" y1="342.0" x2="64.0" y2="22.0" stroke="#171717"/>
+<text x="321.0" y="386" font-size="12.5" fill="#171717" text-anchor="middle">Peak GPU memory (GB) · lower is better ←</text>
+<text transform="translate(16 182.0) rotate(-90)" font-size="12.5" fill="#171717" text-anchor="middle">avgPQ (×100) · higher is better →</text>
+<path d="M94.5,342.0 L94.5,203.3 L104.0,203.3 L104.0,153.6 L131.6,153.6 L131.6,78.9 L182.4,78.9 L182.4,46.9 L578.0,46.9 L578.0,132.2 L527.0,132.2 L527.0,153.6 L135.4,153.6 L135.4,203.3 L94.5,203.3 L94.5,342.0 Z" fill="rgba(2,132,199,0.10)" stroke="none"/>
+<path d="M94.5,342.0 L94.5,203.3 L135.4,203.3 L135.4,153.6 L527.0,153.6 L527.0,132.2 L578.0,132.2" fill="none" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="5 4"/>
+<path d="M94.5,342.0 L94.5,203.3 L104.0,203.3 L104.0,153.6 L131.6,153.6 L131.6,78.9 L182.4,78.9 L182.4,46.9 L578.0,46.9" fill="none" stroke="#171717" stroke-width="1.6"/>
+<circle cx="490.1" cy="317.1" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>HoVer-Net: 23.21 GB, avgPQ 39.7</title></circle>
+<text x="482.1" y="321.1" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="end">HoVer-Net</text>
+<circle cx="193.4" cy="196.2" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>CellViT-H: 7.05 GB, avgPQ 43.1</title></circle>
+<text x="201.4" y="189.2" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">CellViT-H</text>
+<circle cx="135.4" cy="153.6" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>PromptNucSeg-H: 3.89 GB, avgPQ 44.3</title></circle>
+<text x="143.4" y="168.6" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">PromptNucSeg-H</text>
+<circle cx="527.0" cy="132.2" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuHTC: 25.22 GB, avgPQ 44.9</title></circle>
+<text x="519.0" y="123.2" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="end">NuHTC</text>
+<circle cx="94.5" cy="203.3" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-T: 1.66 GB, avgPQ 42.9</title></circle>
+<text x="106.5" y="191.3" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">NuLite-T</text>
+<circle cx="107.1" cy="217.6" r="5" fill="#fff" stroke="#8a8a8a" stroke-width="1.6"><title>NuLite-H: 2.35 GB, avgPQ 42.5</title></circle>
+<text x="115.1" y="230.6" font-size="11.5" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="start">NuLite-H</text>
+<circle cx="104.0" cy="153.6" r="5.5" fill="#171717"><title>SENA Eff: 2.18 GB, avgPQ 44.3</title></circle>
+<text x="102.0" y="142.6" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Eff</text>
+<circle cx="156.7" cy="125.1" r="5.5" fill="#171717"><title>SENA Cls: 5.05 GB, avgPQ 45.1</title></circle>
+<text x="154.7" y="114.1" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Cls</text>
+<circle cx="131.6" cy="78.9" r="5.5" fill="#171717"><title>SENA Seg: 3.68 GB, avgPQ 46.4</title></circle>
+<text x="129.6" y="67.9" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Seg</text>
+<circle cx="182.4" cy="46.9" r="5.5" fill="#171717"><title>SENA Full: 6.45 GB, avgPQ 47.3</title></circle>
+<text x="180.4" y="35.9" font-size="12" font-weight="600" fill="#171717" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">Full</text>
+<g stroke="#171717" stroke-width="1.3" fill="none"><path d="M211.1,307.1 L181.1,277.1"/><path d="M181.1,289.1 L181.1,277.1 L193.1,277.1"/></g>
+<text x="217.1" y="311.1" font-size="11" fill="#555" stroke="#fff" stroke-width="3" paint-order="stroke">better</text>
 </svg>
-          <div class="hv-cards"><div class="pc hv"><span class="pc-k">Baseline HV</span><span class="pc-v">0.5790</span></div><div class="pc hv"><span class="pc-k">+SENA HV</span><span class="pc-v">0.7486</span></div><div class="pc hv"><span class="pc-k">ΔHV</span><span class="pc-v">+0.1696</span></div><div class="pc hv"><span class="pc-k">Relative gain</span><span class="pc-v">+29.3%</span></div></div>
-          <p class="pareto-key"><strong>Pareto-dominated baselines: 5 / 6</strong> (not dominated: NuLite-T). Frontier of the comparison methods alone: NuLite-T, PromptNucSeg-H, NuHTC. Frontier after adding SENA: NuLite-T, SENA&nbsp;Eff, SENA&nbsp;Seg, SENA&nbsp;Full. <span class="pk-note">HV magnitude is reference-dependent (relative gain +18% to +58% across the tested settings); the dominated count and frontiers are not.</span></p>
-        </div>
-        <figcaption>Each point is one configuration on the same whole slide (TCGA-A6-2671, RTX A5000 workstation, same external harness); reported PanNuke avgPQ paired with measured whole-slide resources (checkpoint note <sup>†</sup> below). Up is more accurate, left uses less of the selected resource. Dashed line, non-dominated frontier of the six comparison methods; solid line, frontier when the four SENA modes are added; shading, the area the SENA modes add. CPU energy is RAPL package + DRAM dynamic energy from a separate measurement session and is never added to GPU energy. Values are in the table below.</figcaption>
-      </figure>
+          <p class="rp-dom"><strong>Pareto-dominated baselines: 5 / 6</strong> · not dominated: NuLite-T</p>
+        </figure>
+      </div>
+      <p class="table-note grid-note">y-axis in every panel: PanNuke avgPQ (×100, higher is better); x-axis: the resource named above the panel (lower is better). Each point is one configuration on the same whole slide (TCGA-A6-2671, RTX A5000 workstation, same external harness); reported PanNuke avgPQ paired with measured whole-slide resources (checkpoint note <sup>†</sup> below). Filled, the four SENA modes of one frozen package; open, comparison methods; dashed line, non-dominated frontier of the six comparison methods; solid line, frontier when the SENA modes are added; shading, the area they add. CPU energy is RAPL package + DRAM dynamic energy from a separate measurement session and is never added to GPU energy. Resource values are in the table below.</p>
 
+      <h3 class="cost-head">Pareto hypervolume by resource</h3>
+      <div class="table-wrap">
+        <table class="mode-table bench-table wrap-head hv-table">
+          <thead><tr><th>Resource</th><th>Frontier,<br>comparisons only</th><th>Frontier<br>with SENA</th><th class="num">Dominated<br>baselines</th><th class="num">Baseline<br>HV</th><th class="num">+SENA<br>HV</th><th class="num">ΔHV</th><th class="num">Relative<br>gain</th><th class="num">Sensitivity<br>range (%)</th></tr></thead>
+          <tbody>
+            <tr><td>Whole-slide runtime</td><td class="fr">NuLite-T, CellViT-H, PromptNucSeg-H, NuHTC</td><td class="fr"><strong>Eff</strong>, <strong>Cls</strong>, <strong>Seg</strong>, <strong>Full</strong></td><td class="num">6 / 6</td><td class="num">0.4084</td><td class="num">0.6580</td><td class="num">+0.2496</td><td class="num">+61.1%</td><td class="num">+30 to +106</td></tr>
+            <tr><td>GPU energy</td><td class="fr">NuLite-T, CellViT-H, NuHTC</td><td class="fr">NuLite-T, <strong>Eff</strong>, <strong>Cls</strong>, <strong>Seg</strong>, <strong>Full</strong></td><td class="num">5 / 6</td><td class="num">0.5261</td><td class="num">0.6499</td><td class="num">+0.1238</td><td class="num">+23.5%</td><td class="num">+15 to +49</td></tr>
+            <tr><td>CPU package + DRAM energy</td><td class="fr">PromptNucSeg-H, NuHTC</td><td class="fr"><strong>Eff</strong>, <strong>Cls</strong>, <strong>Seg</strong>, <strong>Full</strong></td><td class="num">6 / 6</td><td class="num">0.4533</td><td class="num">0.6825</td><td class="num">+0.2292</td><td class="num">+50.6%</td><td class="num">+28 to +77</td></tr>
+            <tr><td>Peak GPU memory</td><td class="fr">NuLite-T, PromptNucSeg-H, NuHTC</td><td class="fr">NuLite-T, <strong>Eff</strong>, <strong>Seg</strong>, <strong>Full</strong></td><td class="num">5 / 6</td><td class="num">0.5790</td><td class="num">0.7486</td><td class="num">+0.1696</td><td class="num">+29.3%</td><td class="num">+18 to +58</td></tr>
+          </tbody>
+        </table>
+      </div>
       <p class="pc-head">Observed pairwise comparisons (whole-slide runtime)</p>
       <div class="pareto-cards" role="list" aria-label="Observed pairwise comparisons">
         <div class="pc" role="listitem"><span class="pc-k">SENA Cls vs NuLite-T <em>(fastest comparison)</em></span><span class="pc-v">1.18× faster</span><span class="pc-s">+2.2 avgPQ points · 14.66 vs 17.27 min · 45.1 vs 42.9</span></div>

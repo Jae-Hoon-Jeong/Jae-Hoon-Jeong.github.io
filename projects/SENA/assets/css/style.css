@@ -218,3 +218,15 @@ input[type=range] { width: 100%; accent-color: var(--ink); height: 28px; }
 .pareto-key .pk-note { color: var(--muted); font-size: .82rem; }
 .pc-head { font-size: .8rem; color: var(--fg2); font-weight: 600; margin: 1.1rem 0 -.5rem; }
 @media (max-width: 720px) { .hv-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* all four frontiers shown at once */
+.res-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: .4rem; }
+@media (min-width: 960px) { .res-grid { grid-template-columns: 1fr 1fr; } }
+.res-grid .res-panel { margin: 0; }
+.res-grid .pareto-svg { max-width: none; }
+.rp-title { font-size: .86rem; font-weight: 600; margin: 0 0 .3rem; }
+.rp-dom { font-size: .82rem; margin: .35rem 0 0; color: var(--fg2); }
+.grid-note { margin-top: .7rem; }
+.hv-table td.fr { white-space: normal; min-width: 11rem; font-weight: 400; font-size: .82rem; }
+@media (max-width: 720px) { .res-grid .res-panel { overflow-x: auto; } }
+.res-legend { display: flex; flex-wrap: wrap; gap: .3rem 1.1rem; font-size: .8rem; color: var(--fg2); margin: .2rem 0 .6rem; }
+.res-legend span { display: inline-flex; align-items: center; gap: .35rem; }
