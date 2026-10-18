@@ -411,3 +411,13 @@
   try { const r = await fetch('data/pannuke_benchmark.json'); if (!r.ok) throw new Error(r.status); d = await r.json(); render(); }
   catch (e) { body.innerHTML = '<tr><td class="muted">Benchmark data could not be loaded.</td></tr>'; }
 })();
+
+// accuracy-resource Pareto frontiers: resource-axis tabs (static panels; no data computed here)
+(() => {
+  const tabs = document.querySelectorAll('.res-tabs [role=tab]');
+  const show = key => {
+    tabs.forEach(t => t.setAttribute('aria-selected', String(t.dataset.res === key)));
+    document.querySelectorAll('.res-panel').forEach(p => { p.hidden = p.id !== 'res-' + key; });
+  };
+  tabs.forEach(t => t.addEventListener('click', () => show(t.dataset.res)));
+})();

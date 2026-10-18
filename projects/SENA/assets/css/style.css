@@ -209,3 +209,12 @@ input[type=range] { width: 100%; accent-color: var(--ink); height: 28px; }
 @media (max-width: 720px) { .pareto-fig { overflow-x: auto; } .pareto-svg { min-width: 600px; } }
 @media (min-width: 900px) { .res-table, .route-table { min-width: 0; width: 100%; max-width: 980px; } }
 .pareto-key { font-size: .9rem; color: var(--fg); margin: 1rem 0 .2rem; max-width: 60rem; }
+.res-tabs { display: flex; flex-wrap: wrap; gap: .3rem; margin: .2rem 0 .6rem; }
+.res-tabs [role=tab] { font: 500 .8rem var(--sans); padding: .3rem .75rem; border: 1px solid var(--line2); background: var(--surface); color: var(--fg2); border-radius: 999px; cursor: pointer; }
+.res-tabs [role=tab][aria-selected=true] { background: var(--fg); color: var(--surface); border-color: var(--fg); }
+.res-panel[hidden] { display: none; }
+.hv-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .5rem; max-width: 820px; margin: .7rem auto 0; }
+.pc.hv { padding: .5rem .7rem; } .pc.hv .pc-v { font-size: 1.05rem; }
+.pareto-key .pk-note { color: var(--muted); font-size: .82rem; }
+.pc-head { font-size: .8rem; color: var(--fg2); font-weight: 600; margin: 1.1rem 0 -.5rem; }
+@media (max-width: 720px) { .hv-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
