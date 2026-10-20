@@ -296,3 +296,47 @@ input[type=range] { width: 100%; accent-color: var(--ink); height: 28px; }
   .fx-axis-row .fx-label, .fx-axis-row .fx-val { display: none; }
   .fx-fig { padding: .7rem .7rem .5rem; }
 }
+
+/* Pathology narrative (#beyond, #tumour intro, #crossscale A-D, #molecular, #questions) */
+.xs-eyebrow { display: block; font: 500 .72rem var(--mono); letter-spacing: .03em; color: var(--muted); margin-bottom: .3rem; }
+.xs-intro { font-size: .92rem; color: var(--fg2); margin: 0 0 1rem; max-width: 980px; }
+.xs-lab { display: inline-block; font: 500 .64rem var(--mono); letter-spacing: .03em; padding: .08rem .4rem; margin-right: .45rem; border: 1px solid var(--line2); border-radius: 999px; color: var(--fg2); background: var(--surface); vertical-align: .08em; white-space: nowrap; }
+.xs-lab-why, .xs-lab-hyp { border-style: dashed; border-color: var(--muted); color: var(--muted); }
+.xs-lab-res { border-color: var(--ink); color: var(--ink); }
+.xs-lab-mean { border-color: var(--ink); color: var(--bg); background: var(--ink); }
+.xs-wrm { margin: .4rem 0 .7rem; display: grid; gap: .35rem; max-width: 980px; }
+.xs-wrm > div { display: grid; grid-template-columns: 4.6rem 1fr; gap: .5rem; align-items: baseline; font-size: .9rem; }
+.xs-wrm dt { margin: 0; text-align: center; }
+.xs-wrm dd { margin: 0; color: var(--fg2); }
+.xs-qgrid { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+.xs-q, .xs-h { border: 1px solid var(--line2); border-radius: 6px; padding: .8rem .9rem; background: var(--surface); }
+.xs-q h4, .xs-h h4 { margin: .25rem 0 .45rem; font-size: .95rem; font-weight: 600; }
+.xs-q p, .xs-h p { margin: 0 0 .45rem; font-size: .86rem; color: var(--fg2); }
+.xs-q .table-note { margin: 0 0 .45rem; }
+.xs-qn { font: 600 .74rem var(--mono); color: var(--muted); }
+.xs-qlink { border-top: 1px solid var(--line); padding-top: .45rem; margin-top: .2rem; }
+.xs-qlink a { color: var(--link); }
+.xs-hgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .7rem; margin-top: .4rem; }
+.xs-h { border-style: dashed; }
+.xs-oqs { display: grid; gap: .6rem; max-width: 980px; }
+.xs-oq { display: grid; grid-template-columns: 2rem 1fr; gap: .4rem; border: 1px solid var(--line2); border-radius: 6px; padding: .75rem .9rem; background: var(--surface); }
+.xs-oq .xs-qn { font-size: .95rem; color: var(--ink); }
+.xs-oqq { margin: 0 0 .25rem; font-size: .93rem; font-weight: 500; }
+.xs-oqc { margin: 0; font-size: .86rem; color: var(--fg2); }
+.xs-oqc:empty { display: none; }
+.xs-ex { display: flex; flex-wrap: wrap; gap: .3rem; list-style: none; margin: .4rem 0 0; padding: 0; }
+.xs-ex li { font-size: .78rem; color: var(--fg2); border: 1px dashed var(--line2); border-radius: 999px; padding: .1rem .55rem; }
+.xs-oq .table-note { margin-top: .35rem; }
+.xs-ladder { list-style: none; margin: .4rem 0 1rem; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; }
+.xs-step { border: 1px solid var(--ink); border-radius: 6px; padding: .65rem .75rem; background: var(--surface); display: flex; flex-direction: column; gap: .2rem; }
+.xs-step.xs-no { border: 1px dashed var(--muted); color: var(--muted); }
+.xs-mark { font: 600 .95rem var(--mono); }
+.xs-stepname { font-size: .88rem; font-weight: 600; }
+.xs-stepstat { font: 500 .7rem var(--mono); color: var(--fg2); }
+.xs-no .xs-stepname, .xs-no .xs-stepstat { color: var(--muted); }
+@media (max-width: 960px) { .xs-hgrid { grid-template-columns: 1fr 1fr; } .xs-ladder { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 720px) {
+  .xs-qgrid, .xs-hgrid, .xs-ladder { grid-template-columns: 1fr; }
+  .xs-wrm > div { grid-template-columns: 1fr; gap: .15rem; }
+  .xs-wrm dt { text-align: left; }
+}
