@@ -253,31 +253,31 @@ sitemap: false
         </table>
       </div>
       <p class="table-note">272 TCGA colorectal diagnostic slides (271 patients) with public invasive-tumour outlines, evaluated without any task-specific adaptation. The outlines are coarse and non-exhaustive (stroma may be included; tissue outside an outline is not a reliable negative), so recall is always read together with the predicted area fraction (predicted tissue / whole-slide tissue) and enrichment E = recall / area fraction; Dice is restricted to outline-touching tissue pieces and is exploratory. SENA uses its nucleus-derived tumour-region rule (expansion distance 250&nbsp;µm, support threshold 0.3), fixed before this evaluation. Mean with 95% patient-cluster bootstrap CI (10,000 resamples). Kather100K and IDaRS patch probabilities are mapped with two fixed post-processing pipelines (shown separately). <sup>b</sup>IDaRS was trained on TCGA colorectal slides and is an in-domain reference only. <sup>c</sup>icgi predicts no tumour on 34 of the 445 slides (20 of the 271 patients here), where E is undefined; its E is the mean over the remaining 251 patients and is not directly comparable with the other rows. Bold, highest Dice. No ranking is implied.</p>
-      <p class="xs-transition">These results establish the tissue-level readout; we next asked which cellular information drives it and whether that signal extends further downstream (<a href="#crossscale">Cross-scale</a>).</p>
+      <p class="xs-transition">이 결과들은 조직 수준 readout을 보여 줍니다. 다음으로 어떤 세포 정보가 이 readout을 만드는지, 그리고 그 신호가 더 하류까지 이어지는지 확인했습니다 (<a href="#crossscale">Cross-scale</a>).</p>
     </section>
 
     <section id="crossscale" class="section">
-      <div class="section-head"><h2>From cellular identity to tissue-level pathology</h2>
-        <p>High nuclei-analysis accuracy is only useful pathologically if the resulting cellular representation stays informative beyond individual nuclei. Tumour tissue is not defined simply by where nuclei are dense: cellular identity and composition are central cues in pathological interpretation. We therefore asked whether pathology-informed cellular identity changes the tissue-level interpretation when everything else is held fixed, and how far that signal travels downstream.</p>
+      <div class="section-head"><h2>세포 정체성에서 조직 수준 병리까지</h2>
+        <p>핵 분석 정확도가 높아도, 그 결과로 얻은 세포 표현이 개별 핵을 넘어 정보를 담고 있어야 병리학적으로 의미가 있습니다. 종양 조직은 단순히 핵이 빽빽한 곳으로 정의되지 않으며, 세포의 정체성과 구성은 병리 판독의 핵심 단서입니다. 그래서 다른 조건을 모두 고정했을 때 병리학 정보가 반영된 세포 정체성이 조직 수준 해석을 바꾸는지, 그리고 그 신호가 하류 분석까지 얼마나 이어지는지 확인했습니다.</p>
       </div>
 
-      <ol class="xs-chain" aria-label="Evidence chain">
-        <li class="xs-node">Pathology-informed semantics</li>
-        <li class="xs-link"><span class="xs-arrow" aria-hidden="true"></span><span class="xs-status">Supported</span></li>
-        <li class="xs-node">Cellular identity</li>
-        <li class="xs-link"><span class="xs-arrow" aria-hidden="true"></span><span class="xs-status">Supported</span></li>
-        <li class="xs-node">Tumour-region mapping</li>
-        <li class="xs-link xs-open"><span class="xs-arrow" aria-hidden="true"></span><span class="xs-status">Limited / not established</span></li>
-        <li class="xs-node xs-node-open">Molecular analysis</li>
+      <ol class="xs-chain" aria-label="근거 사슬">
+        <li class="xs-node">병리학 정보 기반 semantic 표현</li>
+        <li class="xs-link"><span class="xs-arrow" aria-hidden="true"></span><span class="xs-status">지지됨</span></li>
+        <li class="xs-node">세포 정체성</li>
+        <li class="xs-link"><span class="xs-arrow" aria-hidden="true"></span><span class="xs-status">지지됨</span></li>
+        <li class="xs-node">종양 영역 지도</li>
+        <li class="xs-link xs-open"><span class="xs-arrow" aria-hidden="true"></span><span class="xs-status">제한적 / 확립되지 않음</span></li>
+        <li class="xs-node xs-node-open">분자 분석</li>
       </ol>
 
-      <h3 class="cost-head">Same nuclei, different identity</h3>
+      <h3 class="cost-head">같은 핵, 다른 정체성</h3>
       <div class="xs-fixed">
-        <div><span class="xs-kicker">Held fixed</span>the exact same nuclei, their number, positions and shapes, and the same tumour-region aggregation rule</div>
-        <div><span class="xs-kicker">Changed</span>only the cell-type label of each nucleus (Eff identity → Cls identity)</div>
+        <div><span class="xs-kicker">고정한 것</span>완전히 같은 핵, 같은 핵 수·위치·모양, 같은 종양 영역 집계 규칙</div>
+        <div><span class="xs-kicker">바꾼 것</span>각 핵의 세포 유형 label만 (Eff 정체성 → Cls 정체성)</div>
       </div>
-      <p class="cost-lead">On the 44 PAIP2020 slides, changing cellular identity alone improved the tissue-level tumour map: tumour Dice +0.069 <span class="fx-ci">[+0.050, +0.089]</span>, 39 better / 5 worse of 44 slides. This isolates the effect of the semantic representation on cellular identity; it does not show that surrounding tissue context by itself caused the improvement.</p>
-      <p class="xs-mech">better pathology-informed identity <span aria-hidden="true">→</span> fewer non-neoplastic cells labelled neoplastic outside the tumour <span aria-hidden="true">→</span> fewer tissue-level false-positive regions</p>
+      <p class="cost-lead">PAIP2020 44장에서 세포 정체성만 바꿨는데도 조직 수준 종양 지도가 좋아졌습니다: 종양 Dice +0.069 <span class="fx-ci">[+0.050, +0.089]</span>, 44장 중 39장 개선, 5장 악화. 이 결과는 semantic 표현이 세포 정체성에 미치는 효과를 분리해 보여 준 것이며, 주변 조직 맥락 자체가 개선의 원인이라는 것을 보여 주지는 않습니다.</p>
+      <p class="xs-mech">병리학 정보 기반 정체성 향상 <span aria-hidden="true">→</span> 종양 밖 비종양 세포를 neoplastic으로 부르는 경우 감소 <span aria-hidden="true">→</span> 조직 수준 false-positive 영역 감소</p>
 
       <figure class="fx-fig" aria-label="Why does tissue mapping improve? Paired per-slide tumour Dice differences">
         <figcaption class="rp-title">Why does tissue mapping improve? Paired per-slide changes in tumour Dice (PAIP2020, 44 slides)</figcaption>
@@ -308,16 +308,16 @@ sitemap: false
         <p class="table-note">Grey dots: individual slides. Black: mean with 95% bootstrap CI (slide resampling, 10,000). Dashed line: no change.</p>
       </figure>
 
-      <h3 class="cost-head">Not simply where the cells are</h3>
+      <h3 class="cost-head">세포가 어디 있는지만으로는 설명되지 않음</h3>
       <div class="xs-contrast">
-        <div class="xs-cbox"><span class="xs-kicker">Where are the cells?</span><strong>position + density</strong><span class="xs-cval">Dice 0.678</span></div>
-        <div class="xs-cbox xs-cbox-ink"><span class="xs-kicker">What cells are they?</span><strong>identity + composition</strong><span class="xs-cval">Dice 0.837</span></div>
+        <div class="xs-cbox"><span class="xs-kicker">세포가 어디에 있는가?</span><strong>위치 + 밀도</strong><span class="xs-cval">Dice 0.678</span></div>
+        <div class="xs-cbox xs-cbox-ink"><span class="xs-kicker">어떤 세포인가?</span><strong>정체성 + 구성</strong><span class="xs-cval">Dice 0.837</span></div>
       </div>
-      <p class="cost-lead">Could the tumour map simply reflect where nuclei are dense? A control that keeps every SENA detection but discards all class information reached a lower Dice (+0.159 <span class="fx-ci">[+0.130, +0.188]</span> in favour of identity, 43 better / 1 worse of 44 slides). When different nuclei models produce different tumour maps, the difference was explained by cellular composition (+0.049 <span class="fx-ci">[+0.033, +0.066]</span>) rather than by detection support (+0.0002 <span class="fx-ci">[−0.0020, +0.0020]</span>). Identity and composition, rather than nuclei abundance alone, carry the relevant tissue-level information.</p>
-      <p class="table-note">These mechanistic analyses compare maps only within their frozen evaluation protocol (canonical tumour-map scorer; Dice 0.837 vs 0.678 above). The comparison table in the previous section uses the common benchmark scorer, which additionally clips every method to the release tissue mask at 25&nbsp;µm; this is why SENA&nbsp;Cls reads 0.834 there.</p>
+      <p class="cost-lead">종양 지도가 단지 핵이 밀집한 곳을 반영한 것일 수 있을까요? SENA 검출은 모두 그대로 두고 class 정보만 지운 대조 지도는 Dice가 더 낮았습니다(정체성을 쓴 지도가 +0.159 <span class="fx-ci">[+0.130, +0.188]</span> 높음, 44장 중 43장 개선, 1장 악화). 서로 다른 핵 모델이 서로 다른 종양 지도를 낼 때, 그 차이는 검출 support(+0.0002 <span class="fx-ci">[−0.0020, +0.0020]</span>)가 아니라 세포 구성(+0.049 <span class="fx-ci">[+0.033, +0.066]</span>)으로 설명됐습니다. 핵의 양만이 아니라 세포의 정체성과 구성이 조직 수준에서 필요한 정보를 담고 있습니다.</p>
+      <p class="table-note">이 mechanistic 분석은 고정된 평가 protocol(canonical 종양 지도 scorer; 위 Dice 0.837 vs 0.678) 안에서만 비교합니다. 앞 section의 비교 표는 모든 방법에 공통 benchmark scorer를 쓰며, 이 scorer는 25&nbsp;µm release tissue mask로 한 번 더 자르기 때문에 그 표에서 SENA&nbsp;Cls는 0.834로 표시됩니다.</p>
 
-      <h3 class="cost-head">Independent cell and tissue annotations</h3>
-      <p class="cost-lead">PAIP2020 compares tumour maps with pathologist outlines. OCELOT adds an independent test with both cell-level and tissue-level ground truth (298 slides, 654 regions, 111,613 annotated tumour and background cells). Does better cellular identity appear as better cell-level classification, and does the gain reach the tissue-level readout?</p>
+      <h3 class="cost-head">독립적인 세포·조직 주석</h3>
+      <p class="cost-lead">PAIP2020은 종양 지도를 병리의사 윤곽과 비교합니다. OCELOT은 세포 수준과 조직 수준 정답을 모두 갖춘 독립 데이터입니다(298장, 654개 영역, 주석된 종양·배경 세포 111,613개). 여기서 더 나은 세포 정체성이 세포 수준 분류 향상으로 나타나는지, 그리고 그 향상이 조직 수준 readout까지 이어지는지 확인했습니다.</p>
       <figure class="fx-fig" aria-label="Independent cross-scale evidence on OCELOT, Cls minus Eff">
         <figcaption class="rp-title">Independent cross-scale evidence (OCELOT): Cls − Eff, paired across slides</figcaption>
         <div class="fx-group">Cell level</div>
@@ -340,33 +340,33 @@ sitemap: false
           <div class="fx-row fx-axis-row"><div class="fx-label"></div><div class="fx-plot"><svg class="fx-svg fx-axis" viewBox="0 0 420 34" aria-hidden="true"><line x1="22" y1="4" x2="398" y2="4" stroke="#d4d4d4"/><line x1="22.0" y1="4" x2="22.0" y2="9" stroke="#8a8a8a"/><text x="22.0" y="21" font-size="11" fill="#555" text-anchor="middle" font-family="Inter, system-ui, sans-serif">−0.04</text><line x1="105.6" y1="4" x2="105.6" y2="9" stroke="#8a8a8a"/><text x="105.6" y="21" font-size="11" fill="#555" text-anchor="middle" font-family="Inter, system-ui, sans-serif">−0.02</text><line x1="189.1" y1="4" x2="189.1" y2="9" stroke="#8a8a8a"/><text x="189.1" y="21" font-size="11" fill="#555" text-anchor="middle" font-family="Inter, system-ui, sans-serif">0</text><line x1="272.7" y1="4" x2="272.7" y2="9" stroke="#8a8a8a"/><text x="272.7" y="21" font-size="11" fill="#555" text-anchor="middle" font-family="Inter, system-ui, sans-serif">+0.02</text><line x1="356.2" y1="4" x2="356.2" y2="9" stroke="#8a8a8a"/><text x="356.2" y="21" font-size="11" fill="#555" text-anchor="middle" font-family="Inter, system-ui, sans-serif">+0.04</text><text x="210.0" y="33" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-family="Inter, system-ui, sans-serif">Cls − Eff, proportion difference (paired slide estimand, OCELOT)</text></svg></div><div class="fx-val"></div></div>
         <p class="table-note">Mean with 95% CI, organ-stratified bootstrap over slides (10,000). Each effect is a paired estimate over the slides where both modes are defined; values are proportion differences. Six organs.</p>
       </figure>
-      <p class="cost-lead">Cellular identity improved clearly. The effect propagated to tissue-level tumour-cell enrichment, although the tissue-level effect was modest and not individually significant within any single organ.</p>
+      <p class="cost-lead">세포 정체성은 뚜렷하게 개선됐습니다. 그 효과는 조직 수준 종양세포 농축까지 이어졌지만, 조직 수준 효과는 작았고(modest) 개별 장기 안에서는 각각 유의하지 않았습니다.</p>
 
-      <h3 class="cost-head">How far does the signal propagate downstream?</h3>
-      <p class="cost-lead">If cell-derived tumour maps better identify biologically meaningful tumour tissue, they might also improve the selection of regions for spatial or molecular downstream analyses. We tested this in a public colorectal spatial-transcriptomics cohort (6 patients).</p>
+      <h3 class="cost-head">신호는 하류 분석까지 얼마나 이어지는가?</h3>
+      <p class="cost-lead">세포에서 만든 종양 지도가 생물학적으로 의미 있는 종양 조직을 더 잘 찾는다면, 공간·분자 하류 분석에 쓸 영역 선택도 좋아질 수 있을 것이라고 기대했습니다. 이를 공개 대장암 공간전사체(spatial transcriptomics) cohort(환자 6명)에서 확인했습니다.</p>
       <div class="xs-cards">
         <div class="xs-card">
-          <span class="xs-tag">Small-cohort supportive observation</span>
-          <h4>Strict high-purity tumour readout</h4>
-          <p>A strict readout taken directly from SENA&nbsp;Cls nuclear classifications (spots with &gt;&nbsp;90% predicted neoplastic nuclei, the pathology strict-tumour definition) matched pathologist strict-tumour spots better than the best external tumour-region map (VISTA-PATH): patient-median Dice 0.628 vs 0.531, higher in 5 of 6 patients. Its RNA profile was closer to the strict-tumour reference in all 6 patients (median distance 0.0093 vs 0.0181).</p>
-          <p class="table-note">A separate, more specific readout, not the tumour-region map: higher precision at the cost of lower recall. The canonical tumour region itself was not closer than VISTA-PATH. Six patients only.</p>
+          <span class="xs-tag">소규모 cohort의 지지적 관찰</span>
+          <h4>엄격한 고순도 종양 readout</h4>
+          <p>SENA&nbsp;Cls 핵 분류에서 직접 만든 엄격한 readout(예측 neoplastic 핵이 90%를 넘는 spot; 병리의 strict-tumour 정의)은 가장 좋은 외부 종양 영역 지도(VISTA-PATH)보다 병리의사의 strict-tumour spot과 더 잘 맞았습니다: 환자 중앙값 Dice 0.628 vs 0.531, 6명 중 5명에서 더 높음. RNA profile도 6명 모두에서 strict-tumour 기준에 더 가까웠습니다(거리 중앙값 0.0093 vs 0.0181).</p>
+          <p class="table-note">종양 영역 지도가 아니라, 더 특이적인 별도 readout입니다. precision은 높고 recall은 낮습니다. canonical 종양 영역 자체는 VISTA-PATH보다 가깝지 않았습니다. 환자 6명뿐입니다.</p>
         </div>
         <div class="xs-card xs-card-open">
-          <span class="xs-tag xs-tag-open">Superiority not established</span>
-          <h4>Matched true-tumour coverage</h4>
-          <p>When the amount of true tumour selected was matched across methods, SENA-selected regions were not robustly more representative of the tumour's molecular programmes. Cell-derived neoplastic scores were associated with malignant programmes, but the advantage was not consistently specific to SENA and did not hold after adjusting for purity.</p>
+          <span class="xs-tag xs-tag-open">우월성 확립되지 않음</span>
+          <h4>실제 종양 포함량을 맞춘 비교</h4>
+          <p>방법 간에 선택된 실제 종양의 양을 맞추면, SENA가 고른 영역이 종양의 분자 program을 더 잘 대표한다는 결과는 robust하게 나오지 않았습니다. 세포에서 계산한 neoplastic score는 악성 분자 program과 연관을 보였지만, 그 이점은 SENA에 일관되게 특이적이지 않았고 순도(purity)를 보정하면 유지되지 않았습니다.</p>
         </div>
       </div>
-      <p class="xs-boundary">Current evidence supports transfer from cellular identity to tissue-level tumour mapping, but does not yet establish that SENA selects molecularly superior tumour subregions at matched true-tumour coverage.</p>
+      <p class="xs-boundary">현재 근거는 세포 정체성에서 조직 수준 종양 지도로의 전달을 지지하지만, 실제 종양 포함량을 맞췄을 때 SENA가 분자적으로 더 우수한 종양 하위 영역을 고른다는 것은 아직 확립하지 못했습니다.</p>
 
       <div class="xs-take">
-        <h3>What do we learn across scales?</h3>
+        <h3>여러 scale에서 배운 것</h3>
         <ol>
-          <li>Better cellular identity changes tissue-level tumour mapping even when cellular geometry is fixed.</li>
-          <li>The gain is not explained by cell density or detection support alone; cellular composition carries the key information.</li>
-          <li>Molecular follow-up is encouraging but currently does not establish SENA-specific downstream superiority.</li>
+          <li>세포 정체성이 좋아지면, 세포 geometry를 고정해도 조직 수준 종양 지도가 바뀝니다.</li>
+          <li>이 이득은 세포 밀도나 검출 support만으로 설명되지 않으며, 세포 구성이 핵심 정보를 담고 있습니다.</li>
+          <li>분자 후속 분석은 고무적이지만, 현재로서는 SENA 특이적인 하류 우월성을 확립하지 못했습니다.</li>
         </ol>
-        <p><strong>The strongest current evidence supports a pathology-informed cellular identity → tissue-level tumour mapping link.</strong></p>
+        <p><strong>현재 가장 강한 근거는 병리학 정보 기반 세포 정체성 → 조직 수준 종양 지도 연결을 지지합니다.</strong></p>
       </div>
     </section>
 
