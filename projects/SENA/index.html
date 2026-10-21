@@ -13,7 +13,7 @@ sitemap: false
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="assets/css/style.css?v=20261021b">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261021c">
 </head>
 <body>
   <header class="topbar">
@@ -28,6 +28,7 @@ sitemap: false
       <a href="#tumour">Tumour</a>
       <a href="#crossscale">Cross-scale</a>
       <a href="#molecular">Molecular</a>
+      <a href="#evidence">Evidence</a>
       <a href="#questions">Questions</a>
       <a href="#code">Code</a>
     </nav>
@@ -539,45 +540,37 @@ sitemap: false
     </section>
 
     <section id="beyond" class="section">
-      <div class="section-head"><span class="xs-eyebrow">핵 분석을 넘어서</span><h2>왜 병리학적 의미를 찾기 시작했는가?</h2>
-        <p>여기까지는 SENA 자체의 핵 분석 정확도와 효율에 관한 이야기입니다. 여기서부터는 새로운 연구 질문입니다: <strong>SENA가 더 나은 세포 표현을 만든다면, 그 정보는 핵 분석을 넘어서도 쓸모가 있는가?</strong> 아래 네 질문이 이후 실험들을 시작한 이유입니다.</p>
+      <div class="section-head"><span class="xs-eyebrow">핵 분석을 넘어</span><h2>왜 병리학적 의미를 확인하려 했는가?</h2>
+        <p>여기까지는 SENA의 핵 분석 정확도와 효율에 관한 핵심 이야기입니다. 여기서부터는 별도의 확장된 질문입니다: <strong>더 좋은 세포 표현이 핵 분석을 넘어 실제 조직 수준의 병리 정보로 이어질 수 있는가?</strong> 결과보다 먼저, 우리가 실험으로 답하려 한 세 가지 과학적 질문을 정리합니다.</p>
       </div>
-      <div class="xs-qgrid">
+      <div class="xs-qgrid xs-qgrid3">
         <div class="xs-q">
-          <span class="xs-qn">Q1</span>
-          <h4>더 나은 핵 분석이 조직 수준에서도 의미가 있는가?</h4>
-          <p><span class="xs-lab xs-lab-why">동기</span>핵 수준 benchmark 향상은 유용하지만, 그 세포 표현이 더 큰 scale의 조직 해석을 뒷받침하지 못하면 병리학적 가치는 제한적입니다.</p>
-          <p><span class="xs-lab xs-lab-hyp">가설</span>SENA가 더 의미 있는 세포 정체성을 담는다면, 같은 표현으로 조직 수준의 종양 범위도 추론할 수 있을지 모릅니다.</p>
-          <p class="xs-qlink"><span class="xs-lab">연결된 실험</span><a href="#tumour">병리학적 검증 1 · 종양 영역 readout</a></p>
+          <span class="xs-qtag">과학적 질문 1</span>
+          <h4>세포 수준에서 좋아진 정보가 조직 수준의 종양 영역으로도 이어지는가?</h4>
+          <p><span class="xs-lab xs-lab-why">동기</span>핵 benchmark 성능이 좋아지는 것만으로는 병리학적 의미가 충분하지 않습니다.</p>
+          <p><span class="xs-lab xs-lab-hyp">기대한 것</span>SENA가 더 의미 있는 세포 정체성을 제공한다면, 이 세포 정보를 모아 조직 수준의 종양 범위도 더 잘 표현할 수 있지 않을까?</p>
+          <p class="xs-qlink"><span class="xs-lab">답을 찾은 곳</span><a href="#tumour">종양 영역 readout (PAIP2020, TCGA 외부 주석)</a></p>
         </div>
         <div class="xs-q">
-          <span class="xs-qn">Q2</span>
-          <h4>실제로 중요한 세포 정보는 무엇인가?</h4>
-          <p><span class="xs-lab xs-lab-why">동기</span>종양 조직은 핵이 많거나 빽빽하다는 이유만으로 찾기 쉬워 보일 수 있습니다. 조직 수준 결과가 핵의 위치와 수 때문인지, 그 세포가 실제로 무엇인지 때문인지 알고 싶었습니다.</p>
-          <p><span class="xs-lab xs-lab-hyp">가설</span>밀도가 아니라 세포 정체성과 구성이 결과를 설명한다면, SENA는 빽빽한 조직을 찾는 것이 아니라 생물학적으로 해석 가능한 정보를 scale을 넘어 전달하고 있는 것입니다.</p>
-          <p class="xs-qlink"><span class="xs-lab">연결된 실험</span><a href="#crossscale">병리학적 검증 2 · 고정 geometry 정체성 개입, 위치·밀도 대조, 검출 support vs 구성 분해</a></p>
+          <span class="xs-qtag">과학적 질문 2</span>
+          <h4>종양 지도가 좋아지는 이유는 무엇인가?</h4>
+          <p><span class="xs-lab xs-lab-why">동기</span>SENA가 조직 수준 종양 지도를 더 잘 만드는 이유가, 단순히 핵을 어디에서 얼마나 많이 검출했기 때문인지, 아니면 각 핵의 정체성과 그 지역의 세포 구성을 더 잘 표현했기 때문인지 구분하고 싶었습니다.</p>
+          <p><span class="xs-lab xs-lab-hyp">기대한 것</span>정체성과 구성이 결과를 설명한다면, SENA는 빽빽한 조직을 찾는 것이 아니라 해석 가능한 세포 정보를 조직 scale까지 전달하고 있는 것입니다.</p>
+          <p class="xs-qlink"><span class="xs-lab">답을 찾은 곳</span><a href="#crossscale">세 가지 대조 실험 ① ② ③</a></p>
         </div>
         <div class="xs-q">
-          <span class="xs-qn">Q3</span>
-          <h4>같은 세포 분석을 별도의 task 전용 모델 없이 재사용할 수 있는가?</h4>
-          <p><span class="xs-lab xs-lab-why">동기</span>SENA는 이미 세포 위치, 세포 정체성, 형태·경계 정보를 만듭니다. 이 출력이 endpoint 하나로 끝나지 않고 재사용 가능한 병리 표현이 될 수 있는지 보고 싶었습니다.</p>
-          <p><span class="xs-lab xs-lab-hyp">가설</span>세포 수준 분석을 한 번 하고 나면, 완전히 별도의 분석 pipeline 없이도 조직 수준 readout을 얻을 수 있을지 모릅니다.</p>
-          <p class="table-note">이미 계산된 세포 표현을 재사용할 때, 종양 지도 생성에 추가된 계산은 약 2초로 전체 SENA runtime의 0.5% 미만이었습니다(부분 확인 반복: Eff 2회, Cls 2회). 이미 계산한 세포 표현의 재사용을 뜻하며, 전용 종양 분할 모델보다 빠르다거나 그것을 대체한다는 뜻이 아닙니다.</p>
-          <p class="xs-qlink"><span class="xs-lab">연결된 실험</span><a href="#tumour">종양 영역 readout</a> (같은 세포 출력에서 집계)</p>
-        </div>
-        <div class="xs-q">
-          <span class="xs-qn">Q4</span>
-          <h4>하류 sampling이나 분자 분석에도 의미가 있을까?</h4>
-          <p><span class="xs-lab xs-lab-why">동기</span>병리에서 종양 영역은 최종 결과가 아니라 다음 단계의 입력이 되는 경우가 많습니다. 예를 들어 분자 검사 ROI 선택, 공간전사체 영역 선택, 종양 순도 추정, 종양 농축 sampling, biomarker 정량이 있습니다. 이것들은 잠재적 활용 예이며, SENA에서 검증된 임상적 유용성이 아닙니다.</p>
-          <p><span class="xs-lab xs-lab-hyp">가설</span>세포에 근거한 종양 지도가 생물학적으로 의미 있는 종양 조직을 더 잘 반영한다면, 하류 분자 분석에 쓸 조직 선택도 좋아질 수 있습니다.</p>
-          <p class="xs-qlink"><span class="xs-lab">연결된 실험</span><a href="#molecular">병리학적 검증 3 · 공간전사체·분자 분석</a></p>
+          <span class="xs-qtag">과학적 질문 3</span>
+          <h4>조직 수준 이점이 분자 하류 분석까지 이어지는가?</h4>
+          <p><span class="xs-lab xs-lab-why">동기</span>병리에서 종양 영역은 최종 목적이 아니라 다음 분석의 입력이 되는 경우가 많습니다.</p>
+          <p><span class="xs-lab xs-lab-hyp">기대한 것</span>더 나은 세포 정체성 → 더 나은 종양 지도 → 더 나은 분자 분석용 영역(ROI)이라는 가장 긴 사슬이 성립하지 않을까?</p>
+          <p class="xs-qlink"><span class="xs-lab">답을 찾은 곳</span><a href="#molecular">공간전사체·분자 분석</a></p>
         </div>
       </div>
     </section>
 
     <section id="tumour" class="section">
-      <div class="section-head"><span class="xs-eyebrow">병리학적 검증 1 — 세포 분석으로 종양 범위를 복원할 수 있는가?</span><h2>Tumour-region readout (PAIP2020)</h2></div>
-      <p class="xs-intro">핵 분석을 넘어서는 첫 번째 검증으로, 세포 수준 출력을 조직 수준 종양 readout으로 모을 수 있는지 확인했습니다. 새로운 집계 알고리즘이 novelty가 아닙니다. <strong>같은 집계 규칙에서 세포 표현에 따라 결과가 달라진다</strong>는 점이 중요합니다.</p>
+      <div class="section-head"><span class="xs-eyebrow">과학적 질문 1 — 세포 정보가 조직 수준 종양 영역으로 이어지는가?</span><h2>Tumour-region readout (PAIP2020)</h2></div>
+      <p class="xs-intro">핵 분석을 넘어서는 첫 번째 검증으로, 세포 수준 출력을 조직 수준 종양 readout으로 모을 수 있는지 확인했습니다. 세포→영역 집계 방법 자체는 novelty가 아닙니다. <strong>같은 집계 규칙에서 세포 표현에 따라 결과가 달라진다</strong>는 점이 중요합니다. 전용 종양 분할 모델을 대체한다는 뜻도 아닙니다.</p>
       <p>Classified nuclei are aggregated into a tissue-level tumour region without a separate tumour-segmentation model: 100-µm bins with a Neoplastic majority form the core, and nearby bins dominated by connective or dead nuclei are added within 500&nbsp;µm. The frozen system and the fixed construction were applied to 44 PAIP2020 slides with pathologist tumour outlines, without fine-tuning or threshold tuning.</p>
 
       <h3 class="cost-head">Tumour-region agreement with pathologist outlines (44 slides; context, not a ranking)</h3>
@@ -628,25 +621,81 @@ sitemap: false
         </table>
       </div>
       <p class="table-note">272 TCGA colorectal diagnostic slides (271 patients) with public invasive-tumour outlines, evaluated without any task-specific adaptation. The outlines are coarse and non-exhaustive (stroma may be included; tissue outside an outline is not a reliable negative), so recall is always read together with the predicted area fraction (predicted tissue / whole-slide tissue) and enrichment E = recall / area fraction; Dice is restricted to outline-touching tissue pieces and is exploratory. SENA uses its nucleus-derived tumour-region rule (expansion distance 250&nbsp;µm, support threshold 0.3), fixed before this evaluation. Mean with 95% patient-cluster bootstrap CI (10,000 resamples). Kather100K and IDaRS patch probabilities are mapped with two fixed post-processing pipelines (shown separately). <sup>b</sup>IDaRS was trained on TCGA colorectal slides and is an in-domain reference only. <sup>c</sup>icgi predicts no tumour on 34 of the 445 slides (20 of the 271 patients here), where E is undefined; its E is the mean over the remaining 251 patients and is not directly comparable with the other rows. Bold, highest Dice. No ranking is implied.</p>
-      <p class="xs-transition">이 결과는 세포 출력으로 조직 수준 종양 readout을 만들 수 있음을 보여 줍니다. 다음 질문은 이 readout이 <em>왜</em> 좋아지는가입니다 (<a href="#crossscale">병리학적 검증 2</a>).</p>
+      <p class="xs-transition">이 결과는 세포 출력으로 조직 수준 종양 readout을 만들 수 있음을 보여 줍니다. 다음 질문은 이 readout이 <em>왜</em> 좋아지는가입니다 (<a href="#crossscale">과학적 질문 2</a>).</p>
     </section>
 
     <section id="crossscale" class="section">
-      <div class="section-head"><span class="xs-eyebrow">병리학적 검증 2</span><h2>종양 readout은 왜 좋아지는가?</h2>
-        <p>핵심 질문: 이득은 더 나은 <strong>세포 정체성·구성</strong> 때문인가, 아니면 단순히 핵의 <strong>검출·위치·밀도</strong> 때문인가? 아래 네 실험은 이 질문의 서로 다른 대안 설명을 하나씩 배제하도록 설계했습니다.</p>
+      <div class="section-head"><span class="xs-eyebrow">과학적 질문 2</span><h2>종양 지도가 좋아지는 이유는 무엇인가?</h2>
+        <p>SENA가 조직 수준 종양 지도를 더 잘 만드는 이유가 단순히 <strong>핵을 어디에서 얼마나 많이 검출했기 때문</strong>인가, 아니면 <strong>각 핵의 정체성과 그 지역의 세포 구성을 더 잘 표현했기 때문</strong>인가? 우리가 구분하려던 두 축은 다음과 같습니다.</p>
+      </div>
+      <div class="xs-axes">
+        <div class="xs-axis"><span class="xs-kicker">어디에, 얼마나? (Where / How many?)</span><ul><li>핵의 위치</li><li>핵의 개수</li><li>국소 밀도</li><li>검출 support</li></ul></div>
+        <div class="xs-vs" aria-hidden="true">vs</div>
+        <div class="xs-axis xs-axis-ink"><span class="xs-kicker">어떤 세포인가? (What cells are they?)</span><ul><li>세포 정체성 (identity)</li><li>세포 구성 (composition)</li></ul></div>
+      </div>
+      <p class="cost-lead">이 질문에 답하기 위해, 서로 다른 대안 설명을 하나씩 제거하는 세 가지 대조 실험을 했습니다.</p>
+      <div class="xs-steps" aria-label="세 가지 대조 실험의 논리">
+        <div class="xs-step2"><span class="xs-stepn">①</span><div><strong>geometry 고정 → identity만 변경</strong><span class="xs-stepv">Dice +0.069 <span class="fx-ci">[+0.050, +0.089]</span></span></div></div>
+        <div class="xs-down" aria-hidden="true">↓</div>
+        <div class="xs-step2"><span class="xs-stepn">②</span><div><strong>identity 제거 → 위치·밀도만 사용</strong><span class="xs-stepv">Dice 0.837 → 0.678</span></div></div>
+        <div class="xs-down" aria-hidden="true">↓</div>
+        <div class="xs-step2"><span class="xs-stepn">③</span><div><strong>detection과 composition 분리</strong><span class="xs-stepv">composition +0.049 <span class="fx-ci">[+0.033, +0.066]</span> · detection +0.0002 <span class="fx-ci">[−0.0020, +0.0020]</span></span></div></div>
+        <div class="xs-down" aria-hidden="true">↓</div>
+        <div class="xs-step2 xs-step2-ink"><span class="xs-stepn">⇒</span><div><strong>세포가 어디에, 얼마나 있는지보다 어떤 세포인지가 더 중요했다</strong></div></div>
       </div>
 
-      <h3 class="cost-head">A. 같은 핵, 다른 정체성</h3>
+      <h3 class="cost-head">① 같은 핵, 다른 정체성</h3>
       <div class="xs-fixed">
-        <div><span class="xs-kicker">고정한 것</span>완전히 같은 핵, 같은 핵 수·위치·모양, 같은 종양 영역 집계 규칙</div>
-        <div><span class="xs-kicker">바꾼 것</span>각 핵의 세포 유형 label만 (Eff 정체성 → Cls 정체성)</div>
+        <div><span class="xs-kicker">고정한 것</span>같은 핵 · 같은 핵 개수 · 같은 위치 · 같은 세포 geometry · 같은 종양 집계 규칙</div>
+        <div><span class="xs-kicker">바꾼 것</span>세포 정체성만 (Eff identity → Cls identity)</div>
       </div>
       <dl class="xs-wrm">
-        <div><dt class="xs-lab xs-lab-why">왜 했나</dt><dd>검출 차이가 비교를 교란할 수 있으므로, 핵을 완전히 고정하고 정체성만 바꿨습니다.</dd></div>
-        <div><dt class="xs-lab xs-lab-res">결과</dt><dd>PAIP2020 44장에서 종양 Dice +0.069 <span class="fx-ci">[+0.050, +0.089]</span>, 44장 중 39장 개선, 5장 악화.</dd></div>
-        <div><dt class="xs-lab xs-lab-mean">의미</dt><dd>세포 정체성만으로도 조직 수준 해석이 달라질 수 있습니다. 이 결과는 semantic 표현이 세포 정체성에 미치는 효과를 분리한 것이며, 주변 조직 맥락 자체가 원인이라는 것을 보여 주지는 않습니다.</dd></div>
+        <div><dt class="xs-lab xs-lab-why">왜 했나</dt><dd>Cls의 종양 지도가 좋아진 이유가, 단순히 핵을 더 많이 또는 다른 위치에서 검출했기 때문일 수 있습니다.</dd></div>
+        <div><dt class="xs-lab xs-lab-res">결과</dt><dd>Cls identity − Eff identity 종양 Dice +0.069 <span class="fx-ci">[+0.050, +0.089]</span>, 44장 중 39장 개선, 5장 악화.</dd></div>
+        <div><dt class="xs-lab xs-lab-mean">의미</dt><dd>핵의 위치와 개수가 같아도, 그 핵을 어떤 세포로 판단하는지만 바꾸면 조직 수준의 종양 지도가 달라졌습니다. "Cls가 더 좋은 위치에서 핵을 검출해서 좋아졌다"는 설명만으로는 결과를 설명할 수 없습니다.</dd></div>
       </dl>
-      <p class="xs-mech">병리학 정보 기반 정체성 향상 <span aria-hidden="true">→</span> 종양 밖 비종양 세포를 neoplastic으로 부르는 경우 감소 <span aria-hidden="true">→</span> 조직 수준 false-positive 영역 감소</p>
+      <p class="xs-mech">더 나은 정체성 <span aria-hidden="true">→</span> 종양 밖 비종양 세포를 neoplastic으로 부르는 경우 감소 <span aria-hidden="true">→</span> 조직 수준 false-positive 영역 감소</p>
+
+      <h3 class="cost-head">② 세포 종류를 전혀 모른다면?</h3>
+      <p class="cost-lead">암 조직이 단순히 핵이 더 빽빽한 곳이라서 종양 지도가 좋아 보이는 것은 아닐까? 이를 확인하려고 모든 핵의 class label을 지우고 모든 핵을 똑같은 점으로 취급했습니다. Neoplastic인지, Epithelial·Inflammatory·Connective·Dead인지는 전혀 쓰지 않고, <strong>핵의 위치, 칸마다의 핵 개수, 국소 핵 밀도</strong>만 남겼습니다. 이 정보만으로 세포 종류 없이 종양처럼 보이는 영역(class-free map)을 만들었습니다.</p>
+      <div class="xs-contrast">
+        <div class="xs-cbox"><span class="xs-kicker">어디에 세포가 많은가?</span><strong>위치 + 개수 + 밀도</strong><span class="xs-cval">Dice 0.678</span></div>
+        <div class="xs-cbox xs-cbox-ink"><span class="xs-kicker">그 세포들이 무엇인가?</span><strong>정체성 + 구성 (SENA)</strong><span class="xs-cval">Dice 0.837</span></div>
+      </div>
+      <dl class="xs-wrm">
+        <div><dt class="xs-lab xs-lab-why">왜 했나</dt><dd>조직 수준 이점이 단지 핵 밀도를 반영한 것일 수 있습니다.</dd></div>
+        <div><dt class="xs-lab xs-lab-res">결과</dt><dd>정체성을 쓴 SENA 지도 Dice 0.837, 위치·밀도만 쓴 지도 0.678; paired 차이 +0.159 <span class="fx-ci">[+0.130, +0.188]</span>, 44장 중 43장 개선, 1장 악화.</dd></div>
+        <div><dt class="xs-lab xs-lab-mean">의미</dt><dd>SENA의 조직 수준 이점은 핵이 많이 모여 있는 곳을 찾았기 때문만으로는 설명되지 않았습니다. "어디에 세포가 많은가"만 아는 것보다 "그 세포들이 무엇인가"를 아는 것이 추가 정보를 주었습니다.</dd></div>
+      </dl>
+      <p class="table-note">Methods note — class-free map: 같은 SENA 검출, 100&nbsp;µm 칸, 세포 종류 무시. 핵 개수가 slide 내 상위 25%(P75) 이상인 tissue 칸을 core로 두고(0.1&nbsp;mm² 미만 덩어리 제거), core에서 500&nbsp;µm 이내이면서 핵 개수가 slide P25 이상인 칸으로 확장한 뒤 구멍을 메우고 tissue로 잘랐습니다. 종양 지도와 같은 구성에서 세포 종류 조건만 뺀 것입니다. 이 mechanistic 분석들은 고정된 평가 protocol(canonical 종양 지도 scorer) 안에서만 비교합니다. 앞의 Tumour 비교 표는 모든 방법에 공통 benchmark scorer를 쓰며 25&nbsp;µm release tissue mask로 한 번 더 자르기 때문에, 그 표에서 SENA&nbsp;Cls는 0.834로 표시됩니다.</p>
+
+      <h3 class="cost-head">③ 모델 간 차이는 detection 때문인가, cellular composition 때문인가?</h3>
+      <div class="xs-comp">
+        <div class="xs-comp-def"><span class="xs-kicker">cellular composition이란?</span>작은 조직 영역(여기서는 100&nbsp;µm 칸) 안에서 Neoplastic, Epithelial, Inflammatory, Connective, Dead 핵이 각각 얼마나 있는지를 나타내는 <strong>세포 종류의 구성비</strong>입니다.</div>
+        <div class="xs-comp-ex" aria-label="예시: 핵 10개 중 Neoplastic 6, Connective 2, Inflammatory 1, Epithelial 1">
+          <span class="xs-kicker">예시 (설명용)</span>
+          <div class="xs-dots"><i class="d-neo"></i><i class="d-neo"></i><i class="d-neo"></i><i class="d-neo"></i><i class="d-neo"></i><i class="d-neo"></i><i class="d-con"></i><i class="d-con"></i><i class="d-inf"></i><i class="d-epi"></i></div>
+          <div class="xs-bar"><span class="d-neo" style="width:60%">60% Neo</span><span class="d-con" style="width:20%">20% Conn</span><span class="d-inf" style="width:10%"></span><span class="d-epi" style="width:10%"></span></div>
+          <p class="table-note">핵 10개 = Neoplastic 6 · Connective 2 · Inflammatory 1 · Epithelial 1 → 60% / 20% / 10% / 10%</p>
+        </div>
+      </div>
+      <p class="cost-lead">SENA와 NuHTC 같은 서로 다른 핵 모델은 두 가지가 동시에 다릅니다. <strong>Detection</strong>(어느 위치에 핵을 검출했고 한 영역에 핵이 몇 개인지)과 <strong>classification / composition</strong>(그 핵을 어떤 세포로 판단했고 그래서 영역의 세포 구성이 어떤지)입니다. "SENA 지도가 NuHTC 지도보다 좋다"만 봐서는 어느 쪽 때문인지 알 수 없습니다. 그래서 100&nbsp;µm 칸 단위로 detection source와 composition source를 서로 독립적으로 골라 네 조합을 만들고, 그 뒤에는 같은 종양 영역 구성 규칙을 적용했습니다.</p>
+      <div class="table-wrap"><table class="mode-table bench-table xs-t22">
+        <thead><tr><th>Detection source<br><span class="cfg">핵 위치·개수 (100&nbsp;µm 칸)</span></th><th>Composition source<br><span class="cfg">세포 종류 구성비</span></th><th class="num">Tumour Dice</th></tr></thead>
+        <tbody>
+          <tr class="sena"><td>SENA</td><td>SENA</td><td class="num">0.837</td></tr>
+          <tr><td>SENA</td><td>NuHTC</td><td class="num">0.788</td></tr>
+          <tr class="sena"><td>NuHTC</td><td>SENA</td><td class="num">0.837</td></tr>
+          <tr><td>NuHTC</td><td>NuHTC</td><td class="num">0.788</td></tr>
+        </tbody></table></div>
+      <p class="table-note">PAIP2020 44장, slide 평균 Dice(canonical 종양 지도 scorer). 이후 종양 영역 구성 규칙은 네 칸 모두 같습니다. 대각선 두 칸은 각 모델의 원래 지도를 정확히 재현합니다.</p>
+      <dl class="xs-wrm">
+        <div><dt class="xs-lab xs-lab-why">왜 했나</dt><dd>모델 간 지도 차이가 핵 검출 차이에서 오는지, 세포 구성 차이에서 오는지 분리하고 싶었습니다.</dd></div>
+        <div><dt class="xs-lab xs-lab-res">결과</dt><dd>composition 효과 +0.049 <span class="fx-ci">[+0.033, +0.066]</span>, 44장 중 40장 개선, 4장 악화; detection-support 효과 +0.0002 <span class="fx-ci">[−0.0020, +0.0020]</span> (≈ 0).</dd></div>
+        <div><dt class="xs-lab xs-lab-mean">의미</dt><dd>어느 모델의 핵 위치·개수를 썼는지보다, 그 영역의 핵을 어떤 세포 구성으로 판단했는지가 지도 차이를 거의 전부 설명했습니다. 모델 간 조직 수준 차이는 "얼마나 많은 핵이 어디에 있는가"보다 "어떤 세포들이 그곳에 있는가"와 더 밀접했습니다.</dd></div>
+      </dl>
+      <p class="table-note">이것은 개별 핵 하나하나의 class를 옮겨 심은 핵 단위 실험이 아니라, 100&nbsp;µm 칸 단위의 detection support·개수와 세포 구성을 분해한 분석입니다. 핵 단위 매칭 실험은 사전에 정한 실행 가능성 기준을 통과하지 못해 평가하지 못했습니다(NOT EVALUABLE).</p>
+
       <figure class="fx-fig" aria-label="Why does tissue mapping improve? Paired per-slide tumour Dice differences">
         <figcaption class="rp-title">Why does tissue mapping improve? Paired per-slide changes in tumour Dice (PAIP2020, 44 slides)</figcaption>
         <div class="fx-group">Fixed cellular geometry</div>
@@ -676,28 +725,20 @@ sitemap: false
         <p class="table-note">Grey dots: individual slides. Black: mean with 95% bootstrap CI (slide resampling, 10,000). Dashed line: no change.</p>
       </figure>
 
-      <h3 class="cost-head">B. 밀도만으로 충분한가?</h3>
-      <div class="xs-contrast">
-        <div class="xs-cbox"><span class="xs-kicker">세포가 어디에 있는가?</span><strong>위치 + 밀도</strong><span class="xs-cval">Dice 0.678</span></div>
-        <div class="xs-cbox xs-cbox-ink"><span class="xs-kicker">어떤 세포인가?</span><strong>정체성 + 구성</strong><span class="xs-cval">Dice 0.837</span></div>
+      <div class="xs-concl">
+        <h4>왜 종양 지도가 좋아졌는가?</h4>
+        <ol>
+          <li><strong>같은 핵, identity만 변경</strong> → identity만 바꿔도 개선 (+0.069 <span class="fx-ci">[+0.050, +0.089]</span>)</li>
+          <li><strong>identity 정보를 모두 제거</strong> → 위치·밀도만으로는 크게 저하 (0.837 → 0.678)</li>
+          <li><strong>detection support와 composition을 교환</strong> → composition을 바꾸면 결과가 변하고, detection support 효과는 거의 없음</li>
+        </ol>
+        <p><strong>따라서 SENA의 조직 수준 종양 지도 이점은 단순한 핵의 양, 위치, detection support보다 세포 정체성과 세포 구성에 더 밀접하게 연결되어 있었습니다.</strong></p>
+        <p class="table-note">여기서 보인 최대 claim은 정체성·구성의 중요성입니다. 병리 맥락(주변 조직 정보) 자체가 원인이라는 주장은 하지 않습니다.</p>
       </div>
-      <dl class="xs-wrm">
-        <div><dt class="xs-lab xs-lab-why">왜 했나</dt><dd>종양 조직은 단순히 세포가 더 빽빽할 수 있습니다. 그래서 SENA 검출은 그대로 두고 class 정보를 모두 지운 채 위치와 밀도만으로 지도를 만들었습니다.</dd></div>
-        <div><dt class="xs-lab xs-lab-res">결과</dt><dd>canonical semantic 지도 Dice 0.837, 위치·밀도만 쓴 지도 0.678; paired 차이 +0.159 <span class="fx-ci">[+0.130, +0.188]</span>, 44장 중 43장 개선, 1장 악화 (위 figure 두 번째 행).</dd></div>
-        <div><dt class="xs-lab xs-lab-mean">의미</dt><dd>조직 수준 이득은 핵의 양이나 공간 밀도만으로 설명되지 않습니다.</dd></div>
-      </dl>
-      <p class="table-note">이 mechanistic 분석은 고정된 평가 protocol(canonical 종양 지도 scorer; Dice 0.837 vs 0.678) 안에서만 비교합니다. 앞 section의 비교 표는 모든 방법에 공통 benchmark scorer를 쓰며, 이 scorer는 25&nbsp;µm release tissue mask로 한 번 더 자르기 때문에 그 표에서 SENA&nbsp;Cls는 0.834로 표시됩니다.</p>
 
-      <h3 class="cost-head">C. 검출 support인가, 세포 구성인가?</h3>
+      <h3 class="cost-head">추가 확인: 독립적인 세포·조직 정답</h3>
       <dl class="xs-wrm">
-        <div><dt class="xs-lab xs-lab-why">왜 했나</dt><dd>핵 모델마다 어떤 세포를 검출하는지와 그 세포를 어떻게 분류하는지가 함께 다릅니다. 100&nbsp;µm 단위의 검출 support와 핵 수를 고정한 채 이 둘을 분리했습니다.</dd></div>
-        <div><dt class="xs-lab xs-lab-res">결과</dt><dd>세포 구성 효과 +0.049 <span class="fx-ci">[+0.033, +0.066]</span>, 44장 중 40장 개선, 4장 악화; 검출 support 효과 +0.0002 <span class="fx-ci">[−0.0020, +0.0020]</span> (≈ 0) (위 figure 세 번째·네 번째 행).</dd></div>
-        <div><dt class="xs-lab xs-lab-mean">의미</dt><dd>모델 간 조직 수준 차이는 검출 support가 아니라 세포 구성으로 대부분 설명됐습니다. A–C를 합치면, 핵의 양이 아니라 세포의 정체성과 구성이 조직 수준에서 필요한 정보를 담고 있습니다.</dd></div>
-      </dl>
-
-      <h3 class="cost-head">D. 독립적인 세포·조직 정답</h3>
-      <dl class="xs-wrm">
-        <div><dt class="xs-lab xs-lab-why">왜 했나</dt><dd>앞의 결과가 SENA에서 나온 label과 영역에만 기대고 있을 수 있습니다. 그래서 세포 수준과 조직 수준 정답을 모두 갖춘 독립 데이터(OCELOT: 298장, 654개 영역, 주석된 종양·배경 세포 111,613개)에서도 같은 세포→조직 관계가 보이는지 확인했습니다.</dd></div>
+        <div><dt class="xs-lab xs-lab-why">왜 했나</dt><dd>앞의 결과가 SENA에서 나온 label과 영역에만 기대고 있을 수 있습니다. 세포 수준과 조직 수준 정답을 모두 갖춘 독립 데이터(OCELOT: 298장, 654개 영역, 주석된 종양·배경 세포 111,613개)에서도 같은 세포→조직 관계가 보이는지 확인했습니다.</dd></div>
         <div><dt class="xs-lab xs-lab-res">결과</dt><dd>Cls − Eff, slide 단위 paired 추정: 배경 세포를 neoplastic으로 부르는 오류 −0.022 <span class="fx-ci">[−0.031, −0.014]</span>, 종양세포 F1 +0.028 <span class="fx-ci">[+0.019, +0.038]</span>, 예측 종양 영역 안 정답 종양세포 비율 +0.0065 <span class="fx-ci">[+0.0009, +0.0128]</span>.</dd></div>
         <div><dt class="xs-lab xs-lab-mean">의미</dt><dd>세포 정체성 향상은 뚜렷합니다. 조직 수준 종양세포 농축으로의 전달은 양의 방향이지만 작고(modest), 개별 장기 안에서는 각각 유의하지 않았습니다.</dd></div>
       </dl>
@@ -723,27 +764,18 @@ sitemap: false
           <div class="fx-row fx-axis-row"><div class="fx-label"></div><div class="fx-plot"><svg class="fx-svg fx-axis" viewBox="0 0 420 34" aria-hidden="true"><line x1="22" y1="4" x2="398" y2="4" stroke="#d4d4d4"/><line x1="22.0" y1="4" x2="22.0" y2="9" stroke="#8a8a8a"/><text x="22.0" y="21" font-size="11" fill="#555" text-anchor="middle" font-family="Inter, system-ui, sans-serif">−0.04</text><line x1="105.6" y1="4" x2="105.6" y2="9" stroke="#8a8a8a"/><text x="105.6" y="21" font-size="11" fill="#555" text-anchor="middle" font-family="Inter, system-ui, sans-serif">−0.02</text><line x1="189.1" y1="4" x2="189.1" y2="9" stroke="#8a8a8a"/><text x="189.1" y="21" font-size="11" fill="#555" text-anchor="middle" font-family="Inter, system-ui, sans-serif">0</text><line x1="272.7" y1="4" x2="272.7" y2="9" stroke="#8a8a8a"/><text x="272.7" y="21" font-size="11" fill="#555" text-anchor="middle" font-family="Inter, system-ui, sans-serif">+0.02</text><line x1="356.2" y1="4" x2="356.2" y2="9" stroke="#8a8a8a"/><text x="356.2" y="21" font-size="11" fill="#555" text-anchor="middle" font-family="Inter, system-ui, sans-serif">+0.04</text><text x="210.0" y="33" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-family="Inter, system-ui, sans-serif">Cls − Eff, proportion difference (paired slide estimand, OCELOT)</text></svg></div><div class="fx-val"></div></div>
         <p class="table-note">Mean with 95% CI, organ-stratified bootstrap over slides (10,000). Each effect is a paired estimate over the slides where both modes are defined; values are proportion differences. Six organs.</p>
       </figure>
-
-      <h3 class="cost-head">우리가 찾고자 한 병리학적 의미</h3>
-      <p class="table-note">아래 네 가지는 이 연구를 하게 된 동기이자 가설입니다. 임상적 유용성이 입증됐다는 뜻이 아닙니다.</p>
-      <div class="xs-hgrid">
-        <div class="xs-h"><span class="xs-lab xs-lab-hyp">가설</span><h4>세포에 근거한 조직 해석</h4><p>개별 세포의 정체성까지 거슬러 올라가 설명할 수 있는 조직 수준 예측은, 영역 예측만 있는 경우보다 해석하기 쉬울 수 있습니다. 잠재적인 해석 가능성 이점이며, reader study로 입증한 것은 아닙니다.</p></div>
-        <div class="xs-h"><span class="xs-lab xs-lab-hyp">가설</span><h4>재사용 가능한 세포 표현</h4><p>한 번의 세포 분석이 핵 수준 endpoint에 그치지 않고, 여러 상위 수준 병리 readout을 뒷받침할 수 있을지 모릅니다.</p></div>
-        <div class="xs-h"><span class="xs-lab xs-lab-hyp">가설</span><h4>종양 농축 영역 선택</h4><p>세포에 근거한 더 정확한 종양 영역은, 하류 정량 분석이나 분자 분석에 쓸 조직을 고를 때 유용할 가능성이 있습니다.</p></div>
-        <div class="xs-h"><span class="xs-lab xs-lab-hyp">가설</span><h4>병리의 scale 연결</h4><p>세포 scale에서 학습한 정보가 조직 scale 해석으로 모였을 때도 살아남는지 시험하고 싶었습니다.</p></div>
-      </div>
     </section>
 
     <section id="molecular" class="section">
-      <div class="section-head"><span class="xs-eyebrow">병리학적 검증 3</span><h2>이점이 분자 하류 분석까지 이어지는가?</h2>
-        <p>이것은 우리가 처음 세운 임상·생물학적 가설 중 가장 강한 형태였습니다. 세포에 근거한 종양 선택이 더 좋아지면, 분자적으로 더 대표성 있거나 하류 profiling에 더 유용한 종양 영역을 얻을 수 있을 것이라고 기대했습니다. 공개 대장암 공간전사체(spatial transcriptomics) cohort(환자 6명)에서 확인했습니다.</p>
+      <div class="section-head"><span class="xs-eyebrow">과학적 질문 3</span><h2>조직 수준 이점이 분자 하류 분석까지 이어지는가?</h2>
+        <p>종양 영역 자체가 최종 목적이 아니라, 실제 병리에서는 그 영역이 다음 분석의 입력이 될 수 있습니다. 우리가 기대한 가장 긴 사슬을 공개 대장암 공간전사체(spatial transcriptomics) cohort(환자 6명)에서 확인했습니다: 병리의사 strict-tumour spot과의 비교, RNA profile 거리, 실제 종양 포함량을 맞춘 분자 대표성 분석, 순도(purity) 보정 분석.</p>
       </div>
       <ol class="xs-chain" aria-label="가장 긴 가설 사슬">
         <li class="xs-node">더 나은 세포 정체성</li>
         <li class="xs-link"><span class="xs-arrow" aria-hidden="true"></span><span class="xs-status">지지됨</span></li>
-        <li class="xs-node">더 나은 조직 종양 지도</li>
-        <li class="xs-link xs-open"><span class="xs-arrow" aria-hidden="true"></span><span class="xs-status">현재 지지되지 않음</span></li>
-        <li class="xs-node xs-node-open">분자적으로 더 우수한 영역</li>
+        <li class="xs-node">더 나은 종양 지도</li>
+        <li class="xs-link xs-open"><span class="xs-arrow" aria-hidden="true"></span><span class="xs-status">확립되지 않음</span></li>
+        <li class="xs-node xs-node-open">분자적으로 더 나은 ROI / 하류 영역</li>
       </ol>
       <div class="xs-cards">
         <div class="xs-card">
@@ -755,33 +787,50 @@ sitemap: false
         <div class="xs-card xs-card-open">
           <span class="xs-tag xs-tag-open">통제된 검정 · 우월성 확립되지 않음</span>
           <h4>실제 종양 포함량을 맞춘 비교</h4>
-          <p>방법 간에 선택된 실제 종양의 양을 맞추면, SENA가 고른 영역이 종양의 분자 program을 더 잘 대표한다는 결과는 robust하게 나오지 않았습니다. 세포에서 계산한 neoplastic score는 악성 분자 program과 연관을 보였지만, 그 이점은 SENA에 일관되게 특이적이지 않았고 순도(purity)를 보정하면 유지되지 않았습니다.</p>
+          <p>방법 간에 선택된 실제 종양의 양을 맞추면, SENA가 고른 영역이 종양의 분자 program을 더 잘 대표한다는 결과는 robust하게 나오지 않았습니다. 세포에서 계산한 neoplastic score는 악성 분자 program과 연관을 보였지만, 그 이점은 SENA에 일관되게 특이적이지 않았고 순도를 보정하면 유지되지 않았습니다.</p>
         </div>
       </div>
-      <p class="xs-boundary">현재 근거는 세포 정체성에서 조직 수준 종양 지도로의 전달을 지지하지만, 실제 종양 포함량을 맞췄을 때 SENA가 분자적으로 더 우수한 종양 하위 영역을 고른다는 것은 아직 확립하지 못했습니다.</p>
+      <div class="xs-verdict">
+        <div><span class="xs-lab xs-lab-res">지지됨</span>세포 정체성 → 종양 지도</div>
+        <div class="xs-verdict-open"><span class="xs-lab xs-lab-hyp">확립되지 않음</span>종양 지도 → 분자적으로 더 우수한 영역</div>
+      </div>
     </section>
 
-    <section id="questions" class="section">
-      <div class="section-head"><span class="xs-eyebrow">남은 질문</span><h2>병리의사와 함께 논의하고 싶은 질문</h2>
-        <p>답을 미리 정하지 않은 질문입니다. 지금까지의 계산 근거가 실제 병리 판독과 workflow에서 어떤 의미를 가질지 듣고 싶습니다.</p>
+    <section id="meaning" class="section xs-sub">
+      <div class="section-head"><span class="xs-eyebrow">동기와 가설 (결과가 아님)</span><h2>우리가 찾고자 한 병리학적 의미</h2>
+        <p>아래 네 가지는 이 방향을 임상적으로 중요하다고 생각한 이유이며, 입증된 결과가 아닙니다.</p>
       </div>
-      <div class="xs-oqs">
-        <div class="xs-oq"><span class="xs-qn">1</span><div><p class="xs-oqq">H&amp;E에서 종양 범위를 정할 때, 세포 정체성은 구조(architecture), 기질(stroma), 그 밖의 조직 수준 단서에 비해 얼마나 중요합니까?</p><p class="xs-oqc">세포 정체성과 구성이 중요하다는 계산 근거는 얻었지만, 실제 판독에서 그 비중이 어느 정도인지 알고 싶습니다.</p></div></div>
-        <div class="xs-oq"><span class="xs-qn">2</span><div><p class="xs-oqq">임상적으로 가장 중요한 오류는 무엇입니까? 양성 조직으로 종양이 잘못 확장되는 것, 종양 세포를 놓치는 것, 경계의 정밀도 중 어느 쪽입니까?</p><p class="xs-oqc">SENA에서 큰 효과 중 하나는 종양 밖 세포를 neoplastic으로 잘못 부르는 경우가 줄어든 것입니다. 이것이 실제로 얼마나 중요한지 묻고 싶습니다.</p></div></div>
-        <div class="xs-oq"><span class="xs-qn">3</span><div><p class="xs-oqq">세포에 근거한 종양 지도는 실제 어떤 workflow에서 쓸모가 있겠습니까?</p><p class="xs-oqc"></p><ul class="xs-ex"><li>종양 부담·면적 정량</li><li>ROI 선택</li><li>분자 검사</li><li>공간 profiling</li><li>품질 관리</li><li>종양–기질 경계 분석</li></ul><p class="table-note">질문을 돕기 위한 예시이며, 검증된 use case가 아닙니다.</p></div></div>
-        <div class="xs-oq"><span class="xs-qn">4</span><div><p class="xs-oqq">정확한 픽셀 수준 종양 경계가 올바른 목표입니까, 아니면 일부 하류 작업에서는 종양세포가 농축된 영역이 더 유용합니까?</p><p class="xs-oqc">우리 종양 지도는 핵의 정체성과 위치를 바탕으로 만들어집니다.</p></div></div>
-        <div class="xs-oq"><span class="xs-qn">5</span><div><p class="xs-oqq">임상적 의미를 보이는 데 가장 설득력 있는 독립 endpoint는 무엇이라고 보십니까?</p><p class="xs-oqc"></p><ul class="xs-ex"><li>병리의사 종양 윤곽</li><li>종양세포 주석</li><li>종양 순도(병리 판정)</li><li>유전체 기반 순도</li><li>분자 검사 성공률</li><li>공간전사체 종양 program</li><li>임상 biomarker 측정</li><li>환자 수준 endpoint</li></ul><p class="table-note">후보 목록이며, 아직 시험하지 않은 것이 대부분입니다.</p></div></div>
-        <div class="xs-oq"><span class="xs-qn">6</span><div><p class="xs-oqq">다음에 시험해야 할 생물학적·병리학적 실패 상황은 무엇입니까?</p><p class="xs-oqc"></p><ul class="xs-ex"><li>점액성·저세포성 종양</li><li>염증이 많은 영역</li><li>괴사</li><li>종양–기질 경계</li><li>저분화 종양</li><li>치료 효과</li></ul><p class="table-note">의견을 듣기 위한 논의용 예시이며, 연구 결과가 아닙니다.</p></div></div>
+      <div class="xs-hgrid">
+        <div class="xs-h"><span class="xs-lab xs-lab-hyp">가설 A</span><h4>세포에 근거한 조직 해석</h4><p>개별 세포의 정체성에서 출발한 조직 예측이라면, 어떤 세포 근거 때문에 그 영역이 종양으로 판단되었는지 추적할 수 있을 가능성이 있다고 생각했습니다. 해석 가능성·reader study로 입증한 것은 아닙니다.</p></div>
+        <div class="xs-h"><span class="xs-lab xs-lab-hyp">가설 B</span><h4>재사용 가능한 세포 표현</h4><p>핵 분석이 끝난 뒤 같은 세포 표현으로 조직 구성, 종양 범위, 그 밖의 영역 수준 readout을 만들 수 있다면, 한 번의 세포 분석이 여러 병리 task를 지원할 수 있습니다. (종양 지도 추가 계산은 약 2초, 전체 SENA runtime의 0.5% 미만; 부분 확인 반복)</p></div>
+        <div class="xs-h"><span class="xs-lab xs-lab-hyp">가설 C</span><h4>하류 조직 선택</h4><p>세포에 근거한 종양 영역이 실제 종양 농축 조직을 더 잘 정의한다면, 분자·공간 분석의 ROI 선택에도 도움이 될 수 있다고 생각했습니다. 현재 분자적 우월성은 확립되지 않았습니다.</p></div>
+        <div class="xs-h"><span class="xs-lab xs-lab-hyp">가설 D</span><h4>병리의 scale 연결</h4><p>궁극적으로, 세포 scale의 정보가 조직 scale 해석까지 보존되는지 확인하고자 했습니다.</p></div>
       </div>
+    </section>
 
-      <h3 class="cost-head">근거가 현재 멈추는 곳</h3>
+    <section id="evidence" class="section">
+      <div class="section-head"><span class="xs-eyebrow">현재 evidence boundary</span><h2>현재 근거는 어디까지인가?</h2></div>
       <ol class="xs-ladder">
-        <li class="xs-step xs-ok"><span class="xs-mark" aria-hidden="true">✓</span><span class="xs-stepname">핵 분석</span><span class="xs-stepstat">확립됨</span></li>
+        <li class="xs-step xs-ok"><span class="xs-mark" aria-hidden="true">✓</span><span class="xs-stepname">핵 분석</span><span class="xs-stepstat">성능·효율 trade-off 확립됨</span></li>
         <li class="xs-step xs-ok"><span class="xs-mark" aria-hidden="true">✓</span><span class="xs-stepname">세포 정체성 → 조직 종양 지도</span><span class="xs-stepstat">지지됨</span></li>
-        <li class="xs-step xs-ok"><span class="xs-mark" aria-hidden="true">✓</span><span class="xs-stepname">독립적인 세포·조직 주석</span><span class="xs-stepstat">지지됨 · 조직 효과는 작음</span></li>
+        <li class="xs-step xs-ok"><span class="xs-mark" aria-hidden="true">✓</span><span class="xs-stepname">독립적인 세포·조직 정답</span><span class="xs-stepstat">지지됨 · 조직 효과는 작음</span></li>
         <li class="xs-step xs-no"><span class="xs-mark" aria-hidden="true">□</span><span class="xs-stepname">분자적으로 더 우수한 하류 영역</span><span class="xs-stepstat">확립되지 않음</span></li>
       </ol>
-      <p class="xs-boundary">현재 가장 강한 근거는 병리학 정보 기반 세포 정체성이 세포 scale에서 조직 수준 종양 지도까지 유용한 정보를 전달한다는 것입니다. 이것이 임상적·분자적으로 더 나은 하류 결정으로 이어지는지는 아직 열린 질문입니다.</p>
+      <p class="xs-boundary">현재 가장 강한 근거는 병리학 정보 기반 세포 정체성이 세포 scale에서 조직 수준 종양 지도까지 유용한 정보를 전달한다는 것입니다. 그 이후의 임상적·분자적 우월성은 아직 열린 질문입니다.</p>
+    </section>
+
+    <section id="questions" class="section xs-pqsec">
+      <div class="section-head"><span class="xs-eyebrow">병리의사 선생님께</span><h2>NBE 수준의 임상적·병리학적 의미를 위해 여쭙고 싶은 질문</h2>
+        <p>지금까지는 세포 정체성이 조직 수준 종양 지도로 전달된다는 근거를 얻었습니다. 그러나 이 결과를 실제 병리 workflow에서 의미 있는 biomedical contribution으로 연결하려면, 어떤 문제를 해결해야 하고 어떤 endpoint를 검증해야 하는지 병리의사 선생님의 판단이 필요합니다. 아래는 계산 실험으로 이미 답한 질문(과학적 질문 1–3)이 아니라, 현재 데이터만으로는 답할 수 없는 질문입니다.</p>
+      </div>
+      <div class="xs-pqgrid">
+        <div class="xs-pq"><span class="xs-pqtag">병리의사 질문 1</span><h4>SENA의 어떤 출력이 실제 병리 workflow에서 가치가 있습니까?</h4><p class="xs-oqq">세포 검출, 세포 정체성, 정밀한 핵 경계, 세포 구성, 종양 영역 지도는 실제 업무에서 각각 언제 필요합니까? 어떤 task는 세포 정체성만으로 충분하고, 어떤 task는 정밀한 형태·경계가 꼭 필요하며, 어떤 task는 조직 구조·맥락이 더 중요합니까?</p><p class="xs-oqc"><span class="xs-lab">왜 여쭙는가</span>SENA의 표현·정보·계산 분리 설계를 실제 병리 workflow의 요구와 연결하기 위해서입니다.</p></div>
+        <div class="xs-pq"><span class="xs-pqtag">병리의사 질문 2</span><h4>임상적으로 의미 있는 "종양 영역"은 정확히 무엇입니까?</h4><p class="xs-oqq">우리가 목표로 해야 할 것은 병리의사가 그린 정확한 종양 경계, 침윤 종양 범위, viable tumour, 종양세포가 풍부한 영역, macrodissection ROI, 종양 cellularity·순도 평가용 영역 중 무엇입니까?</p><p class="xs-oqc"><span class="xs-lab">왜 여쭙는가</span>높은 Dice가 곧 임상적 유용성을 뜻하지 않기 때문에, 실제 workflow에서 필요한 target을 알아야 합니다.</p></div>
+        <div class="xs-pq"><span class="xs-pqtag">병리의사 질문 3</span><h4>어떤 하류 task를 보여 주는 것이 가장 설득력 있습니까?</h4><p class="xs-oqq">아래 중 실제 임상 workflow에서 중요하면서도 객관적인 정답을 얻을 수 있는 task는 무엇입니까?</p><ul class="xs-ex"><li>macrodissection ROI 선택</li><li>종양 비율·cellularity</li><li>분자 검사</li><li>biomarker 정량</li><li>공간 profiling ROI</li><li>종양–기질 / 침윤 전선 분석</li><li>병리 QC</li></ul><p class="table-note">논의를 돕기 위한 후보이며, 검증된 use case가 아닙니다.</p></div>
+        <div class="xs-pq"><span class="xs-pqtag">병리의사 질문 4</span><h4>그 task에서는 어떤 endpoint를 측정해야 임상적 의미가 있습니까?</h4><p class="xs-oqq">Dice나 세포 F1이 아니라 무엇을 개선해야 합니까?</p><p class="xs-oqc"><span class="xs-lab">왜 여쭙는가</span>계산 지표가 아니라 실제 biomedical endpoint를 정의하기 위해서입니다.</p><ul class="xs-ex"><li>병리의사 ROI 일치도</li><li>종양세포 비율 오차</li><li>macrodissection 후 종양 순도</li><li>유전체 기반 순도</li><li>검사 성공률·QC</li><li>biomarker 측정 일치도</li><li>변이 검출 민감도</li><li>병리의사 업무량·시간</li></ul><p class="table-note">논의를 돕기 위한 후보입니다.</p></div>
+        <div class="xs-pq"><span class="xs-pqtag">병리의사 질문 5</span><h4>어떤 병리학적 failure mode를 반드시 검증해야 합니까?</h4><p class="xs-oqq">NBE 논문에서 실제 적용 가능성을 주장하려면 어떤 아형·cohort에서 반드시 stress test를 해야 합니까?</p><ul class="xs-ex"><li>저세포성 종양</li><li>점액성 종양</li><li>저분화 종양</li><li>염증이 많은 영역</li><li>괴사</li><li>치료 효과</li><li>desmoplastic stroma</li><li>종양–기질 경계</li></ul><p class="table-note">논의를 돕기 위한 예시이며, 연구 결과가 아닙니다.</p></div>
+      </div>
+        <div class="xs-pq xs-pq-big"><span class="xs-pqtag">병리의사 질문 6</span><h4>단 하나의 추가 validation만 할 수 있다면, 무엇이 가장 중요할까요?</h4><p class="xs-oqq">현재 SENA 논문에 biomedical·임상적 의미를 가장 강하게 더하기 위해 단 하나의 추가 validation만 할 수 있다면, 어떤 실험·endpoint·cohort가 가장 설득력 있다고 보십니까?</p><ul class="xs-ex"><li>독립 병원 cohort</li><li>독립 병리의사 주석</li><li>reader study</li><li>종양 cellularity·순도</li><li>macrodissection ROI</li><li>분자 검사 결과</li><li>biomarker 측정</li></ul><p class="table-note">논의를 돕기 위한 후보이며, 정답을 정해 둔 것이 아닙니다.</p></div>
     </section>
 
     <section id="code" class="section">
